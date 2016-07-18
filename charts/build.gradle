@@ -1,0 +1,81 @@
+apply plugin: 'com.android.library'
+apply plugin: 'maven'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.3"
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+configurations {
+    javadocDeps
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    compile 'com.github.PhilJay:MPAndroidChart:v3.0.0-beta1'
+    compile 'com.android.support:support-annotations:23.+'
+}
+
+uploadArchives {
+    def username = ""
+    def password = ""
+
+    if (new File('local.properties').exists()) {
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file('local.properties').newDataInputStream())
+        username = properties.getProperty("maven.username")
+        password = properties.getProperty("maven.password")
+    }
+    repositories {
+        mavenDeployer {
+            def globalConfig = rootProject.extensions.getByName("ext")
+
+            snapshotRepository(url: 'http://maven.qima-inc.com/content/repositories/snapshots/') {
+                authentication(userName: username, password: password)
+            }
+            repository(url: 'http://maven.qima-inc.com/content/repositories/releases/') {
+                authentication(userName: username, password: password)
+            }
+            pom.packaging = "aar"
+            pom.version = "1.0.0-SNAPSHOT"
+            pom.groupId = "com.youzan.mobile"
+            pom.artifactId = "zancharts"
+        }
+    }
+}
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += configurations.javadocDeps
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    failOnError false
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
