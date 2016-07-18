@@ -2,7 +2,7 @@ package com.youzan.zancharts.smaple.test;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.youzan.zancharts.entity.ChartItem;
+import com.youzan.zancharts.ChartItem;
 
 import java.util.List;
 

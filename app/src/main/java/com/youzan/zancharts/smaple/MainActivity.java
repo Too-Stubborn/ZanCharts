@@ -3,10 +3,9 @@ package com.youzan.zancharts.smaple;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.youzan.zancharts.ZanBarChart;
-import com.youzan.zancharts.entity.ChartItem;
+import com.youzan.zancharts.ChartItem;
 import com.youzan.zancharts.smaple.test.Mocks;
 
 public class MainActivity extends AppCompatActivity {

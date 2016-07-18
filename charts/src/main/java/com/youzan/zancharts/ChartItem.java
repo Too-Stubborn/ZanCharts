@@ -1,4 +1,4 @@
-package com.youzan.zancharts.entity;
+package com.youzan.zancharts;
 
 import android.support.annotation.Keep;
 
