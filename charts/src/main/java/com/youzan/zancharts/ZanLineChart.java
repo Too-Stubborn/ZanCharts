@@ -1,6 +1,7 @@
 package com.youzan.zancharts;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.AttributeSet;
 
 import com.github.mikephil.charting.charts.LineChart;
@@ -53,6 +54,7 @@ public class ZanLineChart extends LineChart {
         XAxis xAxis = getXAxis();
         xAxis.setDrawLabels(true);
         xAxis.setDrawGridLines(false);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
 
         // right axis
         YAxis rightAxis = getAxisRight();
@@ -62,6 +64,14 @@ public class ZanLineChart extends LineChart {
 
         // left axis
         YAxis leftAxis = getAxisLeft();
+        leftAxis.setLabelCount(5);
+        leftAxis.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
+        leftAxis.setZeroLineColor(Color.BLACK);
+        leftAxis.setGridColor(0xFFCCCCCC);
+        leftAxis.setDrawAxisLine(false);
+        leftAxis.setTextColor(0xFFCCCCCC);
+        leftAxis.setTextSize(12.f);
+        leftAxis.setYOffset(-5.f);
 
         // legend
         Legend legend = getLegend();

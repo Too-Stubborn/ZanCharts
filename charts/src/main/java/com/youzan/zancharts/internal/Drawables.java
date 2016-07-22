@@ -8,7 +8,7 @@ import android.support.annotation.ColorInt;
  */
 
 public class Drawables {
-    public static final int ALPHA_MASK = 0x55FFFFFF;
+    public static final int ALPHA_MASK = 0x33FFFFFF;
 
     public static GradientDrawable gradient(@ColorInt int startColor) {
         final int[] colors = new int[] {startColor & ALPHA_MASK, ALPHA_MASK};
