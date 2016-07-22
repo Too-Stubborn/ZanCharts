@@ -433,10 +433,10 @@ public class ViewPortHandler {
         float curTransY = matrixBuffer[Matrix.MTRANS_Y];
         float curScaleY = matrixBuffer[Matrix.MSCALE_Y];
 
-        // min scale-x is 1f
+        // minIndex scale-x is 1f
         mScaleX = Math.min(Math.max(mMinScaleX, curScaleX), mMaxScaleX);
 
-        // min scale-y is 1f
+        // minIndex scale-y is 1f
         mScaleY = Math.min(Math.max(mMinScaleY, curScaleY), mMaxScaleY);
 
         float width = 0f;

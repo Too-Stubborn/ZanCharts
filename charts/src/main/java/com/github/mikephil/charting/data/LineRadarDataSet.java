@@ -94,7 +94,7 @@ public abstract class LineRadarDataSet<T extends Entry> extends LineScatterCandl
     }
 
     /**
-     * set the line width of the chart (min = 0.2f, max = 10f); default 1f NOTE:
+     * set the line width of the chart (minIndex = 0.2f, maxIndex = 10f); default 1f NOTE:
      * thinner line == better performance, thicker line == worse performance
      *
      * @param width

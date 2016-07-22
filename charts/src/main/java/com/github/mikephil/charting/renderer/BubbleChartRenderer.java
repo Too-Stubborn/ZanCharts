@@ -87,7 +87,7 @@ public class BubbleChartRenderer extends BarLineScatterCandleBubbleRenderer {
         final float maxBubbleHeight = Math.abs(mViewPortHandler.contentBottom() - mViewPortHandler.contentTop());
         final float referenceSize = Math.min(maxBubbleHeight, maxBubbleWidth);
 
-        for (int j = mXBounds.min; j <= mXBounds.range + mXBounds.min; j++) {
+        for (int j = mXBounds.minIndex; j <= mXBounds.indexRange + mXBounds.minIndex; j++) {
 
             final BubbleEntry entry = dataSet.getEntryForIndex(j);
 
@@ -145,13 +145,13 @@ public class BubbleChartRenderer extends BarLineScatterCandleBubbleRenderer {
                 mXBounds.set(mChart, dataSet);
 
                 final float[] positions = mChart.getTransformer(dataSet.getAxisDependency())
-                        .generateTransformedValuesBubble(dataSet, phaseY, mXBounds.min, mXBounds.max);
+                        .generateTransformedValuesBubble(dataSet, phaseY, mXBounds.minIndex, mXBounds.maxIndex);
 
                 final float alpha = phaseX == 1 ? phaseY : phaseX;
 
                 for (int j = 0; j < positions.length; j += 2) {
 
-                    int valueTextColor = dataSet.getValueTextColor(j / 2 + mXBounds.min);
+                    int valueTextColor = dataSet.getValueTextColor(j / 2 + mXBounds.minIndex);
                     valueTextColor = Color.argb(Math.round(255.f * alpha), Color.red(valueTextColor),
                             Color.green(valueTextColor), Color.blue(valueTextColor));
 
@@ -164,7 +164,7 @@ public class BubbleChartRenderer extends BarLineScatterCandleBubbleRenderer {
                     if ((!mViewPortHandler.isInBoundsLeft(x) || !mViewPortHandler.isInBoundsY(y)))
                         continue;
 
-                    BubbleEntry entry = dataSet.getEntryForIndex(j / 2 + mXBounds.min);
+                    BubbleEntry entry = dataSet.getEntryForIndex(j / 2 + mXBounds.minIndex);
 
                     drawValue(c, dataSet.getValueFormatter(), entry.getSize(), entry, i, x,
                             y + (0.5f * lineHeight), valueTextColor);

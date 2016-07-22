@@ -9,7 +9,7 @@ import com.github.mikephil.charting.utils.Utils;
  * Class representing the y-axis labels settings and its entries. Only use the setter methods to
  * modify it. Do not access public variables directly. Be aware that not all features
  * the YLabels class provides are suitable for the RadarChart. Customizations that affect
- * the value range of the axis need to be applied before setting data for the chart.
+ * the value indexRange of the axis need to be applied before setting data for the chart.
  *
  * @author Philipp Jahoda
  */
@@ -41,12 +41,12 @@ public class YAxis extends AxisBase {
     protected float mZeroLineWidth = 1f;
 
     /**
-     * axis space from the largest value to the top in percent of the total axis range
+     * axis space from the largest value to the top in percent of the total axis indexRange
      */
     protected float mSpacePercentTop = 10f;
 
     /**
-     * axis space from the smallest value to the bottom in percent of the total axis range
+     * axis space from the smallest value to the bottom in percent of the total axis indexRange
      */
     protected float mSpacePercentBottom = 10f;
 
@@ -211,7 +211,7 @@ public class YAxis extends AxisBase {
     }
 
     /**
-     * Sets the top axis space in percent of the full range. Default 10f
+     * Sets the top axis space in percent of the full indexRange. Default 10f
      *
      * @param percent
      */
@@ -220,7 +220,7 @@ public class YAxis extends AxisBase {
     }
 
     /**
-     * Returns the top axis space in percent of the full range. Default 10f
+     * Returns the top axis space in percent of the full indexRange. Default 10f
      *
      * @return
      */
@@ -229,7 +229,7 @@ public class YAxis extends AxisBase {
     }
 
     /**
-     * Sets the bottom axis space in percent of the full range. Default 10f
+     * Sets the bottom axis space in percent of the full indexRange. Default 10f
      *
      * @param percent
      */
@@ -238,7 +238,7 @@ public class YAxis extends AxisBase {
     }
 
     /**
-     * Returns the bottom axis space in percent of the full range. Default 10f
+     * Returns the bottom axis space in percent of the full indexRange. Default 10f
      *
      * @return
      */
@@ -347,7 +347,7 @@ public class YAxis extends AxisBase {
         float min = mCustomAxisMin ? mAxisMinimum : dataMin;
         float max = mCustomAxisMax ? mAxisMaximum : dataMax;
 
-        // temporary range (before calculations)
+        // temporary indexRange (before calculations)
         float range = Math.abs(max - min);
 
         // in case all values are equal
@@ -356,21 +356,21 @@ public class YAxis extends AxisBase {
             min = min - 1f;
         }
 
-        // bottom-space only effects non-custom min
+        // bottom-space only effects non-custom minIndex
         if (!mCustomAxisMin) {
 
             float bottomSpace = range / 100f * getSpaceBottom();
             this.mAxisMinimum = (min - bottomSpace);
         }
 
-        // top-space only effects non-custom max
+        // top-space only effects non-custom maxIndex
         if (!mCustomAxisMax) {
 
             float topSpace = range / 100f * getSpaceTop();
             this.mAxisMaximum = (max + topSpace);
         }
 
-        // calc actual range
+        // calc actual indexRange
         this.mAxisRange = Math.abs(this.mAxisMaximum - this.mAxisMinimum);
     }
 }

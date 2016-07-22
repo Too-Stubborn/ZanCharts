@@ -74,7 +74,7 @@ public class BarChart extends BarLineChartBase<BarData> implements BarDataProvid
             mXAxis.calculate(mData.getXMin(), mData.getXMax());
         }
 
-        // calculate axis range (min / max) according to provided data
+        // calculate axis indexRange (minIndex / maxIndex) according to provided data
         mAxisLeft.calculate(mData.getYMin(YAxis.AxisDependency.LEFT), 
             mData.getYMax(YAxis.AxisDependency.LEFT));
         mAxisRight.calculate(mData.getYMin(YAxis.AxisDependency.RIGHT), 
@@ -215,7 +215,7 @@ public class BarChart extends BarLineChartBase<BarData> implements BarDataProvid
     }
 
     /**
-     * Adds half of the bar width to each side of the x-axis range in order to 
+     * Adds half of the bar width to each side of the x-axis indexRange in order to
      * allow the bars of the barchart to be fully displayed.
      *
      * @param enabled false for default

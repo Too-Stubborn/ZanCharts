@@ -104,7 +104,7 @@ public class ScatterChartRenderer extends LineScatterCandleRadarRenderer {
 
                 float[] positions = mChart.getTransformer(dataSet.getAxisDependency())
                         .generateTransformedValuesScatter(dataSet,
-                                mAnimator.getPhaseX(), mAnimator.getPhaseY(), mXBounds.min, mXBounds.max);
+                                mAnimator.getPhaseX(), mAnimator.getPhaseY(), mXBounds.minIndex, mXBounds.maxIndex);
 
                 float shapeSize = Utils.convertDpToPixel(dataSet.getScatterShapeSize());
 
@@ -118,10 +118,10 @@ public class ScatterChartRenderer extends LineScatterCandleRadarRenderer {
                             || !mViewPortHandler.isInBoundsY(positions[j + 1])))
                         continue;
 
-                    Entry entry = dataSet.getEntryForIndex(j / 2 + mXBounds.min);
+                    Entry entry = dataSet.getEntryForIndex(j / 2 + mXBounds.minIndex);
 
                     drawValue(c, dataSet.getValueFormatter(), entry.getY(), entry, i, positions[j],
-                            positions[j + 1] - shapeSize, dataSet.getValueTextColor(j / 2 + mXBounds.min));
+                            positions[j + 1] - shapeSize, dataSet.getValueTextColor(j / 2 + mXBounds.minIndex));
                 }
             }
         }

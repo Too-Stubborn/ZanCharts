@@ -61,20 +61,20 @@ public abstract class BarLineScatterCandleBubbleRenderer extends DataRenderer {
         /**
          * minimum visible entry index
          */
-        public int min;
+        public int minIndex;
 
         /**
          * maximum visible entry index
          */
-        public int max;
+        public int maxIndex;
 
         /**
-         * range of visible entry indices
+         * indexRange of visible entry indices
          */
-        public int range;
+        public int indexRange;
 
         /**
-         * Calculates the minimum and maximum x values as well as the range between them.
+         * Calculates the minimum and maximum x values as well as the indexRange between them.
          *
          * @param chart
          * @param dataSet
@@ -88,9 +88,9 @@ public abstract class BarLineScatterCandleBubbleRenderer extends DataRenderer {
             Entry entryFrom = dataSet.getEntryForXPos(low, DataSet.Rounding.DOWN);
             Entry entryTo = dataSet.getEntryForXPos(high, DataSet.Rounding.UP);
 
-            min = dataSet.getEntryIndex(entryFrom);
-            max = dataSet.getEntryIndex(entryTo);
-            range = (int) ((max - min) * phaseX);
+            minIndex = dataSet.getEntryIndex(entryFrom);
+            maxIndex = dataSet.getEntryIndex(entryTo);
+            indexRange = (int) ((maxIndex - minIndex) * phaseX);
         }
     }
 }

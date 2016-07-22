@@ -1,7 +1,7 @@
 package com.github.mikephil.charting.highlight;
 
 /**
- * Class that represents the range of one value in a stacked bar entry. e.g.
+ * Class that represents the indexRange of one value in a stacked bar entry. e.g.
  * stack values are -10, 5, 20 -> then ranges are (-10 - 0, 0 - 5, 5 - 25).
  *
  * Created by Philipp Jahoda on 24/07/15.
@@ -17,7 +17,7 @@ public final class Range {
 	}
 
 	/**
-	 * Returns true if this range contains (if the value is in between) the given value, false if not.
+	 * Returns true if this indexRange contains (if the value is in between) the given value, false if not.
 	 * 
 	 * @param value
 	 * @return

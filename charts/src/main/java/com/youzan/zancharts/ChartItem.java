@@ -11,4 +11,10 @@ public class ChartItem {
     public String key;
     public String title;
     public String value;
+
+    public ChartItem(String key, String title, String value) {
+        this.key = key;
+        this.title = title;
+        this.value = value;
+    }
 }

@@ -343,15 +343,13 @@ public class LineDataSet extends LineRadarDataSet<Entry> implements ILineDataSet
      */
     public void resetCircleColors() {
         if (mCircleColors == null) {
-            mCircleColors = new ArrayList<Integer>();
+            mCircleColors = new ArrayList<>();
         }
         mCircleColors.clear();
     }
 
     /**
      * Sets the color of the inner circle of the line-circles.
-     *
-     * @param color
      */
     public void setCircleColorHole(int color) {
         mCircleColorHole = color;
@@ -364,8 +362,6 @@ public class LineDataSet extends LineRadarDataSet<Entry> implements ILineDataSet
 
     /**
      * Set this to true to allow drawing a hole in each data circle.
-     *
-     * @param enabled
      */
     public void setDrawCircleHole(boolean enabled) {
         mDrawCircleHole = enabled;
@@ -377,17 +373,11 @@ public class LineDataSet extends LineRadarDataSet<Entry> implements ILineDataSet
     }
 
     /**
-     * Sets a custom FillFormatter to the chart that handles the position of the
-     * filled-line for each DataSet. Set this to null to use the default logic.
-     *
-     * @param formatter
+     * Sets a custom FillFormatter to the chart that handles the position of the filled-line for
+     * each DataSet. Set this to null to use the default logic.
      */
     public void setFillFormatter(FillFormatter formatter) {
-
-        if (formatter == null)
-            mFillFormatter = new DefaultFillFormatter();
-        else
-            mFillFormatter = formatter;
+        mFillFormatter = formatter == null ? new DefaultFillFormatter() : mFillFormatter;
     }
 
     @Override

@@ -223,7 +223,7 @@ public class BarDataSet extends BarLineScatterCandleBubbleDataSet<BarEntry> impl
 
     /**
      * Set the alpha value (transparency) that is used for drawing the highlight
-     * indicator bar. min = 0 (fully transparent), max = 255 (fully opaque)
+     * indicator bar. minIndex = 0 (fully transparent), maxIndex = 255 (fully opaque)
      *
      * @param alpha
      */

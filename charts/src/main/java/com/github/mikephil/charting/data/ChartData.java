@@ -81,7 +81,7 @@ public abstract class ChartData<T extends IDataSet<? extends Entry>> {
     }
 
     /**
-     * performs all kinds of initialization calculations, such as min-max and
+     * performs all kinds of initialization calculations, such as minIndex-maxIndex and
      * value count and sum
      */
     protected void init() {
@@ -532,10 +532,8 @@ public abstract class ChartData<T extends IDataSet<? extends Entry>> {
     }
 
     /**
-     * Returns the index of the provided DataSet in the DataSet array of this data object, or -1 if it does not exist.
-     *
-     * @param dataSet
-     * @return
+     * Returns the index of the provided DataSet in the DataSet array of this data object, or -1 if
+     * it does not exist.
      */
     public int getIndexOfDataSet(T dataSet) {
         return mDataSets.indexOf(dataSet);

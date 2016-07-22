@@ -108,12 +108,12 @@ public abstract class AxisBase extends ComponentBase {
     protected boolean mDrawLimitLineBehindData = false;
 
     /**
-     * flag indicating that the axis-min value has been customized
+     * flag indicating that the axis-minIndex value has been customized
      */
     protected boolean mCustomAxisMin = false;
 
     /**
-     * flag indicating that the axis-max value has been customized
+     * flag indicating that the axis-maxIndex value has been customized
      */
     protected boolean mCustomAxisMax = false;
 
@@ -128,7 +128,7 @@ public abstract class AxisBase extends ComponentBase {
     public float mAxisMinimum = 0f;
 
     /**
-     * the total range of values this axis covers
+     * the total indexRange of values this axis covers
      */
     public float mAxisRange = 0f;
 
@@ -282,7 +282,7 @@ public abstract class AxisBase extends ComponentBase {
     }
 
     /**
-     * Sets the number of label entries for the y-axis max = 25, min = 2, default: 6, be aware
+     * Sets the number of label entries for the y-axis maxIndex = 25, minIndex = 2, default: 6, be aware
      * that this number is not fixed.
      *
      * @param count the number of y-axis labels that sould be displayed
@@ -299,7 +299,7 @@ public abstract class AxisBase extends ComponentBase {
     }
 
     /**
-     * sets the number of label entries for the y-axis max = 25, min = 2, default: 6, be aware
+     * sets the number of label entries for the y-axis maxIndex = 25, minIndex = 2, default: 6, be aware
      * that this number is not
      * fixed (if force == false) and can only be approximated.
      *
@@ -365,7 +365,8 @@ public abstract class AxisBase extends ComponentBase {
      */
     public void setGranularity(float granularity) {
         mGranularity = granularity;
-        // set this to true if it was disabled, as it makes no sense to call this method with granularity disabled
+        // set this to true if it was disabled, as it makes no sense to call this method with 
+        // granularity disabled
         mGranularityEnabled = true;
     }
 
@@ -477,8 +478,8 @@ public abstract class AxisBase extends ComponentBase {
 
         if (mAxisValueFormatter == null) {
             mAxisValueFormatter = new DefaultAxisValueFormatter(mDecimals);
-        } else if (mAxisValueFormatter.getDecimalDigits() != mDecimals && mAxisValueFormatter instanceof
-                DefaultAxisValueFormatter) {
+        } else if (mAxisValueFormatter.getDecimalDigits() != mDecimals 
+            && mAxisValueFormatter instanceof DefaultAxisValueFormatter) {
             mAxisValueFormatter = new DefaultAxisValueFormatter(mDecimals);
         }
 
@@ -547,7 +548,7 @@ public abstract class AxisBase extends ComponentBase {
     }
 
     /**
-     * Returns true if the axis max value has been customized (and is not calculated automatically)
+     * Returns true if the axis maxIndex value has been customized (and is not calculated automatically)
      *
      * @return
      */
@@ -565,7 +566,7 @@ public abstract class AxisBase extends ComponentBase {
     }
 
     /**
-     * Returns true if the axis min value has been customized (and is not calculated automatically)
+     * Returns true if the axis minIndex value has been customized (and is not calculated automatically)
      *
      * @return
      */
@@ -602,11 +603,11 @@ public abstract class AxisBase extends ComponentBase {
     }
 
     /**
-     * Calculates the minimum / maximum  and range values of the axis with the given
+     * Calculates the minimum / maximum  and indexRange values of the axis with the given
      * minimum and maximum values from the chart data.
      *
-     * @param dataMin the min value according to chart data
-     * @param dataMax the max value according to chart data
+     * @param dataMin the minIndex value according to chart data
+     * @param dataMax the maxIndex value according to chart data
      */
     public void calculate(float dataMin, float dataMax) {
 
@@ -614,7 +615,7 @@ public abstract class AxisBase extends ComponentBase {
         float min = mCustomAxisMin ? mAxisMinimum : dataMin;
         float max = mCustomAxisMax ? mAxisMaximum : dataMax;
 
-        // temporary range (before calculations)
+        // temporary indexRange (before calculations)
         float range = Math.abs(max - min);
 
         // in case all values are equal
@@ -626,7 +627,7 @@ public abstract class AxisBase extends ComponentBase {
         mAxisMinimum = min;
         mAxisMaximum = max;
 
-        // actual range
+        // actual indexRange
         mAxisRange = Math.abs(max - min);
     }
 }

@@ -129,7 +129,7 @@ public class CandleDataSet extends LineScatterCandleRadarDataSet<CandleEntry> im
 
     /**
      * Sets the space that is left out on the left and right side of each
-     * candle, default 0.1f (10%), max 0.45f, min 0f
+     * candle, default 0.1f (10%), maxIndex 0.45f, minIndex 0f
      *
      * @param space
      */

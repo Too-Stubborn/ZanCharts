@@ -44,17 +44,14 @@ public class ZanBarChart extends BarChart {
 
     public ZanBarChart(Context context) {
         super(context);
-        init();
     }
 
     public ZanBarChart(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init();
     }
 
     public ZanBarChart(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        init();
     }
 
     @Override

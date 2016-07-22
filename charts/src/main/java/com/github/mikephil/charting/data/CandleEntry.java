@@ -62,7 +62,7 @@ public class CandleEntry extends Entry {
     }
 
     /**
-     * Returns the overall range (difference) between shadow-high and
+     * Returns the overall indexRange (difference) between shadow-high and
      * shadow-low.
      * 
      * @return

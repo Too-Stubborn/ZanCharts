@@ -69,7 +69,7 @@ public class CandleStickChartRenderer extends LineScatterCandleRadarRenderer {
         mRenderPaint.setStrokeWidth(dataSet.getShadowWidth());
 
         // draw the body
-        for (int j = mXBounds.min; j <= mXBounds.range + mXBounds.min; j++) {
+        for (int j = mXBounds.minIndex; j <= mXBounds.indexRange + mXBounds.minIndex; j++) {
 
             // get the entry
             CandleEntry e = dataSet.getEntryForIndex(j);
@@ -277,7 +277,7 @@ public class CandleStickChartRenderer extends LineScatterCandleRadarRenderer {
                 mXBounds.set(mChart, dataSet);
 
                 float[] positions = trans.generateTransformedValuesCandle(
-                        dataSet, mAnimator.getPhaseX(), mAnimator.getPhaseY(), mXBounds.min, mXBounds.max);
+                        dataSet, mAnimator.getPhaseX(), mAnimator.getPhaseY(), mXBounds.minIndex, mXBounds.maxIndex);
 
                 float yOffset = Utils.convertDpToPixel(5f);
 
@@ -292,7 +292,7 @@ public class CandleStickChartRenderer extends LineScatterCandleRadarRenderer {
                     if (!mViewPortHandler.isInBoundsLeft(x) || !mViewPortHandler.isInBoundsY(y))
                         continue;
 
-                    CandleEntry entry = dataSet.getEntryForIndex(j / 2 + mXBounds.min);
+                    CandleEntry entry = dataSet.getEntryForIndex(j / 2 + mXBounds.minIndex);
 
                     drawValue(c, dataSet.getValueFormatter(), entry.getHigh(), entry, i, x, y - yOffset, dataSet
                             .getValueTextColor(j / 2));

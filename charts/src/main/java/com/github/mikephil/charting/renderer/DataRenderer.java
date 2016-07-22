@@ -101,21 +101,16 @@ public abstract class DataRenderer extends Renderer {
     }
 
     /**
-     * Applies the required styling (provided by the DataSet) to the value-paint
-     * object.
-     *
-     * @param set
+     * Applies the required styling (provided by the DataSet) to the value-paint object.
      */
     protected void applyValueTextStyle(IDataSet set) {
-
         mValuePaint.setTypeface(set.getValueTypeface());
         mValuePaint.setTextSize(set.getValueTextSize());
     }
 
     /**
-     * Initializes the buffers used for rendering with a new size. Since this
-     * method performs memory allocations, it should only be called if
-     * necessary.
+     * Initializes the buffers used for rendering with a new size. Since this method performs
+     * memory allocations, it should only be called if necessary.
      */
     public abstract void initBuffers();
 
@@ -145,9 +140,12 @@ public abstract class DataRenderer extends Renderer {
      * @param y            position
      * @param color
      */
-    public void drawValue(Canvas c, ValueFormatter formatter, float value, Entry entry, int dataSetIndex, float x, float y, int color) {
+    public void drawValue(Canvas c, ValueFormatter formatter, float value, Entry entry,
+                          int dataSetIndex, float x, float y, int color) {
+
         mValuePaint.setColor(color);
-        c.drawText(formatter.getFormattedValue(value, entry, dataSetIndex, mViewPortHandler), x, y, mValuePaint);
+        c.drawText(formatter.getFormattedValue(value, entry, dataSetIndex, mViewPortHandler),
+                x, y, mValuePaint);
     }
 
     /**

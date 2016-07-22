@@ -20,9 +20,7 @@ public class BarHighlighter extends ChartHighlighter<BarDataProvider> {
     public Highlight getHighlight(float x, float y) {
         Highlight high = super.getHighlight(x, y);
 
-        if(high == null) {
-            return null;
-        }
+        if (high == null) return null;
 
         MPPointD pos = getValsForTouch(x, y);
 

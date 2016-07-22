@@ -537,7 +537,7 @@ public class PieChart extends PieRadarChartBase<PieData> {
 
     /**
      * sets the radius of the hole in the center of the piechart in percent of
-     * the maximum radius (max = the radius of the whole chart), default 50%
+     * the maximum radius (maxIndex = the radius of the whole chart), default 50%
      *
      * @param percent
      */
@@ -569,7 +569,7 @@ public class PieChart extends PieRadarChartBase<PieData> {
 
     /**
      * sets the radius of the transparent circle that is drawn next to the hole
-     * in the piechart in percent of the maximum radius (max = the radius of the
+     * in the piechart in percent of the maximum radius (maxIndex = the radius of the
      * whole chart), default 55% -> means 5% larger than the center-hole by
      * default
      *
@@ -703,10 +703,10 @@ public class PieChart extends PieRadarChartBase<PieData> {
     }
 
     /**
-     * Sets the max angle that is used for calculating the pie-circle. 360f means
+     * Sets the maxIndex angle that is used for calculating the pie-circle. 360f means
      * it's a full PieChart, 180f results in a half-pie-chart. Default: 360f
      *
-     * @param maxangle min 90, max 360
+     * @param maxangle minIndex 90, maxIndex 360
      */
     public void setMaxAngle(float maxangle) {
 

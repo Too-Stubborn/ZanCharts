@@ -4,8 +4,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.LineChart;
 import com.youzan.zancharts.ZanBarChart;
 import com.youzan.zancharts.ChartItem;
+import com.youzan.zancharts.ZanLineChart;
 import com.youzan.zancharts.smaple.test.Mocks;
 
 public class MainActivity extends AppCompatActivity {
@@ -16,7 +18,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ZanBarChart chart = (ZanBarChart) findViewById(R.id.bar_chart);
-        final TextView selectedValueView = (TextView) findViewById(R.id.selected_value);
 
         assert chart != null;
         chart.setItems(Mocks.summary());
@@ -24,9 +25,12 @@ public class MainActivity extends AppCompatActivity {
         chart.setOnItemSelectListener(new ZanBarChart.OnItemSelectListener() {
             @Override
             public void onSelected(ZanBarChart chart, ChartItem item) {
-                assert selectedValueView != null;
-                selectedValueView.setText(item.key);
             }
         });
+
+        // line chart
+        ZanLineChart lineChart = (ZanLineChart) findViewById(R.id.line_chart);
+        assert lineChart != null;
+        lineChart.addLines(Mocks.fanLines());
     }
 }

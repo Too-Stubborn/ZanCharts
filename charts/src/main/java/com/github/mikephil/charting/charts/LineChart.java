@@ -2,6 +2,7 @@
 package com.github.mikephil.charting.charts;
 
 import android.content.Context;
+import android.support.annotation.CallSuper;
 import android.util.AttributeSet;
 
 import com.github.mikephil.charting.data.LineData;
@@ -27,10 +28,9 @@ public class LineChart extends BarLineChartBase<LineData> implements LineDataPro
         super(context, attrs, defStyle);
     }
 
-    @Override
+    @Override @CallSuper
     protected void init() {
         super.init();
-
         mRenderer = new LineChartRenderer(this, mAnimator, mViewPortHandler);
     }
 

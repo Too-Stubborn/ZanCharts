@@ -75,7 +75,7 @@ public class LimitLine extends ComponentBase {
     }
 
     /**
-     * set the line width of the chart (min = 0.2f, max = 12f); default 2f NOTE:
+     * set the line width of the chart (minIndex = 0.2f, maxIndex = 12f); default 2f NOTE:
      * thinner line == better performance, thicker line == worse performance
      * 
      * @param width

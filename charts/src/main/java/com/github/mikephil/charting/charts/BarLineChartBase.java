@@ -363,7 +363,7 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
 
         mXAxis.calculate(mData.getXMin(), mData.getXMax());
 
-        // calculate axis range (min / max) according to provided data
+        // calculate axis indexRange (minIndex / maxIndex) according to provided data
         mAxisLeft.calculate(mData.getYMin(AxisDependency.LEFT), 
             mData.getYMax(AxisDependency.LEFT));
         mAxisRight.calculate(mData.getYMin(AxisDependency.RIGHT), 
@@ -735,12 +735,12 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
     }
 
     /**
-     * Sets the size of the area (range on the x-axis) that should be maximum
+     * Sets the size of the area (indexRange on the x-axis) that should be maximum
      * visible at once (no further zooming out allowed). If this is e.g. set to
-     * 10, no more than a range of 10 on the x-axis can be viewed at once without
+     * 10, no more than a indexRange of 10 on the x-axis can be viewed at once without
      * scrolling.
      *
-     * @param maxXRange The maximum visible range of x-values.
+     * @param maxXRange The maximum visible indexRange of x-values.
      */
     public void setVisibleXRangeMaximum(float maxXRange) {
         float xScale = mXAxis.mAxisRange / (maxXRange);
@@ -748,12 +748,12 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
     }
 
     /**
-     * Sets the size of the area (range on the x-axis) that should be minimum
+     * Sets the size of the area (indexRange on the x-axis) that should be minimum
      * visible at once (no further zooming in allowed). If this is e.g. set to
-     * 10, no less than a range of 10 on the x-axis can be viewed at once without
+     * 10, no less than a indexRange of 10 on the x-axis can be viewed at once without
      * scrolling.
      *
-     * @param minXRange The minimum visible range of x-values.
+     * @param minXRange The minimum visible indexRange of x-values.
      */
     public void setVisibleXRangeMinimum(float minXRange) {
         float xScale = mXAxis.mAxisRange / (minXRange);
@@ -761,9 +761,9 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
     }
 
     /**
-     * Limits the maximum and minimum x range that can be visible by pinching and zooming. 
-     * e.g. minRange=10, maxRange=100 the smallest range to be displayed at once is 10, 
-     * and no more than a range of 100 values can be viewed at once without scrolling
+     * Limits the maximum and minimum x indexRange that can be visible by pinching and zooming.
+     * e.g. minRange=10, maxRange=100 the smallest indexRange to be displayed at once is 10,
+     * and no more than a indexRange of 100 values can be viewed at once without scrolling
      *
      * @param minXRange
      * @param maxXRange
@@ -775,10 +775,10 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
     }
 
     /**
-     * Sets the size of the area (range on the y-axis) that should be maximum
+     * Sets the size of the area (indexRange on the y-axis) that should be maximum
      * visible at once.
      *
-     * @param maxYRange the maximum visible range on the y-axis
+     * @param maxYRange the maximum visible indexRange on the y-axis
      * @param axis      the axis for which this limit should apply
      */
     public void setVisibleYRangeMaximum(float maxYRange, AxisDependency axis) {
@@ -787,7 +787,7 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
     }
 
     /**
-     * Sets the size of the area (range on the y-axis) that should be minimum visible at once, 
+     * Sets the size of the area (indexRange on the y-axis) that should be minimum visible at once,
      * no further zooming in possible.
      *
      * @param minYRange
@@ -799,7 +799,7 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
     }
 
     /**
-     * Limits the maximum and minimum y range that can be visible by pinching and zooming.
+     * Limits the maximum and minimum y indexRange that can be visible by pinching and zooming.
      *
      * @param minYRange
      * @param maxYRange
@@ -996,7 +996,7 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
     /** CODE BELOW IS GETTERS AND SETTERS */
 
     /**
-     * Returns the range of the specified axis.
+     * Returns the indexRange of the specified axis.
      *
      * @param axis
      * @return
@@ -1321,7 +1321,7 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
     }
 
     /**
-     * Returns the range visible on the x-axis.
+     * Returns the indexRange visible on the x-axis.
      *
      * @return
      */
@@ -1498,8 +1498,8 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
      * Flag that indicates if auto scaling on the y axis is enabled. This is
      * especially interesting for charts displaying financial data.
      *
-     * @param enabled the y axis automatically adjusts to the min and max y
-     *                values of the current x axis range whenever the viewport
+     * @param enabled the y axis automatically adjusts to the minIndex and maxIndex y
+     *                values of the current x axis indexRange whenever the viewport
      *                changes
      */
     public void setAutoScaleMinMaxEnabled(boolean enabled) {

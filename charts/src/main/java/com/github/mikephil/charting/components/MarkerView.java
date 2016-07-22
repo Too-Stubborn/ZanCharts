@@ -69,7 +69,7 @@ public abstract class MarkerView extends RelativeLayout {
      * @param e         The Entry the MarkerView belongs to. This can also be any subclass of Entry, like BarEntry or
      *                  CandleEntry, simply cast it at runtime.
      * @param highlight the highlight object contains information about the highlighted value such as it's dataset-index, the
-     *                  selected range or stack-index (only stacked bar entries).
+     *                  selected indexRange or stack-index (only stacked bar entries).
      */
     public abstract void refreshContent(Entry e, Highlight highlight);
 

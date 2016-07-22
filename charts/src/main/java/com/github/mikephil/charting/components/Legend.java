@@ -20,15 +20,19 @@ import java.util.List;
  */
 public class Legend extends ComponentBase {
 
-    /**
-     * This property is deprecated - Use `position`, `horizontalAlignment`, `verticalAlignment`, `orientation`, `drawInside`,
-     * `direction`.
-     */
     public enum LegendPosition {
-        RIGHT_OF_CHART, RIGHT_OF_CHART_CENTER, RIGHT_OF_CHART_INSIDE,
-        LEFT_OF_CHART, LEFT_OF_CHART_CENTER, LEFT_OF_CHART_INSIDE,
-        BELOW_CHART_LEFT, BELOW_CHART_RIGHT, BELOW_CHART_CENTER,
-        ABOVE_CHART_LEFT, ABOVE_CHART_RIGHT, ABOVE_CHART_CENTER,
+        RIGHT_OF_CHART, 
+        RIGHT_OF_CHART_CENTER, 
+        RIGHT_OF_CHART_INSIDE,
+        LEFT_OF_CHART, 
+        LEFT_OF_CHART_CENTER, 
+        LEFT_OF_CHART_INSIDE,
+        BELOW_CHART_LEFT, 
+        BELOW_CHART_RIGHT, 
+        BELOW_CHART_CENTER,
+        ABOVE_CHART_LEFT, 
+        ABOVE_CHART_RIGHT, 
+        ABOVE_CHART_CENTER,
         PIECHART_CENTER
     }
 

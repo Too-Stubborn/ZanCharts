@@ -75,7 +75,7 @@ public abstract class DataSet<T extends Entry> extends BaseDataSet<T> {
     }
 
     /**
-     * Updates the min and max x and y value of this DataSet based on the given Entry.
+     * Updates the minIndex and maxIndex x and y value of this DataSet based on the given Entry.
      *
      * @param e
      */

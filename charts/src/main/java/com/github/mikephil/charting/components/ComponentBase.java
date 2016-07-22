@@ -107,7 +107,7 @@ public abstract class ComponentBase {
     }
 
     /**
-     * sets the size of the label text in pixels min = 6f, max = 24f, default
+     * sets the size of the label text in pixels minIndex = 6f, maxIndex = 24f, default
      * 10f
      *
      * @param size

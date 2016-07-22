@@ -347,7 +347,7 @@ public class RadarChart extends PieRadarChartBase<RadarData> {
     }
 
     /**
-     * Returns the range of y-values this chart can display.
+     * Returns the indexRange of y-values this chart can display.
      *
      * @return
      */

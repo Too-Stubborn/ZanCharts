@@ -1,9 +1,14 @@
 package com.youzan.zancharts.smaple.test;
 
+import android.graphics.Color;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.youzan.zancharts.ChartItem;
+import com.youzan.zancharts.Line;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -12,7 +17,31 @@ import java.util.List;
 
 public class Mocks {
     public static List<ChartItem> summary() {
-        return new Gson().fromJson(SUMMARY, new TypeToken<List<ChartItem>>(){}.getType());
+        return new Gson().fromJson(SUMMARY, new TypeToken<List<ChartItem>>() {
+        }.getType());
+    }
+
+    public static List<Line> fanLines() {
+        final Line newFanLine = new Line();
+        newFanLine.color = Color.BLUE;
+        newFanLine.label = "新增粉丝数";
+        newFanLine.items = new ArrayList<>(10);
+
+        final Line escapedFanLine = new Line();
+        escapedFanLine.color = Color.GREEN;
+        escapedFanLine.label = "跑路粉丝数";
+        escapedFanLine.items = new ArrayList<>(10);
+
+        newFanLine.items = summary().subList(0, 6);
+        escapedFanLine.items = summary().subList(6, 12);
+
+        return new ArrayList<Line>() {
+            {
+                add(newFanLine);
+                add(escapedFanLine);
+            }
+        };
+
     }
 
     private static final String SUMMARY = "[\n" +
