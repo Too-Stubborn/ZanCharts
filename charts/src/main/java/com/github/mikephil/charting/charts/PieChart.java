@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Typeface;
+import android.support.annotation.CallSuper;
 import android.util.AttributeSet;
 
 import com.github.mikephil.charting.components.XAxis;
@@ -70,7 +71,7 @@ public class PieChart extends PieRadarChartBase<PieData> {
     /**
      * variable for the text that is drawn in the center of the pie-chart
      */
-    private CharSequence mCenterText = "";
+    private CharSequence mCenterText;
 
     private MPPointF mCenterTextOffset = MPPointF.getInstance(0, 0);
 
@@ -106,7 +107,7 @@ public class PieChart extends PieRadarChartBase<PieData> {
         super(context, attrs, defStyle);
     }
 
-    @Override
+    @Override @CallSuper
     protected void init() {
         super.init();
 
@@ -408,10 +409,7 @@ public class PieChart extends PieRadarChartBase<PieData> {
      * @param text
      */
     public void setCenterText(CharSequence text) {
-        if (text == null)
-            mCenterText = "";
-        else
-            mCenterText = text;
+        mCenterText = text == null ? "" : text;
     }
 
     /**

@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.youzan.zancharts.ChartItem;
 import com.youzan.zancharts.Line;
+import com.youzan.zancharts.PieChartItem;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -41,7 +42,16 @@ public class Mocks {
                 add(escapedFanLine);
             }
         };
+    }
 
+    public static List<PieChartItem> fans() {
+        return new ArrayList<PieChartItem>() {
+            {
+                add(new PieChartItem("one", "one", "1", Color.BLACK, "人数"));
+                add(new PieChartItem("two", "two", "2", Color.RED, "人数"));
+                add(new PieChartItem("three", "three", "3", Color.BLUE, "人数"));
+            }
+        };
     }
 
     private static final String SUMMARY = "[\n" +

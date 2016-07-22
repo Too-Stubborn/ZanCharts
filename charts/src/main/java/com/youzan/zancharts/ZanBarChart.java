@@ -109,7 +109,7 @@ public class ZanBarChart extends BarChart {
         rightAxis.setDrawAxisLine(false);
         rightAxis.setDrawGridLines(false);
 
-        // description
+        // unit
         setDescriptionTextSize(14f);
         setDescriptionColor(Color.WHITE);
 

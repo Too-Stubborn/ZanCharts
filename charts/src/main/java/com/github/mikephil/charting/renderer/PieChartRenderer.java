@@ -531,14 +531,7 @@ public class PieChartRenderer extends DataRenderer {
 
                     // draw everything, depending on settings
                     if (drawXOutside && drawYOutside) {
-
-                        drawValue(c,
-                                formatter,
-                                value,
-                                entry,
-                                0,
-                                labelPtx,
-                                labelPty,
+                        drawValue(c, formatter, value, entry, 0, labelPtx, labelPty,
                                 dataSet.getValueTextColor(j));
 
                         if (j < data.getEntryCount() && entry.getLabel() != null) {
@@ -598,7 +591,7 @@ public class PieChartRenderer extends DataRenderer {
      * @param y
      */
     protected void drawEntryLabel(Canvas c, String label, float x, float y) {
-        c.drawText(label, x, y, mEntryLabelsPaint);
+        //c.drawText(label, x, y, mEntryLabelsPaint);
     }
 
     @Override
@@ -654,7 +647,7 @@ public class PieChartRenderer extends DataRenderer {
 
     protected Path mDrawCenterTextPathBuffer = new Path();
     /**
-     * draws the description text in the center of the pie chart makes most
+     * draws the unit text in the center of the pie chart makes most
      * sense when center-hole is enabled
      */
     protected void drawCenterText(Canvas c) {

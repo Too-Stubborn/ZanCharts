@@ -101,7 +101,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
     protected DefaultValueFormatter mDefaultFormatter = new DefaultValueFormatter(0);
 
     /**
-     * paint object used for drawing the description text in the bottom right
+     * paint object used for drawing the unit text in the bottom right
      * corner of the chart
      */
     protected Paint mDescPaint;
@@ -113,7 +113,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
     protected Paint mInfoPaint;
 
     /**
-     * description text that appears in the bottom right corner of the chart
+     * unit text that appears in the bottom right corner of the chart
      */
     protected String mDescription = "Description";
 
@@ -398,12 +398,12 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
     }
 
     /**
-     * the custom position of the description text
+     * the custom position of the unit text
      */
     private MPPointF mDescriptionPosition;
 
     /**
-     * draws the description text in the bottom right corner of the chart
+     * draws the unit text in the bottom right corner of the chart
      */
     protected void drawDescription(Canvas c) {
         if (!mDescription.equals("")) {
@@ -1010,7 +1010,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
     }
 
     /**
-     * set a description text that appears in the bottom right corner of the
+     * set a unit text that appears in the bottom right corner of the
      * chart, size = Y-legend text size
      *
      * @param desc
@@ -1021,7 +1021,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
     }
 
     /**
-     * Sets a custom position for the description text in pixels on the screen.
+     * Sets a custom position for the unit text in pixels on the screen.
      *
      * @param x - x phycical coordinate
      * @param y - y physical coordinate
@@ -1036,7 +1036,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
     }
 
     /**
-     * sets the typeface for the description paint
+     * sets the typeface for the unit paint
      *
      * @param t
      */
@@ -1045,7 +1045,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
     }
 
     /**
-     * sets the size of the description text in pixels, minIndex 6f, maxIndex 16f
+     * sets the size of the unit text in pixels, minIndex 6f, maxIndex 16f
      *
      * @param size
      */
@@ -1058,7 +1058,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
     }
 
     /**
-     * Sets the color of the description text.
+     * Sets the color of the unit text.
      *
      * @param color
      */
@@ -1278,7 +1278,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
     public static final int PAINT_INFO = 7;
 
     /**
-     * paint for the description text in the bottom right corner
+     * paint for the unit text in the bottom right corner
      */
     public static final int PAINT_DESCRIPTION = 11;
 

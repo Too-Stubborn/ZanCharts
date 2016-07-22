@@ -61,7 +61,7 @@ public class BarEntry extends Entry {
      *
      * @param x
      * @param vals  - the stack values, use at least 2
-     * @param label Additional description label.
+     * @param label Additional unit label.
      */
     public BarEntry(float x, float[] vals, String label) {
         super(x, calcSum(vals), label);

@@ -47,7 +47,7 @@ public class ZanLineChart extends LineChart {
         // borders
         setDrawBorders(false);
 
-        // description
+        // unit
         setDescription("");
 
         // x axis

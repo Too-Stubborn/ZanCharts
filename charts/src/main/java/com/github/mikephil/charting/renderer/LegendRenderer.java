@@ -107,7 +107,7 @@ public class LegendRenderer extends Renderer {
                     }
 
                     if (bds.getLabel() != null) {
-                        // add the legend description label
+                        // add the legend unit label
                         computedColors.add(ColorTemplate.COLOR_SKIP);
                         computedLabels.add(bds.getLabel());
                     }
@@ -123,7 +123,7 @@ public class LegendRenderer extends Renderer {
                     }
 
                     if (pds.getLabel() != null) {
-                        // add the legend description label
+                        // add the legend unit label
                         computedColors.add(ColorTemplate.COLOR_SKIP);
                         computedLabels.add(pds.getLabel());
                     }
