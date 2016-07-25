@@ -11,6 +11,8 @@ import android.text.style.StyleSpan;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.formatter.AxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.youzan.zancharts.ZanBarChart;
 import com.youzan.zancharts.ChartItem;
@@ -29,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         assert chart != null;
         chart.setItems(Mocks.summary());
+        chart.setSelectedIndex(4);
 
         chart.setOnItemSelectListener(new ZanBarChart.OnItemSelectListener() {
             @Override
@@ -39,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         // line chart
         ZanLineChart lineChart = (ZanLineChart) findViewById(R.id.line_chart);
         assert lineChart != null;
+
         lineChart.addLines(Mocks.fanLines());
 
         // pie chart

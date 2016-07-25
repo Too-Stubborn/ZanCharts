@@ -71,12 +71,14 @@ public class ZanLineChart extends LineChart {
         leftAxis.setDrawAxisLine(false);
         leftAxis.setTextColor(0xFFCCCCCC);
         leftAxis.setTextSize(12.f);
-        leftAxis.setYOffset(-5.f);
+        leftAxis.setYOffset(-10.f);
 
         // legend
         Legend legend = getLegend();
+        legend.setTextSize(12.f);
         legend.setPosition(Legend.LegendPosition.ABOVE_CHART_LEFT);
         legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+        legend.setYOffset(20f);
     }
 
     public void addLines(List<Line> lines) {

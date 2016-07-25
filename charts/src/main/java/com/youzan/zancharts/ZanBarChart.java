@@ -187,7 +187,33 @@ public class ZanBarChart extends BarChart {
 
         setData(barData);
 
-        highlightCenterItem();
+        //highlightCenterItem();
+    }
+
+    public void setSelectedIndex(final int index) {
+        if (mItems == null || mItems.size() == 0) return;
+        if (index < 0 || index > mItems.size()) return;
+
+        IBarDataSet set = getData().getDataSetByIndex(0);
+
+        if (set == null) return;
+
+        BarEntry entry = set.getEntryForIndex(index);
+        highlightValue(entry.getX(), 0);
+    }
+
+    public void setSelectedItem(@NonNull final ChartItem item) {
+
+        setSelectedIndex(mItems.indexOf(item));
+    }
+
+    public void setSelectedKey(final String key) {
+        for (int i = 0, size = mItems.size(); i < size; i++) {
+            if (mItems.get(i).key.equals(key)) {
+                setSelectedIndex(i);
+                return;
+            }
+        }
     }
 
     private void onItemSelected(ChartItem item) {

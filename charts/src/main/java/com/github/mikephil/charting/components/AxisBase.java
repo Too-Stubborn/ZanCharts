@@ -118,7 +118,7 @@ public abstract class AxisBase extends ComponentBase {
     protected boolean mCustomAxisMax = false;
 
     /**
-     * don't touch this direclty, use setter
+     * don't touch this directly, use setter
      */
     public float mAxisMaximum = 0f;
 
@@ -136,10 +136,10 @@ public abstract class AxisBase extends ComponentBase {
      * default constructor
      */
     public AxisBase() {
-        this.mTextSize = Utils.convertDpToPixel(10f);
-        this.mXOffset = Utils.convertDpToPixel(5f);
-        this.mYOffset = Utils.convertDpToPixel(5f);
-        this.mLimitLines = new ArrayList<LimitLine>();
+        mTextSize = Utils.convertDpToPixel(10f);
+        mXOffset = Utils.convertDpToPixel(5f);
+        mYOffset = Utils.convertDpToPixel(5f);
+        mLimitLines = new ArrayList<>();
     }
 
     /**

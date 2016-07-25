@@ -46,15 +46,15 @@ public class ZanPieChart extends PieChart implements OnChartValueSelectedListene
         Legend legend = getLegend();
         legend.setOrientation(Legend.LegendOrientation.VERTICAL);
         legend.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
+        legend.setTextSize(15f);
 
-        setDescription("");
-        setExtraOffsets(5, 10, 5, 5);
-        setDragDecelerationFrictionCoef(0.95f);
+        //setExtraOffsets(5, 10, 5, 5);
+        //setDragDecelerationFrictionCoef(0.95f);
         setCenterTextColor(Color.BLACK);
         setDrawHoleEnabled(true);
         setHoleColor(Color.WHITE);
-        setTransparentCircleColor(Color.WHITE);
-        setTransparentCircleAlpha(110);
+        //setTransparentCircleColor(Color.WHITE);
+        setTransparentCircleAlpha(0);
         setHoleRadius(58f);
         setTransparentCircleRadius(61f);
         setDrawCenterText(true);
@@ -92,7 +92,6 @@ public class ZanPieChart extends PieChart implements OnChartValueSelectedListene
         PieDataSet set = new PieDataSet(entries, "");
         set.setDrawValues(false);
         set.setColors(colors);
-        //set.setSliceSpace(3f);
         set.setSelectionShift(5f);
 
         PieData data = new PieData(set);
@@ -119,7 +118,7 @@ public class ZanPieChart extends PieChart implements OnChartValueSelectedListene
 
         PieChartItem item = (PieChartItem) e.getData();
 
-        String display = item.title + " " + percent + "%\n" + item.unit + ": " + item.value;
+        String display = item.title + " " + percent + "%\n\n" + item.unit + ": " + item.value;
 
         int carriageIndex = display.indexOf("%");
         int lastIndex = display.length();
