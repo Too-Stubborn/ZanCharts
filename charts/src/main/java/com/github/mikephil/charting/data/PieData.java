@@ -1,11 +1,9 @@
 
 package com.github.mikephil.charting.data;
 
+import com.github.mikephil.charting.data.entry.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
-import com.github.mikephil.charting.interfaces.datasets.IPieDataSet;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.github.mikephil.charting.data.interfaces.datasets.IPieDataSet;
 
 /**
  * A PieData object can only represent one DataSet. Unlike all other charts, the

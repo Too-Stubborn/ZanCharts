@@ -6,10 +6,10 @@ import android.graphics.Paint;
 
 import com.github.mikephil.charting.animation.ChartAnimator;
 import com.github.mikephil.charting.data.CandleData;
-import com.github.mikephil.charting.data.CandleEntry;
+import com.github.mikephil.charting.data.entry.CandleEntry;
 import com.github.mikephil.charting.highlight.Highlight;
-import com.github.mikephil.charting.interfaces.dataprovider.CandleDataProvider;
-import com.github.mikephil.charting.interfaces.datasets.ICandleDataSet;
+import com.github.mikephil.charting.data.interfaces.dataprovider.CandleDataProvider;
+import com.github.mikephil.charting.data.interfaces.datasets.ICandleDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.MPPointD;
 import com.github.mikephil.charting.utils.Transformer;

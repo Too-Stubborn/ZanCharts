@@ -5,8 +5,8 @@ import android.content.res.AssetManager;
 import android.os.Environment;
 import android.util.Log;
 
-import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.entry.BarEntry;
+import com.github.mikephil.charting.data.entry.Entry;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

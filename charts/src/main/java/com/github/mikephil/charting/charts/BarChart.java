@@ -7,11 +7,11 @@ import android.util.Log;
 
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.entry.BarEntry;
 import com.github.mikephil.charting.highlight.BarHighlighter;
 import com.github.mikephil.charting.highlight.Highlight;
-import com.github.mikephil.charting.interfaces.dataprovider.BarDataProvider;
-import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
+import com.github.mikephil.charting.data.interfaces.dataprovider.BarDataProvider;
+import com.github.mikephil.charting.data.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.renderer.BarChartRenderer;
 
 /**

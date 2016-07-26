@@ -2,12 +2,13 @@
 package com.github.mikephil.charting.data;
 
 import android.graphics.Typeface;
-import android.util.Log;
 
 import com.github.mikephil.charting.components.YAxis.AxisDependency;
+import com.github.mikephil.charting.data.dataset.DataSet;
+import com.github.mikephil.charting.data.entry.Entry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
-import com.github.mikephil.charting.interfaces.datasets.IDataSet;
+import com.github.mikephil.charting.data.interfaces.datasets.IDataSet;
 
 import java.util.ArrayList;
 import java.util.Arrays;

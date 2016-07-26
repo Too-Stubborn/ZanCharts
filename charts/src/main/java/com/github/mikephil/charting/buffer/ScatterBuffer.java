@@ -1,8 +1,8 @@
 
 package com.github.mikephil.charting.buffer;
 
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.interfaces.datasets.IScatterDataSet;
+import com.github.mikephil.charting.data.entry.Entry;
+import com.github.mikephil.charting.data.interfaces.datasets.IScatterDataSet;
 
 public class ScatterBuffer extends AbstractBuffer<IScatterDataSet> {
     

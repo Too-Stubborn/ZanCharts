@@ -4,7 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Path;
 
 import com.github.mikephil.charting.animation.ChartAnimator;
-import com.github.mikephil.charting.interfaces.datasets.ILineScatterCandleRadarDataSet;
+import com.github.mikephil.charting.data.interfaces.datasets.ILineScatterCandleRadarDataSet;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 
 /**

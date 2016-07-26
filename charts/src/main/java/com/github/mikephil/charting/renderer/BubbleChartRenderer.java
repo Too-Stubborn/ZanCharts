@@ -7,10 +7,10 @@ import android.graphics.Paint.Style;
 
 import com.github.mikephil.charting.animation.ChartAnimator;
 import com.github.mikephil.charting.data.BubbleData;
-import com.github.mikephil.charting.data.BubbleEntry;
+import com.github.mikephil.charting.data.entry.BubbleEntry;
 import com.github.mikephil.charting.highlight.Highlight;
-import com.github.mikephil.charting.interfaces.dataprovider.BubbleDataProvider;
-import com.github.mikephil.charting.interfaces.datasets.IBubbleDataSet;
+import com.github.mikephil.charting.data.interfaces.dataprovider.BubbleDataProvider;
+import com.github.mikephil.charting.data.interfaces.datasets.IBubbleDataSet;
 import com.github.mikephil.charting.utils.Transformer;
 import com.github.mikephil.charting.utils.Utils;
 import com.github.mikephil.charting.utils.ViewPortHandler;

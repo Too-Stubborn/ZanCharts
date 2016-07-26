@@ -11,7 +11,7 @@ import com.github.mikephil.charting.data.CombinedData;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.ScatterData;
 import com.github.mikephil.charting.highlight.CombinedHighlighter;
-import com.github.mikephil.charting.interfaces.dataprovider.CombinedDataProvider;
+import com.github.mikephil.charting.data.interfaces.dataprovider.CombinedDataProvider;
 import com.github.mikephil.charting.renderer.CombinedChartRenderer;
 
 /**

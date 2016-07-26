@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.entry.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
 
 /**

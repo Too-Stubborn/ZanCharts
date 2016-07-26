@@ -13,7 +13,7 @@ import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.highlight.PieHighlighter;
-import com.github.mikephil.charting.interfaces.datasets.IPieDataSet;
+import com.github.mikephil.charting.data.interfaces.datasets.IPieDataSet;
 import com.github.mikephil.charting.renderer.PieChartRenderer;
 import com.github.mikephil.charting.utils.MPPointF;
 import com.github.mikephil.charting.utils.Utils;

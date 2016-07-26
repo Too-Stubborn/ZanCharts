@@ -5,12 +5,12 @@ import android.graphics.Matrix;
 import android.graphics.Path;
 import android.graphics.RectF;
 
-import com.github.mikephil.charting.data.CandleEntry;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.interfaces.datasets.IBubbleDataSet;
-import com.github.mikephil.charting.interfaces.datasets.ICandleDataSet;
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.github.mikephil.charting.interfaces.datasets.IScatterDataSet;
+import com.github.mikephil.charting.data.entry.CandleEntry;
+import com.github.mikephil.charting.data.entry.Entry;
+import com.github.mikephil.charting.data.interfaces.datasets.IBubbleDataSet;
+import com.github.mikephil.charting.data.interfaces.datasets.ICandleDataSet;
+import com.github.mikephil.charting.data.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.data.interfaces.datasets.IScatterDataSet;
 
 import java.util.List;
 

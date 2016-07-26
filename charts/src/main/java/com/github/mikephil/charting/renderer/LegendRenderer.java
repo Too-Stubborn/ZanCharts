@@ -8,10 +8,10 @@ import android.graphics.Typeface;
 
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.ChartData;
-import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
-import com.github.mikephil.charting.interfaces.datasets.ICandleDataSet;
-import com.github.mikephil.charting.interfaces.datasets.IDataSet;
-import com.github.mikephil.charting.interfaces.datasets.IPieDataSet;
+import com.github.mikephil.charting.data.interfaces.datasets.IBarDataSet;
+import com.github.mikephil.charting.data.interfaces.datasets.ICandleDataSet;
+import com.github.mikephil.charting.data.interfaces.datasets.IDataSet;
+import com.github.mikephil.charting.data.interfaces.datasets.IPieDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.FSize;
 import com.github.mikephil.charting.utils.Utils;

@@ -1,7 +1,7 @@
 package com.github.mikephil.charting.listener;
 
-import com.github.mikephil.charting.data.DataSet;
-import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.dataset.DataSet;
+import com.github.mikephil.charting.data.entry.Entry;
 
 /**
  * Listener for callbacks when drawing on the chart.

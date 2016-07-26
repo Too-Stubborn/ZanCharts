@@ -1,11 +1,11 @@
 package com.github.mikephil.charting.renderer;
 
 import com.github.mikephil.charting.animation.ChartAnimator;
-import com.github.mikephil.charting.data.DataSet;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.interfaces.dataprovider.BarLineScatterCandleBubbleDataProvider;
-import com.github.mikephil.charting.interfaces.datasets.IBarLineScatterCandleBubbleDataSet;
-import com.github.mikephil.charting.interfaces.datasets.IDataSet;
+import com.github.mikephil.charting.data.dataset.DataSet;
+import com.github.mikephil.charting.data.entry.Entry;
+import com.github.mikephil.charting.data.interfaces.dataprovider.BarLineScatterCandleBubbleDataProvider;
+import com.github.mikephil.charting.data.interfaces.datasets.IBarLineScatterCandleBubbleDataSet;
+import com.github.mikephil.charting.data.interfaces.datasets.IDataSet;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 
 /**

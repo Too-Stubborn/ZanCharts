@@ -3,10 +3,10 @@ package com.github.mikephil.charting.highlight;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarLineScatterCandleBubbleData;
 import com.github.mikephil.charting.data.ChartData;
-import com.github.mikephil.charting.data.DataSet;
-import com.github.mikephil.charting.interfaces.dataprovider.BarDataProvider;
-import com.github.mikephil.charting.interfaces.dataprovider.CombinedDataProvider;
-import com.github.mikephil.charting.interfaces.datasets.IDataSet;
+import com.github.mikephil.charting.data.dataset.DataSet;
+import com.github.mikephil.charting.data.interfaces.dataprovider.BarDataProvider;
+import com.github.mikephil.charting.data.interfaces.dataprovider.CombinedDataProvider;
+import com.github.mikephil.charting.data.interfaces.datasets.IDataSet;
 
 import java.util.List;
 

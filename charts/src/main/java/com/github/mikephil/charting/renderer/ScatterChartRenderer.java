@@ -5,11 +5,11 @@ import android.graphics.Canvas;
 
 import com.github.mikephil.charting.animation.ChartAnimator;
 import com.github.mikephil.charting.buffer.ScatterBuffer;
-import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.entry.Entry;
 import com.github.mikephil.charting.data.ScatterData;
 import com.github.mikephil.charting.highlight.Highlight;
-import com.github.mikephil.charting.interfaces.dataprovider.ScatterDataProvider;
-import com.github.mikephil.charting.interfaces.datasets.IScatterDataSet;
+import com.github.mikephil.charting.data.interfaces.dataprovider.ScatterDataProvider;
+import com.github.mikephil.charting.data.interfaces.datasets.IScatterDataSet;
 import com.github.mikephil.charting.renderer.scatter.ShapeRenderer;
 import com.github.mikephil.charting.utils.MPPointD;
 import com.github.mikephil.charting.utils.Transformer;

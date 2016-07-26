@@ -6,7 +6,7 @@ import android.support.annotation.CallSuper;
 import android.util.AttributeSet;
 
 import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.interfaces.dataprovider.LineDataProvider;
+import com.github.mikephil.charting.data.interfaces.dataprovider.LineDataProvider;
 import com.github.mikephil.charting.renderer.LineChartRenderer;
 
 /**

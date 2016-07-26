@@ -1,8 +1,8 @@
 package com.github.mikephil.charting.highlight;
 
 import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.interfaces.datasets.IPieDataSet;
+import com.github.mikephil.charting.data.entry.Entry;
+import com.github.mikephil.charting.data.interfaces.datasets.IPieDataSet;
 
 /**
  * Created by philipp on 12/06/16.

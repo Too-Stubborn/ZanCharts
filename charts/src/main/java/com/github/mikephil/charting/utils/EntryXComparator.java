@@ -1,6 +1,6 @@
 package com.github.mikephil.charting.utils;
 
-import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.entry.Entry;
 
 import java.util.Comparator;
 
