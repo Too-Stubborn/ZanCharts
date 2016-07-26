@@ -39,13 +39,13 @@ public class Transformer {
     }
 
     /**
-     * Prepares the matrix that transforms values to pixels. Calculates the
-     * scale factors from the charts size and offsets.
+     * Prepares the matrix that transforms values to pixels. Calculates the scale factors from the
+     * charts size and offsets.
      *
-     * @param xChartMin
-     * @param deltaX
-     * @param deltaY
-     * @param yChartMin
+     * @param xChartMin min axis x
+     * @param deltaX maxX - minX
+     * @param deltaY maxY - minY
+     * @param yChartMin min axis y
      */
     public void prepareMatrixValuePx(float xChartMin, float deltaX, float deltaY, float yChartMin) {
 
@@ -76,8 +76,8 @@ public class Transformer {
             mMatrixOffset.postTranslate(mViewPortHandler.offsetLeft(),
                     mViewPortHandler.getChartHeight() - mViewPortHandler.offsetBottom());
         } else {
-            mMatrixOffset
-                    .setTranslate(mViewPortHandler.offsetLeft(), -mViewPortHandler.offsetTop());
+            mMatrixOffset.setTranslate(mViewPortHandler.offsetLeft(),
+                    -mViewPortHandler.offsetTop());
             mMatrixOffset.postScale(1.0f, -1.0f);
         }
     }
@@ -258,12 +258,14 @@ public class Transformer {
      * Transform an array of points with all matrices. VERY IMPORTANT: Keep
      * matrix order "value-touch-offset" when transforming.
      *
-     * @param pts
+     * @param pts the values
      */
     public void pointValuesToPixel(float[] pts) {
-
+        // value to pixel
         mMatrixValueToPx.mapPoints(pts);
+        // gesture mapping
         mViewPortHandler.getMatrixTouch().mapPoints(pts);
+        // offset mapping
         mMatrixOffset.mapPoints(pts);
     }
 

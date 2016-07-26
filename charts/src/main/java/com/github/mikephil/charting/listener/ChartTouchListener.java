@@ -11,8 +11,7 @@ import com.github.mikephil.charting.highlight.Highlight;
  * Created by philipp on 12/06/15.
  */
 public abstract class ChartTouchListener<T extends Chart<?>>
-        extends GestureDetector.SimpleOnGestureListener
-        implements View.OnTouchListener {
+        extends GestureDetector.SimpleOnGestureListener implements View.OnTouchListener {
 
     public enum ChartGesture {
         NONE,
@@ -62,8 +61,7 @@ public abstract class ChartTouchListener<T extends Chart<?>>
     protected T mChart;
 
     public ChartTouchListener(T chart) {
-        this.mChart = chart;
-
+        mChart = chart;
         mGestureDetector = new GestureDetector(chart.getContext(), this);
     }
 
@@ -73,11 +71,10 @@ public abstract class ChartTouchListener<T extends Chart<?>>
      * @param me
      */
     public void startAction(MotionEvent me) {
-
         OnChartGestureListener l = mChart.getOnChartGestureListener();
-
-        if (l != null)
+        if (l != null) {
             l.onChartGestureStart(me, mLastGesture);
+        }
     }
 
     /**
@@ -86,11 +83,10 @@ public abstract class ChartTouchListener<T extends Chart<?>>
      * @param me
      */
     public void endAction(MotionEvent me) {
-
         OnChartGestureListener l = mChart.getOnChartGestureListener();
-
-        if (l != null)
+        if (l != null) {
             l.onChartGestureEnd(me, mLastGesture);
+        }
     }
 
     /**
@@ -125,7 +121,6 @@ public abstract class ChartTouchListener<T extends Chart<?>>
      * Perform a highlight operation.
      */
     protected void performHighlight(Highlight h, MotionEvent e) {
-
         if (!(h == null || h.equalTo(mLastHighlighted))) {
             mChart.highlightValue(h, true);
             mLastHighlighted = h;

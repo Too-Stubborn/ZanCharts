@@ -9,9 +9,9 @@ import android.graphics.Typeface;
 import com.github.mikephil.charting.utils.Utils;
 
 /**
- * The limit line is an additional feature for all Line-, Bar- and
- * ScatterCharts. It allows the displaying of an additional line in the chart
- * that marks a certain maximum / limit on the specified axis (x- or y-axis).
+ * The limit line is an additional feature for all Line-, Bar- and ScatterCharts. It allows the 
+ * displaying of an additional line in the chart that marks a certain maximum / limit on the 
+ * specified axis (x- or y-axis).
  * 
  * @author Philipp Jahoda
  */
@@ -81,11 +81,8 @@ public class LimitLine extends ComponentBase {
      * @param width
      */
     public void setLineWidth(float width) {
-
-        if (width < 0.2f)
-            width = 0.2f;
-        if (width > 12.0f)
-            width = 12.0f;
+        if (width < 0.2f) width = 0.2f;
+        if (width > 12.0f) width = 12.0f;
         mLineWidth = Utils.convertDpToPixel(width);
     }
 

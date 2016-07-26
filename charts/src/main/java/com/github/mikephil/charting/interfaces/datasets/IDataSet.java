@@ -11,6 +11,7 @@ import java.util.List;
 
 /**
  * Created by Philipp Jahoda on 21/10/15.
+ * Modified by liangfei
  */
 public interface IDataSet<T extends Entry> {
 
@@ -32,8 +33,10 @@ public interface IDataSet<T extends Entry> {
      * rounding.
      * <b>INFORMATION</b>: This method does calculations at runtime. Do not over-use in performance
      * critical situations.
+     *
+     * @param xPos the x value
      */
-    T getEntryForXPos(float xPos, DataSet.Rounding rounding);
+    T getEntryForXPos(float xPos, Rounding rounding);
 
     int getEntryCount();
 
@@ -265,4 +268,15 @@ public interface IDataSet<T extends Entry> {
 
     /** Is visible */
     boolean isVisible();
+
+    /**
+     * Determines how to round DataSet index values for
+     * {@link DataSet#getEntryIndex(float, Rounding)} DataSet.getEntryIndex()} when an exact x-index
+     * is not found.
+     */
+    enum Rounding {
+        UP,
+        DOWN,
+        CLOSEST,
+    }
 }

@@ -71,13 +71,10 @@ public class BarChartRenderer extends BarLineScatterCandleBubbleRenderer {
 
     @Override
     public void drawData(Canvas c) {
-
         BarData barData = mChart.getBarData();
 
-        for (int i = 0; i < barData.getDataSetCount(); i++) {
-
+        for (int i = 0, size = barData.getDataSetCount(); i < size; i++) {
             IBarDataSet set = barData.getDataSetByIndex(i);
-
             if (set.isVisible()) {
                 drawDataSet(c, set, i);
             }

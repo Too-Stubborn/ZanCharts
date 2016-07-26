@@ -1,20 +1,18 @@
 
 package com.github.mikephil.charting.data;
 
-import android.os.Parcel;
-import android.os.ParcelFormatException;
-import android.os.Parcelable;
-
 /**
- * Class representing one entry in the chart. Might contain multiple values.
- * Might only contain a single value depending on the used constructor.
+ * Class representing one entry in the chart. Might contain multiple values. Might only contain a
+ * single value depending on the used constructor.
  * 
  * @author Philipp Jahoda
+ * @author liangfei
  */
-public class Entry extends BaseEntry implements Parcelable {
+public class Entry {
 
-    /** the x value */
     private float x = 0f;
+    private float y = 0f;
+    private Object data;
 
     public Entry() {
 
@@ -26,9 +24,9 @@ public class Entry extends BaseEntry implements Parcelable {
      * @param x the x value
      * @param y the y value (the actual value of the entry)
      */
-    public Entry(float x, float y) {
-        super(y);
+    public Entry(final float x, final float y) {
         this.x = x;
+        this.y = y;
     }
 
     /**
@@ -39,55 +37,48 @@ public class Entry extends BaseEntry implements Parcelable {
      * @param data Spot for additional data this Entry represents.
      */
     public Entry(float x, float y, Object data) {
-        super(y, data);
         this.x = x;
+        this.y = y;
+        this.data = data;
     }
 
-    /**
-     * Returns the x-value of this Entry object.
-     * 
-     * @return
-     */
     public float getX() {
         return x;
     }
-
-    /**
-     * Sets the x-value of this Entry object.
-     * 
-     * @param x
-     */
     public void setX(float x) {
         this.x = x;
     }
 
-    /**
-     * returns an exact copy of the entry
-     * 
-     * @return
-     */
-    public Entry copy() {
-        Entry e = new Entry(x, getY(), getData());
-        return e;
+    public float getY() {
+        return y;
+    }
+
+    public void setY(final float y) {
+        this.y = y;
+    }
+
+    public Object getData() {
+        return data;
+    }
+
+    public void setData(final Object data) {
+        this.data = data;
     }
 
     /**
-     * Compares value, xIndex and data of the entries. Returns true if entries
-     * are equal in those points, false if not. Does not check by hash-code like
-     * it's done by the "equals" method.
-     * 
-     * @param e
-     * @return
+     * returns an exact copy of the entry
+     */
+    public Entry copy() {
+        return new Entry(x, y, data);
+    }
+
+    /**
+     * Compares value, xIndex and data of the entries. Returns true if entries are equal in those
+     * points, false if not. Does not check by hash-code like it's done by the "equals" method.
      */
     public boolean equalTo(Entry e) {
-
-        if (e == null) return false;
-
-        if (e.getData() != this.getData()) return false;
-
-        if (Math.abs(e.x - this.x) > 0.000001f) return false;
-
-        return Math.abs(e.getY() - this.getY()) <= 0.000001f;
+        return e != null && e.data == data && Math.abs(e.x - this.x) <= 0.000001f
+                && Math.abs(e.getY() - this.getY()) <= 0.000001f;
 
     }
 
@@ -98,43 +89,4 @@ public class Entry extends BaseEntry implements Parcelable {
     public String toString() {
         return "Entry, x: " + x + " y (sum): " + getY();
     }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeFloat(this.x);
-        dest.writeFloat(this.getY());
-        if (getData() != null) {
-            if (getData() instanceof Parcelable) {
-                dest.writeInt(1);
-                dest.writeParcelable((Parcelable) this.getData(), flags);
-            } else {
-                throw new ParcelFormatException("Cannot parcel an Entry with non-parcelable data");
-            }
-        } else {
-            dest.writeInt(0);
-        }
-    }
-
-    protected Entry(Parcel in) {
-        this.x = in.readFloat();
-        this.setY(in.readFloat());
-        if (in.readInt() == 1) {
-            this.setData(in.readParcelable(Object.class.getClassLoader()));
-        }
-    }
-
-    public static final Parcelable.Creator<Entry> CREATOR = new Parcelable.Creator<Entry>() {
-        public Entry createFromParcel(Parcel source) {
-            return new Entry(source);
-        }
-
-        public Entry[] newArray(int size) {
-            return new Entry[size];
-        }
-    };
 }

@@ -340,14 +340,5 @@ public abstract class DataSet<T extends Entry> extends BaseDataSet<T> {
         return entries;
     }
 
-    /**
-     * Determines how to round DataSet index values for
-     * {@link DataSet#getEntryIndex(float, Rounding)} DataSet.getEntryIndex()}
-     * when an exact x-index is not found.
-     */
-    public enum Rounding {
-        UP,
-        DOWN,
-        CLOSEST,
-    }
+
 }

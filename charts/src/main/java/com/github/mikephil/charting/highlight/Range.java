@@ -5,6 +5,7 @@ package com.github.mikephil.charting.highlight;
  * stack values are -10, 5, 20 -> then ranges are (-10 - 0, 0 - 5, 5 - 25).
  *
  * Created by Philipp Jahoda on 24/07/15.
+ * Modified by liangfei
  */
 public final class Range {
 
@@ -18,20 +19,16 @@ public final class Range {
 
 	/**
 	 * Returns true if this indexRange contains (if the value is in between) the given value, false if not.
-	 * 
-	 * @param value
-	 * @return
 	 */
 	public boolean contains(float value) {
-
         return value > from && value <= to;
 	}
 
-	public boolean isLarger(float value) {
+	public boolean isLargerThan(float value) {
 		return value > to;
 	}
 
-	public boolean isSmaller(float value) {
+	public boolean isSmallerThan(float value) {
 		return value < from;
 	}
 }

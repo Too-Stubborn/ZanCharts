@@ -2,7 +2,6 @@ package com.github.mikephil.charting.listener;
 
 import android.annotation.SuppressLint;
 import android.graphics.Matrix;
-import android.graphics.PointF;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
@@ -33,7 +32,7 @@ public class BarLineChartTouchListener extends ChartTouchListener<BarLineChartBa
     /**
      * the original touch-matrix from the chart
      */
-    private Matrix mMatrix = new Matrix();
+    private Matrix mTouchMatrix = new Matrix();
 
     /**
      * matrix for saving the original matrix state
@@ -87,7 +86,7 @@ public class BarLineChartTouchListener extends ChartTouchListener<BarLineChartBa
             IBarLineScatterCandleBubbleDataSet<? extends Entry>>> chart, Matrix touchMatrix, float dragTriggerDistance) {
         super(chart);
 
-        mMatrix = touchMatrix;
+        mTouchMatrix = touchMatrix;
         mDragTriggerDist = Utils.convertDpToPixel(dragTriggerDistance);
         mMinScalePointerDistance = Utils.convertDpToPixel(3.5f);
     }
@@ -206,8 +205,8 @@ public class BarLineChartTouchListener extends ChartTouchListener<BarLineChartBa
                         mDecelerationVelocity.x = velocityX;
                         mDecelerationVelocity.y = velocityY;
 
-                        Utils.postInvalidateOnAnimation(mChart); // This causes computeScroll to fire, recommended for this by
-                        // Google
+                        // This causes computeScroll to fire, recommended for this by google
+                        Utils.postInvalidateOnAnimation(mChart);
                     }
                 }
 
@@ -248,7 +247,7 @@ public class BarLineChartTouchListener extends ChartTouchListener<BarLineChartBa
         }
 
         // perform the transformation, update the chart
-        mMatrix = mChart.getViewPortHandler().refresh(mMatrix, mChart, true);
+        mTouchMatrix = mChart.getViewPortHandler().refresh(mTouchMatrix, mChart, true);
 
         return true; // indicate event was handled
     }
@@ -265,7 +264,7 @@ public class BarLineChartTouchListener extends ChartTouchListener<BarLineChartBa
      */
     private void saveTouchStart(MotionEvent event) {
 
-        mSavedMatrix.set(mMatrix);
+        mSavedMatrix.set(mTouchMatrix);
         mTouchStartPoint.x = event.getX();
         mTouchStartPoint.y = event.getY();
 
@@ -274,14 +273,11 @@ public class BarLineChartTouchListener extends ChartTouchListener<BarLineChartBa
 
     /**
      * Performs all necessary operations needed for dragging.
-     *
-     * @param event
      */
     private void performDrag(MotionEvent event) {
-
         mLastGesture = ChartGesture.DRAG;
 
-        mMatrix.set(mSavedMatrix);
+        mTouchMatrix.set(mSavedMatrix);
 
         OnChartGestureListener l = mChart.getOnChartGestureListener();
 
@@ -303,7 +299,7 @@ public class BarLineChartTouchListener extends ChartTouchListener<BarLineChartBa
             dY = event.getY() - mTouchStartPoint.y;
         }
 
-        mMatrix.postTranslate(dX, dY);
+        mTouchMatrix.postTranslate(dX, dY);
 
         if (l != null)
             l.onChartTranslate(event, dX, dY);
@@ -350,8 +346,8 @@ public class BarLineChartTouchListener extends ChartTouchListener<BarLineChartBa
 
                     if (canZoomMoreY || canZoomMoreX) {
 
-                        mMatrix.set(mSavedMatrix);
-                        mMatrix.postScale(scaleX, scaleY, t.x, t.y);
+                        mTouchMatrix.set(mSavedMatrix);
+                        mTouchMatrix.postScale(scaleX, scaleY, t.x, t.y);
 
                         if (l != null)
                             l.onChartScale(event, scaleX, scaleY);
@@ -369,8 +365,8 @@ public class BarLineChartTouchListener extends ChartTouchListener<BarLineChartBa
 
                     if (canZoomMoreX) {
 
-                        mMatrix.set(mSavedMatrix);
-                        mMatrix.postScale(scaleX, 1f, t.x, t.y);
+                        mTouchMatrix.set(mSavedMatrix);
+                        mTouchMatrix.postScale(scaleX, 1f, t.x, t.y);
 
                         if (l != null)
                             l.onChartScale(event, scaleX, 1f);
@@ -390,8 +386,8 @@ public class BarLineChartTouchListener extends ChartTouchListener<BarLineChartBa
 
                     if (canZoomMoreY) {
 
-                        mMatrix.set(mSavedMatrix);
-                        mMatrix.postScale(1f, scaleY, t.x, t.y);
+                        mTouchMatrix.set(mSavedMatrix);
+                        mTouchMatrix.postScale(1f, scaleY, t.x, t.y);
 
                         if (l != null)
                             l.onChartScale(event, 1f, scaleY);
@@ -519,7 +515,7 @@ public class BarLineChartTouchListener extends ChartTouchListener<BarLineChartBa
      * @return
      */
     public Matrix getMatrix() {
-        return mMatrix;
+        return mTouchMatrix;
     }
 
     /**
@@ -635,7 +631,7 @@ public class BarLineChartTouchListener extends ChartTouchListener<BarLineChartBa
                 mDecelerationCurrentPoint.y, 0);
         performDrag(event);
         event.recycle();
-        mMatrix = mChart.getViewPortHandler().refresh(mMatrix, mChart, false);
+        mTouchMatrix = mChart.getViewPortHandler().refresh(mTouchMatrix, mChart, false);
 
         mDecelerationLastTime = currentTime;
 

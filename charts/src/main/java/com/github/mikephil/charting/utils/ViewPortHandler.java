@@ -91,7 +91,6 @@ public class ViewPortHandler {
      */
 
     public void setChartDimens(float width, float height) {
-
         float offsetLeft = offsetLeft();
         float offsetTop = offsetTop();
         float offsetRight = offsetRight();
@@ -393,10 +392,6 @@ public class ViewPortHandler {
         refresh(save, view, true);
     }
 
-    /**
-     * buffer for storing the 9 matrix values of a 3x3 matrix
-     */
-    protected final float[] matrixBuffer = new float[9];
 
     /**
      * call this method to refresh the graph with a given matrix
@@ -405,26 +400,28 @@ public class ViewPortHandler {
      * @return
      */
     public Matrix refresh(Matrix newMatrix, View chart, boolean invalidate) {
-
         mMatrixTouch.set(newMatrix);
 
         // make sure scale and translation are within their bounds
         limitTransAndScale(mMatrixTouch, mContentRect);
 
-        if (invalidate)
+        if (invalidate) {
             chart.invalidate();
+        }
 
         newMatrix.set(mMatrixTouch);
         return newMatrix;
     }
 
     /**
+     * buffer for storing the 9 matrix values of a 3x3 matrix
+     */
+    protected final float[] matrixBuffer = new float[9];
+
+    /**
      * limits the maximum scale and X translation of the given matrix
-     *
-     * @param matrix
      */
     public void limitTransAndScale(Matrix matrix, RectF content) {
-
         matrix.getValues(matrixBuffer);
 
         float curTransX = matrixBuffer[Matrix.MTRANS_X];
@@ -573,42 +570,33 @@ public class ViewPortHandler {
      */
 
     public boolean isInBoundsX(float x) {
-        if (isInBoundsLeft(x) && isInBoundsRight(x))
-            return true;
-        else
-            return false;
+        return isInBoundsLeft(x) && isInBoundsRight(x);
     }
 
     public boolean isInBoundsY(float y) {
-        if (isInBoundsTop(y) && isInBoundsBottom(y))
-            return true;
-        else
-            return false;
+        return isInBoundsTop(y) && isInBoundsBottom(y);
     }
 
     public boolean isInBounds(float x, float y) {
-        if (isInBoundsX(x) && isInBoundsY(y))
-            return true;
-        else
-            return false;
+        return isInBoundsX(x) && isInBoundsY(y);
     }
 
     public boolean isInBoundsLeft(float x) {
-        return mContentRect.left <= x + 1 ? true : false;
+        return mContentRect.left <= x + 1;
     }
 
     public boolean isInBoundsRight(float x) {
         x = (float) ((int) (x * 100.f)) / 100.f;
-        return mContentRect.right >= x - 1 ? true : false;
+        return mContentRect.right >= x - 1;
     }
 
     public boolean isInBoundsTop(float y) {
-        return mContentRect.top <= y ? true : false;
+        return mContentRect.top <= y;
     }
 
     public boolean isInBoundsBottom(float y) {
         y = (float) ((int) (y * 100.f)) / 100.f;
-        return mContentRect.bottom >= y ? true : false;
+        return mContentRect.bottom >= y;
     }
 
     /**
@@ -661,15 +649,9 @@ public class ViewPortHandler {
 
     /**
      * if the chart is fully zoomed out, return true
-     *
-     * @return
      */
     public boolean isFullyZoomedOut() {
-
-        if (isFullyZoomedOutX() && isFullyZoomedOutY())
-            return true;
-        else
-            return false;
+        return isFullyZoomedOutX() && isFullyZoomedOutY();
     }
 
     /**
@@ -678,10 +660,7 @@ public class ViewPortHandler {
      * @return
      */
     public boolean isFullyZoomedOutY() {
-        if (mScaleY > mMinScaleY || mMinScaleY > 1f)
-            return false;
-        else
-            return true;
+        return !(mScaleY > mMinScaleY || mMinScaleY > 1f);
     }
 
     /**
@@ -691,10 +670,7 @@ public class ViewPortHandler {
      * @return
      */
     public boolean isFullyZoomedOutX() {
-        if (mScaleX > mMinScaleX || mMinScaleX > 1f)
-            return false;
-        else
-            return true;
+        return !(mScaleX > mMinScaleX || mMinScaleX > 1f);
     }
 
     /**

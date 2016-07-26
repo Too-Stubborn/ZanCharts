@@ -41,16 +41,11 @@ public abstract class BarLineScatterCandleBubbleRenderer extends DataRenderer {
      */
     protected boolean isInBoundsX(Entry e, IBarLineScatterCandleBubbleDataSet set) {
 
-        if (e == null)
-            return false;
+        if (e == null) return false;
 
         float entryIndex = set.getEntryIndex(e);
 
-        if (e == null || entryIndex >= set.getEntryCount() * mAnimator.getPhaseX()) {
-            return false;
-        } else {
-            return true;
-        }
+        return entryIndex < set.getEntryCount() * mAnimator.getPhaseX();
     }
 
     /**
