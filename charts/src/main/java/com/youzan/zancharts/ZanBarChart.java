@@ -22,8 +22,8 @@ import com.github.mikephil.charting.data.entry.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.data.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.listener.BarLineChartTouchListener;
+import com.github.mikephil.charting.listener.ChartTouchListener;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-import com.github.mikephil.charting.utils.MPPointF;
 import com.github.mikephil.charting.utils.Utils;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.youzan.zancharts.internal.OnChartGestureListenerImp;
@@ -51,7 +51,6 @@ public class ZanBarChart extends BarChart {
     private List<ChartItem> mItems;
     private float mBarSpace;
     private int mMaxEntryCount;
-    private ChartItem mSelectedItem;
 
     public ZanBarChart(Context context) {
         super(context);
@@ -67,6 +66,7 @@ public class ZanBarChart extends BarChart {
 
     private float mLastDragTransitionX = 0;
     private float mDragStopThreshold = Utils.convertDpToPixel(0.1f);
+    private boolean mIsGestureEnding = false;
 
     @Override
     protected void init() {
@@ -76,12 +76,23 @@ public class ZanBarChart extends BarChart {
 
         setOnChartGestureListener(new OnChartGestureListenerImp() {
             @Override
+            public void onChartGestureStart(MotionEvent me, ChartTouchListener.ChartGesture gesture) {
+                mIsGestureEnding = false;
+            }
+
+            @Override
             public void onChartTranslate(MotionEvent me, float dX, float dY) {
-                highlightCenterItem();
-                Log.d("drag", "dX = " + Math.abs(dX - mLastDragTransitionX));
-                if (Math.abs(dX - mLastDragTransitionX) < mDragStopThreshold) {
-                    onItemSelected(mSelectedItem);
+                float transition = Math.abs(dX - mLastDragTransitionX);
+                if (transition >= mDragStopThreshold) {
+                    mIsGestureEnding = false;
                 }
+                if (mIsGestureEnding) return;
+                if (transition < mDragStopThreshold) {
+                    mIsGestureEnding = true;
+                    highlightCenterItem(true, false);
+                }
+
+                highlightCenterItem(false, false);
                 mLastDragTransitionX = dX;
             }
         });
@@ -89,7 +100,7 @@ public class ZanBarChart extends BarChart {
         setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
-                centerHighlight(e, h, true);
+                centerHighlight(e, h, 250);
             }
 
             @Override
@@ -242,22 +253,27 @@ public class ZanBarChart extends BarChart {
     }
 
     private float mPreviousAnimatedValue = 0f;
-    private void centerHighlight(final Entry e, Highlight h, final boolean withNotify) {
-        mPreviousAnimatedValue = 0f;
+    private ValueAnimator mCenterHighlightAnimator = new ValueAnimator();
+
+    private void centerHighlight(final Entry e, Highlight h, long duration) {
+        if (mCenterHighlightAnimator.isRunning()) return;
+
+        final float dx = getCenter().getX() - h.getXPx();
+
         BarLineChartTouchListener listener = (BarLineChartTouchListener) getOnTouchListener();
         final Matrix touchMatrix = listener.getMatrix();
-        final float dx = getCenter().getX() - h.getXPx();
-        ValueAnimator animator = ValueAnimator.ofFloat(mPreviousAnimatedValue, dx);
-        animator.addListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        if (withNotify) {
-                            onItemSelected((ChartItem) e.getData());
-                            mPreviousAnimatedValue = 0f;
-                        }
-                    }
-                });
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+
+        mPreviousAnimatedValue = 0f;
+        mCenterHighlightAnimator.setFloatValues(mPreviousAnimatedValue, dx);
+        mCenterHighlightAnimator.setDuration(duration);
+        mCenterHighlightAnimator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mPreviousAnimatedValue = 0f;
+                onItemSelected((ChartItem) e.getData());
+            }
+        });
+        mCenterHighlightAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 float value = (float) animation.getAnimatedValue();
@@ -267,7 +283,7 @@ public class ZanBarChart extends BarChart {
             }
         });
 
-        animator.start();
+        mCenterHighlightAnimator.start();
     }
 
     private void onItemSelected(ChartItem item) {
@@ -277,11 +293,18 @@ public class ZanBarChart extends BarChart {
         }
     }
 
-    private void highlightCenterItem() {
+    private void highlightCenterItem(boolean ending, boolean smooth) {
         Highlight highlight = getHighlightByTouchPoint(getCenter().getX(), 0);
         if (highlight == null) return;
         highlightValue(highlight);
         Entry entry = getBarData().getEntryForHighlight(highlight);
-        mSelectedItem = (ChartItem) entry.getData();
+
+        if (ending) {
+            if (smooth) {
+                centerHighlight(entry, highlight, 300);
+            } else {
+                onItemSelected((ChartItem) entry.getData());
+            }
+        }
     }
 }
