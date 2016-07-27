@@ -339,7 +339,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
      */
     protected void setupDefaultFormatter(float min, float max) {
 
-        float reference = 0f;
+        float reference;
         if (mData == null || mData.getEntryCount() < 2) {
             reference = Math.max(Math.abs(min), Math.abs(max));
         } else {
@@ -1027,7 +1027,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
      *
      * @param desc
      */
-    public void setDescText(String desc) {
+    public void setDescription(String desc) {
         if (desc == null) desc = "";
         mDescText = desc;
     }

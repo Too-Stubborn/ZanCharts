@@ -43,25 +43,37 @@ public class ZanPieChart extends PieChart implements OnChartValueSelectedListene
     @Override
     protected void init() {
         super.init();
+
+        // Description
+        setNoDataText(null);
+        setNoDataTextDescription(null);
+        setDescription(null);
+
+        // Legend
         Legend legend = getLegend();
         legend.setOrientation(Legend.LegendOrientation.VERTICAL);
         legend.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
         legend.setTextSize(15f);
 
-        //setExtraOffsets(5, 10, 5, 5);
-        //setDragDecelerationFrictionCoef(0.95f);
+        // Center text
+        setDrawCenterText(true);
         setCenterTextColor(Color.BLACK);
+
+        // Center hole
         setDrawHoleEnabled(true);
         setHoleColor(Color.WHITE);
-        //setTransparentCircleColor(Color.WHITE);
-        setTransparentCircleAlpha(0);
         setHoleRadius(58f);
+
+        setTransparentCircleAlpha(0);
         setTransparentCircleRadius(61f);
-        setDrawCenterText(true);
+
+        // Rotation
         setRotationAngle(0);
         setRotationEnabled(true);
         setHighlightPerTapEnabled(true);
         setOnChartValueSelectedListener(this);
+
+        // Entry labels
         setDrawEntryLabels(false);
         setEntryLabelColor(Color.WHITE);
     }

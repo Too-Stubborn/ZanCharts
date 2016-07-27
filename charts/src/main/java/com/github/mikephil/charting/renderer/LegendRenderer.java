@@ -23,19 +23,13 @@ import java.util.List;
 
 public class LegendRenderer extends Renderer {
 
-    /**
-     * paint for the legend labels
-     */
+    /** paint for the legend labels */
     protected Paint mLegendLabelPaint;
 
-    /**
-     * paint used for the legend forms
-     */
+    /** paint used for the legend forms */
     protected Paint mLegendFormPaint;
 
-    /**
-     * the legend object this renderer renders
-     */
+    /** the legend object this renderer renders */
     protected Legend mLegend;
 
     public LegendRenderer(ViewPortHandler viewPortHandler, Legend legend) {

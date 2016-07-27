@@ -12,7 +12,6 @@ public class Drawables {
 
     public static GradientDrawable gradient(@ColorInt int startColor) {
         final int[] colors = new int[] {startColor & ALPHA_MASK, ALPHA_MASK};
-        GradientDrawable gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
-        return gd;
+        return new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
     }
 }

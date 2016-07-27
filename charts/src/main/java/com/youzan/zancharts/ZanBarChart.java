@@ -9,7 +9,6 @@ import android.graphics.Matrix;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -108,6 +107,11 @@ public class ZanBarChart extends BarChart {
 
             }
         });
+
+        // Description
+        setNoDataText(null);
+        setNoDataTextDescription(null);
+
         setDrawBarShadow(false);
         getLegend().setEnabled(false);
         setPinchZoom(false);
@@ -287,7 +291,7 @@ public class ZanBarChart extends BarChart {
     }
 
     private void onItemSelected(ChartItem item) {
-        setDescText(item.title);
+        setDescription(item.title);
         if (mOnItemSelectListener != null) {
             mOnItemSelectListener.onSelected(this, item);
         }

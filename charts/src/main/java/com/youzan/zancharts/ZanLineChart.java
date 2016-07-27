@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.util.AttributeSet;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -12,6 +13,8 @@ import com.github.mikephil.charting.data.entry.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.dataset.LineDataSet;
 import com.github.mikephil.charting.data.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.formatter.AxisValueFormatter;
+import com.youzan.zancharts.internal.Dates;
 import com.youzan.zancharts.internal.Drawables;
 
 import java.util.ArrayList;
@@ -23,7 +26,11 @@ import java.util.List;
  */
 
 public class ZanLineChart extends LineChart {
+    private static final String TAG = "ZanLineChart";
+
     private List<Line> mLines;
+
+    // helpers
     public ZanLineChart(Context context) {
         super(context);
     }
@@ -39,6 +46,11 @@ public class ZanLineChart extends LineChart {
     @Override
     protected void init() {
         super.init();
+
+        // description
+        setNoDataText(null);
+        setNoDataTextDescription(null);
+
         // gestures
         setTouchEnabled(false);
         setDragEnabled(false);
@@ -47,14 +59,28 @@ public class ZanLineChart extends LineChart {
         // borders
         setDrawBorders(false);
 
-        // unit
-        setDescText("");
+        // description
+        setDescription("");
 
         // x axis
         XAxis xAxis = getXAxis();
         xAxis.setDrawLabels(true);
         xAxis.setDrawGridLines(false);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setValueFormatter(new AxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                Entry entry = getData().getDataSetByIndex(0).getEntryForXPos(value);
+                if (entry == null) return String.valueOf(value);
+                String date = ((ChartItem) entry.getData()).title;
+                return Dates.simplify(date);
+            }
+
+            @Override
+            public int getDecimalDigits() {
+                return 0;
+            }
+        });
 
         // right axis
         YAxis rightAxis = getAxisRight();
@@ -71,14 +97,16 @@ public class ZanLineChart extends LineChart {
         leftAxis.setDrawAxisLine(false);
         leftAxis.setTextColor(0xFFCCCCCC);
         leftAxis.setTextSize(12.f);
-        leftAxis.setYOffset(-10.f);
+        //leftAxis.setYOffset(-10.f);
 
         // legend
         Legend legend = getLegend();
-        legend.setTextSize(12.f);
+        legend.setYOffset(15f);
+        legend.setTextSize(12f);
         legend.setPosition(Legend.LegendPosition.ABOVE_CHART_LEFT);
         legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
-        legend.setYOffset(20f);
+        legend.setXEntrySpace(65f);
+        //legend.setYOffset(20f);
     }
 
     public void addLines(List<Line> lines) {
@@ -128,7 +156,6 @@ public class ZanLineChart extends LineChart {
             dataSet.setLineWidth(1f);
             dataSet.setDrawCircles(false);
             dataSet.setDrawCircleHole(false);
-            dataSet.setValueTextSize(9f);
             dataSet.setDrawFilled(true);
             dataSet.setFillDrawable(Drawables.gradient(line.color));
 
@@ -136,7 +163,6 @@ public class ZanLineChart extends LineChart {
         }
 
         LineData data = new LineData(sets);
-
         setData(data);
     }
 }
