@@ -4,7 +4,6 @@ package com.github.mikephil.charting.components;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
-import android.graphics.Typeface;
 
 import com.github.mikephil.charting.utils.Utils;
 
@@ -83,7 +82,7 @@ public class LimitLine extends ComponentBase {
     public void setLineWidth(float width) {
         if (width < 0.2f) width = 0.2f;
         if (width > 12.0f) width = 12.0f;
-        mLineWidth = Utils.convertDpToPixel(width);
+        mLineWidth = Utils.dp2px(width);
     }
 
     /**

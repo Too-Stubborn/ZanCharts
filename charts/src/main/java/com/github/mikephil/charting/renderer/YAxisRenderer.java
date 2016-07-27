@@ -31,7 +31,7 @@ public class YAxisRenderer extends AxisRenderer {
         if(mViewPortHandler != null) {
 
             mAxisLabelPaint.setColor(Color.BLACK);
-            mAxisLabelPaint.setTextSize(Utils.convertDpToPixel(10f));
+            mAxisLabelPaint.setTextSize(Utils.dp2px(10f));
 
             mZeroLinePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
             mZeroLinePaint.setColor(Color.GRAY);
@@ -275,7 +275,7 @@ public class YAxisRenderer extends AxisRenderer {
                 mLimitLinePaint.setTextSize(l.getTextSize());
 
                 final float labelLineHeight = Utils.calcTextHeight(mLimitLinePaint, label);
-                float xOffset = Utils.convertDpToPixel(4f) + l.getXOffset();
+                float xOffset = Utils.dp2px(4f) + l.getXOffset();
                 float yOffset = l.getLineWidth() + labelLineHeight + l.getYOffset();
 
                 final LimitLine.LimitLabelPosition position = l.getLabelPosition();

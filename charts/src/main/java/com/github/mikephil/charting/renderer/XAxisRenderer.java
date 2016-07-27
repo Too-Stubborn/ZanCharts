@@ -30,7 +30,7 @@ public class XAxisRenderer extends AxisRenderer {
 
         mAxisLabelPaint.setColor(Color.BLACK);
         mAxisLabelPaint.setTextAlign(Align.CENTER);
-        mAxisLabelPaint.setTextSize(Utils.convertDpToPixel(10f));
+        mAxisLabelPaint.setTextSize(Utils.dp2px(10f));
     }
 
     protected void setupGridPaint() {

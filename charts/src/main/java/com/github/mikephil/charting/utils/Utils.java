@@ -89,18 +89,18 @@ public abstract class Utils {
      * @return A float value to represent px equivalent to dp depending on
      * device density
      */
-    public static float convertDpToPixel(float dp) {
+    public static float dp2px(float dp) {
 
         if (mMetrics == null) {
 
             Log.e("MPChartLib-Utils",
                     "Utils NOT INITIALIZED. You need to call Utils.init(...) at least once before" +
-                            " calling Utils.convertDpToPixel(...). Otherwise conversion does not " +
+                            " calling Utils.dp2px(...). Otherwise conversion does not " +
                             "take place.");
             return dp;
             // throw new IllegalStateException(
             // "Utils NOT INITIALIZED. You need to call Utils.init(...) at least once before
-            // calling Utils.convertDpToPixel(...).");
+            // calling Utils.dp2px(...).");
         }
 
         DisplayMetrics metrics = mMetrics;

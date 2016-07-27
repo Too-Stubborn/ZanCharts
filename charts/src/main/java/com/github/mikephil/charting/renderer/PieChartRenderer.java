@@ -83,16 +83,16 @@ public class PieChartRenderer extends DataRenderer {
 
         mCenterTextPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
         mCenterTextPaint.setColor(Color.BLACK);
-        mCenterTextPaint.setTextSize(Utils.convertDpToPixel(12f));
+        mCenterTextPaint.setTextSize(Utils.dp2px(12f));
 
-        mValuePaint.setTextSize(Utils.convertDpToPixel(13f));
+        mValuePaint.setTextSize(Utils.dp2px(13f));
         mValuePaint.setColor(Color.WHITE);
         mValuePaint.setTextAlign(Align.CENTER);
 
         mEntryLabelsPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mEntryLabelsPaint.setColor(Color.WHITE);
         mEntryLabelsPaint.setTextAlign(Align.CENTER);
-        mEntryLabelsPaint.setTextSize(Utils.convertDpToPixel(13f));
+        mEntryLabelsPaint.setTextSize(Utils.dp2px(13f));
 
         mValueLinePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mValueLinePaint.setStyle(Style.STROKE);
@@ -433,16 +433,16 @@ public class PieChartRenderer extends DataRenderer {
             applyValueTextStyle(dataSet);
 
             float lineHeight = Utils.calcTextHeight(mValuePaint, "Q")
-                    + Utils.convertDpToPixel(4f);
+                    + Utils.dp2px(4f);
 
             ValueFormatter formatter = dataSet.getValueFormatter();
 
             int entryCount = dataSet.getEntryCount();
 
             mValueLinePaint.setColor(dataSet.getValueLineColor());
-            mValueLinePaint.setStrokeWidth(Utils.convertDpToPixel(dataSet.getValueLineWidth()));
+            mValueLinePaint.setStrokeWidth(Utils.dp2px(dataSet.getValueLineWidth()));
 
-            float offset = Utils.convertDpToPixel(5.f);
+            float offset = Utils.dp2px(5.f);
 
             final float sliceSpace = getSliceSpace(dataSet);
 

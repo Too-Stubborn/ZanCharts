@@ -64,14 +64,14 @@ public class ZanBarChart extends BarChart {
     }
 
     private float mLastDragTransitionX = 0;
-    private float mDragStopThreshold = Utils.convertDpToPixel(0.1f);
+    private float mDragStopThreshold = Utils.dp2px(0.1f);
     private boolean mIsGestureEnding = false;
 
     @Override
     protected void init() {
         super.init();
 
-        mBarSpace = Utils.convertDpToPixel(BAR_WIDTH_IN_DP + SPACE_BETWEEN_BARS_IN_DP);
+        mBarSpace = Utils.dp2px(BAR_WIDTH_IN_DP + SPACE_BETWEEN_BARS_IN_DP);
 
         setOnChartGestureListener(new OnChartGestureListenerImp() {
             @Override

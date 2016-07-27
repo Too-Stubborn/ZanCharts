@@ -62,7 +62,7 @@ public class XAxis extends AxisBase {
     public XAxis() {
         super();
 
-        mYOffset = Utils.convertDpToPixel(4.f); // -3
+        mYOffset = Utils.dp2px(4.f); // -3
     }
 
     /**

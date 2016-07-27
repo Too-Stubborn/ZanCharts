@@ -283,7 +283,7 @@ public class YAxis extends AxisBase {
      * @param width
      */
     public void setZeroLineWidth(float width) {
-        mZeroLineWidth = Utils.convertDpToPixel(width);
+        mZeroLineWidth = Utils.dp2px(width);
     }
 
     /**
@@ -303,10 +303,10 @@ public class YAxis extends AxisBase {
         float maxWidth = getMaxWidth();
 
         if (minWidth > 0.f)
-            minWidth = Utils.convertDpToPixel(minWidth);
+            minWidth = Utils.dp2px(minWidth);
 
         if (maxWidth > 0.f && maxWidth != Float.POSITIVE_INFINITY)
-            maxWidth = Utils.convertDpToPixel(maxWidth);
+            maxWidth = Utils.dp2px(maxWidth);
 
         width = Math.max(minWidth, Math.min(width, maxWidth > 0.0 ? maxWidth : width));
 

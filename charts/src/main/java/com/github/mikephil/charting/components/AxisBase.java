@@ -136,9 +136,9 @@ public abstract class AxisBase extends ComponentBase {
      * default constructor
      */
     public AxisBase() {
-        mTextSize = Utils.convertDpToPixel(10f);
-        mXOffset = Utils.convertDpToPixel(5f);
-        mYOffset = Utils.convertDpToPixel(5f);
+        mTextSize = Utils.dp2px(10f);
+        mXOffset = Utils.dp2px(5f);
+        mYOffset = Utils.dp2px(5f);
         mLimitLines = new ArrayList<>();
     }
 
@@ -212,7 +212,7 @@ public abstract class AxisBase extends ComponentBase {
      * @param width
      */
     public void setAxisLineWidth(float width) {
-        mAxisLineWidth = Utils.convertDpToPixel(width);
+        mAxisLineWidth = Utils.dp2px(width);
     }
 
     /**
@@ -231,7 +231,7 @@ public abstract class AxisBase extends ComponentBase {
      * @param width
      */
     public void setGridLineWidth(float width) {
-        mGridLineWidth = Utils.convertDpToPixel(width);
+        mGridLineWidth = Utils.dp2px(width);
     }
 
     /**

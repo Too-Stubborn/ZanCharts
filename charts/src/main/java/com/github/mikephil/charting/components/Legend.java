@@ -36,7 +36,7 @@ public class Legend extends ComponentBase {
         PIECHART_CENTER
     }
 
-    public enum LegendForm {
+    public enum LegendFormType {
         SQUARE, CIRCLE, LINE
     }
 
@@ -98,7 +98,7 @@ public class Legend extends ComponentBase {
     /**
      * the shape/form the legend colors are drawn in
      */
-    private LegendForm mShape = LegendForm.SQUARE;
+    private LegendFormType mFormType = LegendFormType.SQUARE;
 
     /**
      * the size of the legend forms/shapes
@@ -136,14 +136,14 @@ public class Legend extends ComponentBase {
      * default constructor
      */
     public Legend() {
-        mFormSize = Utils.convertDpToPixel(8f);
-        mXEntrySpace = Utils.convertDpToPixel(6f);
-        mYEntrySpace = Utils.convertDpToPixel(0f);
-        mFormToTextSpace = Utils.convertDpToPixel(5f);
-        mTextSize = Utils.convertDpToPixel(10f);
-        mStackSpace = Utils.convertDpToPixel(3f);
-        mXOffset = Utils.convertDpToPixel(5f);
-        mYOffset = Utils.convertDpToPixel(3f); // 2
+        mFormSize = Utils.dp2px(8f);
+        mXEntrySpace = Utils.dp2px(6f);
+        mYEntrySpace = Utils.dp2px(0f);
+        mFormToTextSpace = Utils.dp2px(5f);
+        mTextSize = Utils.dp2px(10f);
+        mStackSpace = Utils.dp2px(3f);
+        mXOffset = Utils.dp2px(5f);
+        mYOffset = Utils.dp2px(3f); // 2
     }
 
     /**
@@ -585,17 +585,15 @@ public class Legend extends ComponentBase {
      *
      * @return
      */
-    public LegendForm getForm() {
-        return mShape;
+    public LegendFormType getFormType() {
+        return mFormType;
     }
 
     /**
      * sets the form/shape of the legend forms
-     *
-     * @param shape
      */
-    public void setForm(LegendForm shape) {
-        mShape = shape;
+    public void setFormType(LegendFormType type) {
+        mFormType = type;
     }
 
     /**
@@ -605,7 +603,7 @@ public class Legend extends ComponentBase {
      * @param size
      */
     public void setFormSize(float size) {
-        mFormSize = Utils.convertDpToPixel(size);
+        mFormSize = Utils.dp2px(size);
     }
 
     /**
@@ -634,7 +632,7 @@ public class Legend extends ComponentBase {
      * @param space
      */
     public void setXEntrySpace(float space) {
-        mXEntrySpace = Utils.convertDpToPixel(space);
+        mXEntrySpace = Utils.dp2px(space);
     }
 
     /**
@@ -653,7 +651,7 @@ public class Legend extends ComponentBase {
      * @param space
      */
     public void setYEntrySpace(float space) {
-        mYEntrySpace = Utils.convertDpToPixel(space);
+        mYEntrySpace = Utils.dp2px(space);
     }
 
     /**
@@ -672,7 +670,7 @@ public class Legend extends ComponentBase {
      * @param space
      */
     public void setFormToTextSpace(float space) {
-        this.mFormToTextSpace = Utils.convertDpToPixel(space);
+        this.mFormToTextSpace = Utils.dp2px(space);
     }
 
     /**

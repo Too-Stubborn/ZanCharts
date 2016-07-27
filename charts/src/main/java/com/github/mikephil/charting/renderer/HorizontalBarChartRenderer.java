@@ -55,7 +55,7 @@ public class HorizontalBarChartRenderer extends BarChartRenderer {
 
         mShadowPaint.setColor(dataSet.getBarShadowColor());
         mBarBorderPaint.setColor(dataSet.getBarBorderColor());
-        mBarBorderPaint.setStrokeWidth(Utils.convertDpToPixel(dataSet.getBarBorderWidth()));
+        mBarBorderPaint.setStrokeWidth(Utils.dp2px(dataSet.getBarBorderWidth()));
 
         final boolean drawBorder = dataSet.getBarBorderWidth() > 0.f;
 
@@ -107,7 +107,7 @@ public class HorizontalBarChartRenderer extends BarChartRenderer {
 
             List<IBarDataSet> dataSets = mDataProvider.getBarData().getDataSets();
 
-            final float valueOffsetPlus = Utils.convertDpToPixel(5f);
+            final float valueOffsetPlus = Utils.dp2px(5f);
             float posOffset = 0f;
             float negOffset = 0f;
             final boolean drawValueAboveBar = mDataProvider.isDrawValueAboveBarEnabled();

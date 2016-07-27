@@ -75,7 +75,7 @@ public class YAxisRendererHorizontalBarChart extends YAxisRenderer {
         mAxisLabelPaint.setColor(mYAxis.getTextColor());
         mAxisLabelPaint.setTextAlign(Align.CENTER);
 
-        float baseYOffset = Utils.convertDpToPixel(2.5f);
+        float baseYOffset = Utils.dp2px(2.5f);
         float textHeight = Utils.calcTextHeight(mAxisLabelPaint, "Q");
 
         AxisDependency dependency = mYAxis.getAxisDependency();
@@ -257,7 +257,7 @@ public class YAxisRendererHorizontalBarChart extends YAxisRenderer {
                 mLimitLinePaint.setTextSize(l.getTextSize());
 
                 float xOffset = l.getLineWidth() + l.getXOffset();
-                float yOffset = Utils.convertDpToPixel(2f) + l.getYOffset();
+                float yOffset = Utils.dp2px(2f) + l.getYOffset();
 
                 final LimitLine.LimitLabelPosition position = l.getLabelPosition();
 

@@ -85,8 +85,8 @@ public class RadarChart extends PieRadarChartBase<RadarData> {
 
         mYAxis = new YAxis(AxisDependency.LEFT);
 
-        mWebLineWidth = Utils.convertDpToPixel(1.5f);
-        mInnerWebLineWidth = Utils.convertDpToPixel(0.75f);
+        mWebLineWidth = Utils.dp2px(1.5f);
+        mInnerWebLineWidth = Utils.dp2px(0.75f);
 
         mRenderer = new RadarChartRenderer(this, mAnimator, mViewPortHandler);
         mYAxisRenderer = new YAxisRendererRadarChart(mViewPortHandler, mYAxis, this);
@@ -214,7 +214,7 @@ public class RadarChart extends PieRadarChartBase<RadarData> {
      * @param width
      */
     public void setWebLineWidth(float width) {
-        mWebLineWidth = Utils.convertDpToPixel(width);
+        mWebLineWidth = Utils.dp2px(width);
     }
 
     public float getWebLineWidth() {
@@ -228,7 +228,7 @@ public class RadarChart extends PieRadarChartBase<RadarData> {
      * @param width
      */
     public void setWebLineWidthInner(float width) {
-        mInnerWebLineWidth = Utils.convertDpToPixel(width);
+        mInnerWebLineWidth = Utils.dp2px(width);
     }
 
     public float getWebLineWidthInner() {
@@ -323,7 +323,7 @@ public class RadarChart extends PieRadarChartBase<RadarData> {
     protected float getRequiredBaseOffset() {
         return mXAxis.isEnabled() && mXAxis.isDrawLabelsEnabled() ?
                 mXAxis.mLabelRotatedWidth :
-                Utils.convertDpToPixel(10f);
+                Utils.dp2px(10f);
     }
 
     @Override

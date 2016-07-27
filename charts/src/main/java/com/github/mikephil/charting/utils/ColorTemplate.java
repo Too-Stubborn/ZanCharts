@@ -22,8 +22,7 @@ public class ColorTemplate {
     public static final int COLOR_NONE = 0x00112233;
 
     /**
-     * this "color" is used for the Legend creation and indicates that the next
-     * form should be skipped
+     * Used for the Legend creation and indicates that the next form should be skipped
      */
     public static final int COLOR_SKIP = 0x00112234;
 

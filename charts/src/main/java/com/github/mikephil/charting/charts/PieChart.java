@@ -492,7 +492,7 @@ public class PieChart extends PieRadarChartBase<PieData> {
      */
     public void setCenterTextSize(float sizeDp) {
         ((PieChartRenderer) mRenderer).getPaintCenterText().setTextSize(
-                Utils.convertDpToPixel(sizeDp));
+                Utils.dp2px(sizeDp));
     }
 
     /**
@@ -511,8 +511,8 @@ public class PieChart extends PieRadarChartBase<PieData> {
      * @param y
      */
     public void setCenterTextOffset(float x, float y) {
-        mCenterTextOffset.x = Utils.convertDpToPixel(x);
-        mCenterTextOffset.y = Utils.convertDpToPixel(y);
+        mCenterTextOffset.x = Utils.dp2px(x);
+        mCenterTextOffset.y = Utils.dp2px(y);
     }
 
     /**
@@ -645,7 +645,7 @@ public class PieChart extends PieRadarChartBase<PieData> {
      * @param size
      */
     public void setEntryLabelTextSize(float size) {
-        ((PieChartRenderer) mRenderer).getPaintEntryLabels().setTextSize(Utils.convertDpToPixel(size));
+        ((PieChartRenderer) mRenderer).getPaintEntryLabels().setTextSize(Utils.dp2px(size));
     }
 
     /**

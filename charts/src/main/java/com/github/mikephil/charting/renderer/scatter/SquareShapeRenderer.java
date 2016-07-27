@@ -21,7 +21,7 @@ public class SquareShapeRenderer implements ShapeRenderer {
             renderPaint, final float shapeSize) {
 
         final float shapeHalf = shapeSize / 2f;
-        final float shapeHoleSizeHalf = Utils.convertDpToPixel(dataSet.getScatterShapeHoleRadius());
+        final float shapeHoleSizeHalf = Utils.dp2px(dataSet.getScatterShapeHoleRadius());
         final float shapeHoleSize = shapeHoleSizeHalf * 2.f;
         final float shapeStrokeSize = (shapeSize - shapeHoleSize) / 2.f;
         final float shapeStrokeSizeHalf = shapeStrokeSize / 2.f;

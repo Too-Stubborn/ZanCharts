@@ -33,7 +33,7 @@ public class BubbleChartRenderer extends BarLineScatterCandleBubbleRenderer {
         mRenderPaint.setStyle(Style.FILL);
 
         mHighlightPaint.setStyle(Style.STROKE);
-        mHighlightPaint.setStrokeWidth(Utils.convertDpToPixel(1.5f));
+        mHighlightPaint.setStrokeWidth(Utils.dp2px(1.5f));
     }
 
     @Override

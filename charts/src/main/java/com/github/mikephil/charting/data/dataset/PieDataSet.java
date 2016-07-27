@@ -27,7 +27,7 @@ public class PieDataSet extends DataSet<PieEntry> implements IPieDataSet {
 
     public PieDataSet(List<PieEntry> yVals, String label) {
         super(yVals, label);
-//        mShift = Utils.convertDpToPixel(12f);
+//        mShift = Utils.dp2px(12f);
     }
 
     @Override
@@ -59,7 +59,7 @@ public class PieDataSet extends DataSet<PieEntry> implements IPieDataSet {
         if (spaceDp < 0)
             spaceDp = 0f;
 
-        mSliceSpace = Utils.convertDpToPixel(spaceDp);
+        mSliceSpace = Utils.dp2px(spaceDp);
     }
 
     @Override
@@ -74,7 +74,7 @@ public class PieDataSet extends DataSet<PieEntry> implements IPieDataSet {
      * @param shift
      */
     public void setSelectionShift(float shift) {
-        mShift = Utils.convertDpToPixel(shift);
+        mShift = Utils.dp2px(shift);
     }
 
     @Override

@@ -25,7 +25,7 @@ public abstract class LineScatterCandleRadarDataSet<T extends Entry> extends Bar
 
     public LineScatterCandleRadarDataSet(List<T> yVals, String label) {
         super(yVals, label);
-        mHighlightLineWidth = Utils.convertDpToPixel(0.5f);
+        mHighlightLineWidth = Utils.dp2px(0.5f);
     }
 
     /**
@@ -68,7 +68,7 @@ public abstract class LineScatterCandleRadarDataSet<T extends Entry> extends Bar
      * @param width
      */
     public void setHighlightLineWidth(float width) {
-        mHighlightLineWidth = Utils.convertDpToPixel(width);
+        mHighlightLineWidth = Utils.dp2px(width);
     }
 
     @Override

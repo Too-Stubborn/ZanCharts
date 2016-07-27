@@ -22,7 +22,7 @@ public class XShapeRenderer implements ShapeRenderer {
         final float shapeHalf = shapeSize / 2f;
 
         renderPaint.setStyle(Paint.Style.STROKE);
-        renderPaint.setStrokeWidth(Utils.convertDpToPixel(1f));
+        renderPaint.setStrokeWidth(Utils.dp2px(1f));
 
         for (int i = 0; i < buffer.size(); i += 2) {
 

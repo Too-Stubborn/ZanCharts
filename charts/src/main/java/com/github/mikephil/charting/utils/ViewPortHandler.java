@@ -110,7 +110,7 @@ public class ViewPortHandler {
                                  float offsetRight, float offsetBottom) {
         mContentRect.set(offsetLeft, offsetTop, mChartWidth - offsetRight, 
             mChartHeight - offsetBottom);
-        mTransOffsetX = mContentRect.width() / 2 - Utils.convertDpToPixel(20);
+        mTransOffsetX = mContentRect.width() / 2 - Utils.dp2px(20);
     }
 
     public float offsetLeft() {
@@ -681,7 +681,7 @@ public class ViewPortHandler {
      * @param offset
      */
     public void setDragOffsetX(float offset) {
-        mTransOffsetX = Utils.convertDpToPixel(offset);
+        mTransOffsetX = Utils.dp2px(offset);
     }
 
     /**
@@ -691,7 +691,7 @@ public class ViewPortHandler {
      * @param offset
      */
     public void setDragOffsetY(float offset) {
-        mTransOffsetY = Utils.convertDpToPixel(offset);
+        mTransOffsetY = Utils.dp2px(offset);
     }
 
     /**

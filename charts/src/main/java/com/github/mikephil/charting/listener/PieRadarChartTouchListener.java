@@ -2,7 +2,6 @@
 package com.github.mikephil.charting.listener;
 
 import android.annotation.SuppressLint;
-import android.graphics.PointF;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AnimationUtils;
@@ -75,7 +74,7 @@ public class PieRadarChartTouchListener extends ChartTouchListener<PieRadarChart
 
                     if (mTouchMode == NONE
                             && distance(x, mTouchStartPoint.x, y, mTouchStartPoint.y)
-                            > Utils.convertDpToPixel(8f)) {
+                            > Utils.dp2px(8f)) {
                         mLastGesture = ChartGesture.ROTATE;
                         mTouchMode = ROTATE;
                         mChart.disableScroll();

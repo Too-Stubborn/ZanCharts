@@ -64,7 +64,7 @@ public abstract class ComponentBase {
      * @param xOffset
      */
     public void setXOffset(float xOffset) {
-        mXOffset = Utils.convertDpToPixel(xOffset);
+        mXOffset = Utils.dp2px(xOffset);
     }
 
     /**
@@ -85,7 +85,7 @@ public abstract class ComponentBase {
      * @param yOffset
      */
     public void setYOffset(float yOffset) {
-        mYOffset = Utils.convertDpToPixel(yOffset);
+        mYOffset = Utils.dp2px(yOffset);
     }
 
     /**
@@ -119,7 +119,7 @@ public abstract class ComponentBase {
         if (size < 6f)
             size = 6f;
 
-        mTextSize = Utils.convertDpToPixel(size);
+        mTextSize = Utils.dp2px(size);
     }
 
     /**

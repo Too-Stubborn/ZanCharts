@@ -21,7 +21,7 @@ public class BubbleDataSet extends BarLineScatterCandleBubbleDataSet<BubbleEntry
 
     @Override
     public void setHighlightCircleWidth(float width) {
-        mHighlightCircleWidth = Utils.convertDpToPixel(width);
+        mHighlightCircleWidth = Utils.dp2px(width);
     }
 
     @Override

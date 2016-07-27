@@ -167,7 +167,7 @@ public class RadarChartRenderer extends LineRadarRenderer {
         MPPointF center = mChart.getCenterOffsets();
         MPPointF pOut = MPPointF.getInstance(0,0);
 
-        float yoffset = Utils.convertDpToPixel(5f);
+        float yoffset = Utils.dp2px(5f);
 
         for (int i = 0; i < mChart.getData().getDataSetCount(); i++) {
 
@@ -338,8 +338,8 @@ public class RadarChartRenderer extends LineRadarRenderer {
                                     float strokeWidth) {
         c.save();
 
-        outerRadius = Utils.convertDpToPixel(outerRadius);
-        innerRadius = Utils.convertDpToPixel(innerRadius);
+        outerRadius = Utils.dp2px(outerRadius);
+        innerRadius = Utils.dp2px(innerRadius);
 
         if (fillColor != ColorTemplate.COLOR_NONE) {
             Path p = mDrawHighlightCirclePathBuffer;
@@ -356,7 +356,7 @@ public class RadarChartRenderer extends LineRadarRenderer {
         if (strokeColor != ColorTemplate.COLOR_NONE) {
             mHighlightCirclePaint.setColor(strokeColor);
             mHighlightCirclePaint.setStyle(Paint.Style.STROKE);
-            mHighlightCirclePaint.setStrokeWidth(Utils.convertDpToPixel(strokeWidth));
+            mHighlightCirclePaint.setStrokeWidth(Utils.dp2px(strokeWidth));
             c.drawCircle(point.x, point.y, outerRadius, mHighlightCirclePaint);
         }
 

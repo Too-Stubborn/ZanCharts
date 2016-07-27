@@ -54,6 +54,7 @@ public class ZanPieChart extends PieChart implements OnChartValueSelectedListene
         legend.setOrientation(Legend.LegendOrientation.VERTICAL);
         legend.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
         legend.setTextSize(15f);
+        legend.setFormSize(10f);
 
         // Center text
         setDrawCenterText(true);

@@ -68,8 +68,8 @@ public class LineDataSet extends LineRadarDataSet<Entry> implements ILineDataSet
     public LineDataSet(List<Entry> yVals, String label) {
         super(yVals, label);
 
-        // mCircleRadius = Utils.convertDpToPixel(4f);
-        // mLineWidth = Utils.convertDpToPixel(1f);
+        // mCircleRadius = Utils.dp2px(4f);
+        // mLineWidth = Utils.dp2px(1f);
 
         if (mCircleColors == null) {
             mCircleColors = new ArrayList<Integer>();
@@ -153,7 +153,7 @@ public class LineDataSet extends LineRadarDataSet<Entry> implements ILineDataSet
      * @param radius
      */
     public void setCircleRadius(float radius) {
-        mCircleRadius = Utils.convertDpToPixel(radius);
+        mCircleRadius = Utils.dp2px(radius);
     }
 
     @Override
@@ -168,7 +168,7 @@ public class LineDataSet extends LineRadarDataSet<Entry> implements ILineDataSet
      * @param holeRadius
      */
     public void setCircleHoleRadius(float holeRadius) {
-        mCircleHoleRadius = Utils.convertDpToPixel(holeRadius);
+        mCircleHoleRadius = Utils.dp2px(holeRadius);
     }
 
     @Override

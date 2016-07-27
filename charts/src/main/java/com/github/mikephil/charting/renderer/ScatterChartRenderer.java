@@ -64,7 +64,7 @@ public class ScatterChartRenderer extends LineScatterCandleRadarRenderer {
         float phaseX = Math.max(0.f, Math.min(1.f, mAnimator.getPhaseX()));
         float phaseY = mAnimator.getPhaseY();
 
-        final float shapeSize = Utils.convertDpToPixel(dataSet.getScatterShapeSize());
+        final float shapeSize = Utils.dp2px(dataSet.getScatterShapeSize());
 
         ScatterBuffer buffer = mScatterBuffers[mChart.getScatterData().getIndexOfDataSet(dataSet)];
         buffer.setPhases(phaseX, phaseY);
@@ -106,7 +106,7 @@ public class ScatterChartRenderer extends LineScatterCandleRadarRenderer {
                         .generateTransformedValuesScatter(dataSet,
                                 mAnimator.getPhaseX(), mAnimator.getPhaseY(), mXBounds.minIndex, mXBounds.maxIndex);
 
-                float shapeSize = Utils.convertDpToPixel(dataSet.getScatterShapeSize());
+                float shapeSize = Utils.dp2px(dataSet.getScatterShapeSize());
 
                 for (int j = 0; j < positions.length; j += 2) {
 

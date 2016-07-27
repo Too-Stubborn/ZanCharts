@@ -36,8 +36,8 @@ public class BarChartRenderer extends BarLineScatterCandleBubbleRenderer {
     protected Paint mShadowPaint;
     protected Paint mBarBorderPaint;
 
-    private float mHeightOfZero = Utils.convertDpToPixel(DEFAULT_ZERO_HEIGHT_IN_DP);
-    private float mBarRadius = Utils.convertDpToPixel(DEFAULT_BAR_RADIUS);
+    private float mHeightOfZero = Utils.dp2px(DEFAULT_ZERO_HEIGHT_IN_DP);
+    private float mBarRadius = Utils.dp2px(DEFAULT_BAR_RADIUS);
 
     public BarChartRenderer(BarDataProvider chart, ChartAnimator animator,
                             ViewPortHandler viewPortHandler) {
@@ -90,7 +90,7 @@ public class BarChartRenderer extends BarLineScatterCandleBubbleRenderer {
 
         mShadowPaint.setColor(dataSet.getBarShadowColor());
         mBarBorderPaint.setColor(dataSet.getBarBorderColor());
-        mBarBorderPaint.setStrokeWidth(Utils.convertDpToPixel(dataSet.getBarBorderWidth()));
+        mBarBorderPaint.setStrokeWidth(Utils.dp2px(dataSet.getBarBorderWidth()));
 
         final boolean drawBorder = dataSet.getBarBorderWidth() > 0.f;
 
@@ -162,7 +162,7 @@ public class BarChartRenderer extends BarLineScatterCandleBubbleRenderer {
 
             List<IBarDataSet> dataSets = mDataProvider.getBarData().getDataSets();
 
-            final float valueOffsetPlus = Utils.convertDpToPixel(4.5f);
+            final float valueOffsetPlus = Utils.dp2px(4.5f);
             float posOffset = 0f;
             float negOffset = 0f;
             boolean drawValueAboveBar = mDataProvider.isDrawValueAboveBarEnabled();

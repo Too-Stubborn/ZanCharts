@@ -279,7 +279,7 @@ public class CandleStickChartRenderer extends LineScatterCandleRadarRenderer {
                 float[] positions = trans.generateTransformedValuesCandle(
                         dataSet, mAnimator.getPhaseX(), mAnimator.getPhaseY(), mXBounds.minIndex, mXBounds.maxIndex);
 
-                float yOffset = Utils.convertDpToPixel(5f);
+                float yOffset = Utils.dp2px(5f);
 
                 for (int j = 0; j < positions.length; j += 2) {
 

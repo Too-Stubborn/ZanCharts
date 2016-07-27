@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 
 import com.github.mikephil.charting.charts.BarLineChartBase;
-import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.data.BarLineScatterCandleBubbleData;
 import com.github.mikephil.charting.data.entry.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
@@ -87,8 +86,8 @@ public class BarLineChartTouchListener extends ChartTouchListener<BarLineChartBa
         super(chart);
 
         mTouchMatrix = touchMatrix;
-        mDragTriggerDist = Utils.convertDpToPixel(dragTriggerDistance);
-        mMinScalePointerDistance = Utils.convertDpToPixel(3.5f);
+        mDragTriggerDist = Utils.dp2px(dragTriggerDistance);
+        mMinScalePointerDistance = Utils.dp2px(3.5f);
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -519,7 +518,7 @@ public class BarLineChartTouchListener extends ChartTouchListener<BarLineChartBa
      * @param dragTriggerDistance
      */
     public void setDragTriggerDist(float dragTriggerDistance) {
-        this.mDragTriggerDist = Utils.convertDpToPixel(dragTriggerDistance);
+        this.mDragTriggerDist = Utils.dp2px(dragTriggerDistance);
     }
 
     @Override

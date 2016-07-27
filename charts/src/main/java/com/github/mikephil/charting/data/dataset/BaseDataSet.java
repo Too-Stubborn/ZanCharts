@@ -296,7 +296,7 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
 
     @Override
     public void setValueTextSize(float size) {
-        mValueTextSize = Utils.convertDpToPixel(size);
+        mValueTextSize = Utils.dp2px(size);
     }
 
     @Override
