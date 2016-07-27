@@ -1,12 +1,14 @@
 package com.youzan.zancharts;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ValueAnimator;
 import android.content.Context;
-import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -18,8 +20,9 @@ import com.github.mikephil.charting.data.entry.BarEntry;
 import com.github.mikephil.charting.data.entry.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.data.interfaces.datasets.IBarDataSet;
-import com.github.mikephil.charting.listener.ChartTouchListener;
+import com.github.mikephil.charting.listener.BarLineChartTouchListener;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.github.mikephil.charting.utils.MPPointF;
 import com.github.mikephil.charting.utils.Utils;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.youzan.zancharts.internal.OnChartGestureListenerImp;
@@ -47,6 +50,7 @@ public class ZanBarChart extends BarChart {
     private List<ChartItem> mItems;
     private float mBarSpace;
     private int mMaxEntryCount;
+    private ChartItem mSelectedItem;
 
     public ZanBarChart(Context context) {
         super(context);
@@ -69,14 +73,18 @@ public class ZanBarChart extends BarChart {
         setOnChartGestureListener(new OnChartGestureListenerImp() {
             @Override
             public void onChartTranslate(MotionEvent me, float dX, float dY) {
-                    highlightCenterItem();
+                highlightCenterItem();
+                if (Math.abs(dX) < 0.001) {
+                    onItemSelected(mSelectedItem);
+                }
+
             }
         });
 
         setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
-                onItemSelected((ChartItem) e.getData());
+                centerHighlight(e, h, true);
             }
 
             @Override
@@ -167,7 +175,7 @@ public class ZanBarChart extends BarChart {
             } catch (NumberFormatException e) {
                 e.printStackTrace();
             }
-            BarEntry entry = new BarEntry(i+ 1, value);
+            BarEntry entry = new BarEntry(i + 1, value);
             entry.setData(item);
             entries.add(entry);
         }
@@ -228,6 +236,34 @@ public class ZanBarChart extends BarChart {
         }
     }
 
+    private float mPreviousAnimatedValue = 0f;
+    private void centerHighlight(final Entry e, Highlight h, final boolean withNotify) {
+        mPreviousAnimatedValue = 0f;
+        BarLineChartTouchListener listener = (BarLineChartTouchListener) getOnTouchListener();
+        final Matrix touchMatrix = listener.getMatrix();
+        final float dx = getCenter().getX() - h.getXPx();
+        ValueAnimator animator = ValueAnimator.ofFloat(mPreviousAnimatedValue, dx);
+        animator.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        if (withNotify) {
+                            onItemSelected((ChartItem) e.getData());
+                        }
+                    }
+                });
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                float value = (float) animation.getAnimatedValue();
+                touchMatrix.postTranslate(value - mPreviousAnimatedValue, 0);
+                mPreviousAnimatedValue = value;
+                getViewPortHandler().refresh(touchMatrix, ZanBarChart.this, true);
+            }
+        });
+
+        animator.start();
+    }
+
     private void onItemSelected(ChartItem item) {
         setDescText(item.title);
         if (mOnItemSelectListener != null) {
@@ -240,6 +276,6 @@ public class ZanBarChart extends BarChart {
         if (highlight == null) return;
         highlightValue(highlight);
         Entry entry = getBarData().getEntryForHighlight(highlight);
-        onItemSelected((ChartItem) entry.getData());
+        mSelectedItem = (ChartItem) entry.getData();
     }
 }
