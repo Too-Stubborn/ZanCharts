@@ -9,6 +9,7 @@ import android.graphics.Matrix;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -64,6 +65,9 @@ public class ZanBarChart extends BarChart {
         super(context, attrs, defStyle);
     }
 
+    private float mLastDragTransitionX = 0;
+    private float mDragStopThreshold = Utils.convertDpToPixel(0.1f);
+
     @Override
     protected void init() {
         super.init();
@@ -74,10 +78,11 @@ public class ZanBarChart extends BarChart {
             @Override
             public void onChartTranslate(MotionEvent me, float dX, float dY) {
                 highlightCenterItem();
-                if (Math.abs(dX) < 0.001) {
+                Log.d("drag", "dX = " + Math.abs(dX - mLastDragTransitionX));
+                if (Math.abs(dX - mLastDragTransitionX) < mDragStopThreshold) {
                     onItemSelected(mSelectedItem);
                 }
-
+                mLastDragTransitionX = dX;
             }
         });
 
@@ -248,6 +253,7 @@ public class ZanBarChart extends BarChart {
                     public void onAnimationEnd(Animator animation) {
                         if (withNotify) {
                             onItemSelected((ChartItem) e.getData());
+                            mPreviousAnimatedValue = 0f;
                         }
                     }
                 });
