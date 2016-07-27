@@ -22,6 +22,7 @@ import java.util.List;
 public class BarChartRenderer extends BarLineScatterCandleBubbleRenderer {
     public static final float DEFAULT_BAR_RADIUS = 9.5f;
     public static final int DEFAULT_HIGHLIGHT_COLOR = 0x78000000;
+    public static final float DEFAULT_ZERO_HEIGHT_IN_DP = 5.f;
 
     protected BarDataProvider mDataProvider;
 
@@ -35,6 +36,7 @@ public class BarChartRenderer extends BarLineScatterCandleBubbleRenderer {
     protected Paint mShadowPaint;
     protected Paint mBarBorderPaint;
 
+    private float mHeightOfZero = Utils.convertDpToPixel(DEFAULT_ZERO_HEIGHT_IN_DP);
     private float mBarRadius = Utils.convertDpToPixel(DEFAULT_BAR_RADIUS);
 
     public BarChartRenderer(BarDataProvider chart, ChartAnimator animator,
@@ -138,10 +140,10 @@ public class BarChartRenderer extends BarLineScatterCandleBubbleRenderer {
 
     private void drawBarRect(Canvas canvas, float left, float top, float right, float bottom,
                              boolean withBorder) {
-        RectF barRect = new RectF(left, top, right, bottom);
-        canvas.drawRoundRect(barRect, mBarRadius, mBarRadius, mRenderPaint);
+        mBarRect.set(left, top - mHeightOfZero, right, bottom);
+        canvas.drawRoundRect(mBarRect, mBarRadius, mBarRadius, mRenderPaint);
         if (withBorder) {
-            canvas.drawRoundRect(barRect, mBarRadius, mBarRadius, mBarBorderPaint);
+            canvas.drawRoundRect(mBarRect, mBarRadius, mBarRadius, mBarBorderPaint);
         }
     }
 
@@ -149,6 +151,7 @@ public class BarChartRenderer extends BarLineScatterCandleBubbleRenderer {
                                           Transformer transformer) {
         mBarRect.set(x - halfBarWidth, y1, x + halfBarWidth, y2);
         transformer.rectToPixelPhase(mBarRect, mAnimator.getPhaseY());
+        mBarRect.top = mBarRect.top - mHeightOfZero;
     }
 
     @Override

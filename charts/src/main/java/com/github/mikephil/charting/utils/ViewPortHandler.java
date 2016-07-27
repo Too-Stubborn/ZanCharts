@@ -110,6 +110,7 @@ public class ViewPortHandler {
                                  float offsetRight, float offsetBottom) {
         mContentRect.set(offsetLeft, offsetTop, mChartWidth - offsetRight, 
             mChartHeight - offsetBottom);
+        mTransOffsetX = mContentRect.width() / 2 - Utils.convertDpToPixel(20);
     }
 
     public float offsetLeft() {

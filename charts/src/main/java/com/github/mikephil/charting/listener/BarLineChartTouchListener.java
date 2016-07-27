@@ -102,6 +102,7 @@ public class BarLineChartTouchListener extends ChartTouchListener<BarLineChartBa
 
         if (event.getActionMasked() == MotionEvent.ACTION_CANCEL) {
             if (mVelocityTracker != null) {
+                Log.d("fling", "action cancel");
                 mVelocityTracker.recycle();
                 mVelocityTracker = null;
             }
@@ -206,7 +207,7 @@ public class BarLineChartTouchListener extends ChartTouchListener<BarLineChartBa
                         mDecelerationVelocity.y = velocityY;
 
                         // This causes computeScroll to fire, recommended for this by google
-                        Utils.postInvalidateOnAnimation(mChart);
+                        //Utils.postInvalidateOnAnimation(mChart);
                     }
                 }
 
@@ -276,33 +277,26 @@ public class BarLineChartTouchListener extends ChartTouchListener<BarLineChartBa
      */
     private void performDrag(MotionEvent event) {
         mLastGesture = ChartGesture.DRAG;
-
         mTouchMatrix.set(mSavedMatrix);
 
-        OnChartGestureListener l = mChart.getOnChartGestureListener();
+        float dX = event.getX() - mTouchStartPoint.x;
+        float dY = event.getY() - mTouchStartPoint.y;
 
-        float dX, dY;
+        boolean reachingRight =
+                Math.abs(mChart.getXChartMax() - mChart.getHighestVisibleX()) <= 0.001;
 
-        // check if axis is inverted
-        if (inverted()) {
+        boolean reachingLeft =
+                Math.abs(mChart.getXChartMin() - mChart.getLowestVisibleX()) <= 0.001;
 
-            // if there is an inverted horizontalbarchart
-            if (mChart instanceof HorizontalBarChart) {
-                dX = -(event.getX() - mTouchStartPoint.x);
-                dY = event.getY() - mTouchStartPoint.y;
-            } else {
-                dX = event.getX() - mTouchStartPoint.x;
-                dY = -(event.getY() - mTouchStartPoint.y);
+        // moving to right
+        //if ((dX > 0 && !reachingLeft) || (dX < 0 && !reachingRight)) {
+            mTouchMatrix.postTranslate(dX, dY);
+
+            OnChartGestureListener listener = mChart.getOnChartGestureListener();
+            if (listener != null) {
+                listener.onChartTranslate(event, dX, dY);
             }
-        } else {
-            dX = event.getX() - mTouchStartPoint.x;
-            dY = event.getY() - mTouchStartPoint.y;
-        }
-
-        mTouchMatrix.postTranslate(dX, dY);
-
-        if (l != null)
-            l.onChartTranslate(event, dX, dY);
+        //}
     }
 
     /**

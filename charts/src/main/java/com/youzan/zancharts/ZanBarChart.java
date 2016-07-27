@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -34,6 +35,9 @@ public class ZanBarChart extends BarChart {
     private static final int DEFAULT_BAR_COLOR = 0xFF85D2FF;
     private static final int DEFAULT_HIGHLIGHT_COLOR = Color.WHITE;
 
+    private static final float BAR_WIDTH_IN_DP = 8f;
+    private static final float SPACE_BETWEEN_BARS_IN_DP = 15f;
+
     public interface OnItemSelectListener {
         void onSelected(ZanBarChart chart, ChartItem item);
     }
@@ -41,6 +45,8 @@ public class ZanBarChart extends BarChart {
     private OnItemSelectListener mOnItemSelectListener;
 
     private List<ChartItem> mItems;
+    private float mBarSpace;
+    private int mMaxEntryCount;
 
     public ZanBarChart(Context context) {
         super(context);
@@ -57,13 +63,13 @@ public class ZanBarChart extends BarChart {
     @Override
     protected void init() {
         super.init();
+
+        mBarSpace = Utils.convertDpToPixel(BAR_WIDTH_IN_DP + SPACE_BETWEEN_BARS_IN_DP);
+
         setOnChartGestureListener(new OnChartGestureListenerImp() {
             @Override
-            public void onChartGestureEnd(MotionEvent me, ChartTouchListener.ChartGesture gesture) {
-                if (gesture == ChartTouchListener.ChartGesture.DRAG
-                        || gesture == ChartTouchListener.ChartGesture.FLING) {
+            public void onChartTranslate(MotionEvent me, float dX, float dY) {
                     highlightCenterItem();
-                }
             }
         });
 
@@ -86,8 +92,8 @@ public class ZanBarChart extends BarChart {
         setDoubleTapToZoomEnabled(false);
         setDrawGridBackground(false);
         ViewPortHandler vph = getViewPortHandler();
-        vph.setMinMaxScaleX(2, 2);
         vph.setMinMaxScaleY(1, 1);
+        vph.setMinMaxScaleX(2, 2);
 
         // x
         XAxis xAxis = getXAxis();
@@ -113,13 +119,6 @@ public class ZanBarChart extends BarChart {
         setDescriptionTextSize(14f);
         setDescriptionColor(Color.WHITE);
 
-    }
-
-    @Override
-    protected void drawDescription(Canvas c) {
-        setDescriptionPosition(getWidth() / 2 + Utils.convertDpToPixel(20f),
-                getHeight() - getViewPortHandler().offsetBottom() + Utils.convertDpToPixel(5f));
-        super.drawDescription(c);
     }
 
     public void setItems(List<ChartItem> items) {
@@ -183,11 +182,24 @@ public class ZanBarChart extends BarChart {
 
         BarData barData = new BarData(dataSets);
         barData.setDrawValues(false);
-        barData.setBarWidth(0.4f);
 
+        // Calculate the bar width in value
+        mMaxEntryCount = dataSet.getEntryCount();
+        final float width = xAxis.mAxisRange / mMaxEntryCount / 3;
+        barData.setBarWidth(width);
         setData(barData);
+    }
 
-        //highlightCenterItem();
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+
+        if (mMaxEntryCount > 0) {
+            final ViewPortHandler port = getViewPortHandler();
+            final int barCountPerPort = (int) (port.contentWidth() / mBarSpace);
+            final float scale = mMaxEntryCount / (float) barCountPerPort;
+            port.setMinMaxScaleX(scale, scale);
+        }
     }
 
     public void setSelectedIndex(final int index) {
@@ -225,6 +237,7 @@ public class ZanBarChart extends BarChart {
 
     private void highlightCenterItem() {
         Highlight highlight = getHighlightByTouchPoint(getCenter().getX(), 0);
+        if (highlight == null) return;
         highlightValue(highlight);
         Entry entry = getBarData().getEntryForHighlight(highlight);
         onItemSelected((ChartItem) entry.getData());

@@ -1,21 +1,10 @@
 package com.youzan.zancharts.smaple;
 
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.RelativeSizeSpan;
-import android.text.style.StyleSpan;
-import android.widget.TextView;
+import android.support.v7.app.AppCompatActivity;
 
-import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.AxisBase;
-import com.github.mikephil.charting.formatter.AxisValueFormatter;
-import com.github.mikephil.charting.utils.ColorTemplate;
-import com.youzan.zancharts.ZanBarChart;
 import com.youzan.zancharts.ChartItem;
+import com.youzan.zancharts.ZanBarChart;
 import com.youzan.zancharts.ZanLineChart;
 import com.youzan.zancharts.ZanPieChart;
 import com.youzan.zancharts.smaple.test.Mocks;
