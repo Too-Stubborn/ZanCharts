@@ -115,7 +115,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
     /**
      * unit text that appears in the bottom right corner of the chart
      */
-    protected String mDescription = "Description";
+    protected String mDescText = "Description";
 
     /**
      * the object representing the labels on the x-axis
@@ -236,9 +236,11 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
 
         mXAxis = new XAxis();
 
-        mDescPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mDescPaint = new Paint();
+        mDescPaint.setAntiAlias(true);
+        mDescPaint.setStyle(Paint.Style.FILL);
         mDescPaint.setColor(Color.BLACK);
-        mDescPaint.setTextAlign(Align.RIGHT);
+        mDescPaint.setTextAlign(Align.CENTER);
         mDescPaint.setTextSize(Utils.convertDpToPixel(9f));
 
         mInfoPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -400,20 +402,30 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
     /**
      * the custom position of the unit text
      */
-    private MPPointF mDescriptionPosition;
+    private MPPointF mDescPos;
 
     /**
      * draws the unit text in the bottom right corner of the chart
      */
     protected void drawDescription(Canvas c) {
-        if (!mDescription.equals("")) {
-            if (mDescriptionPosition == null) {
-                c.drawText(mDescription, getWidth() - mViewPortHandler.offsetRight() - 10,
-                        getHeight() - mViewPortHandler.offsetBottom() - 10, mDescPaint);
-            } else {
-                c.drawText(mDescription, mDescriptionPosition.x, mDescriptionPosition.y,
-                        mDescPaint);
-            }
+        if (TextUtils.isEmpty(mDescText)) return;
+
+        centerDescription();
+        c.drawText(mDescText, mDescPos.x, mDescPos.y, mDescPaint);
+    }
+
+    public void centerDescription() {
+        ViewPortHandler port = getViewPortHandler();
+        final float textHeight = Utils.calcTextHeight(mDescPaint, mDescText);
+
+        final float x = port.getContentCenter().x;
+        final float y = port.contentBottom() + textHeight;
+
+        if (mDescPos == null) {
+            mDescPos = MPPointF.getInstance(x, y);
+        } else {
+            mDescPos.x = x;
+            mDescPos.y = y;
         }
     }
 
@@ -1015,9 +1027,9 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
      *
      * @param desc
      */
-    public void setDescription(String desc) {
+    public void setDescText(String desc) {
         if (desc == null) desc = "";
-        mDescription = desc;
+        mDescText = desc;
     }
 
     /**
@@ -1027,11 +1039,11 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
      * @param y - y physical coordinate
      */
     public void setDescriptionPosition(float x, float y) {
-        if (mDescriptionPosition == null) {
-            mDescriptionPosition = MPPointF.getInstance(x, y);
+        if (mDescPos == null) {
+            mDescPos = MPPointF.getInstance(x, y);
         } else {
-            mDescriptionPosition.x = x;
-            mDescriptionPosition.y = y;
+            mDescPos.x = x;
+            mDescPos.y = y;
         }
     }
 

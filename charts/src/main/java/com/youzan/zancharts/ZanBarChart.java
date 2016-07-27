@@ -217,7 +217,7 @@ public class ZanBarChart extends BarChart {
     }
 
     private void onItemSelected(ChartItem item) {
-        setDescription(item.title);
+        setDescText(item.title);
         if (mOnItemSelectListener != null) {
             mOnItemSelectListener.onSelected(this, item);
         }
