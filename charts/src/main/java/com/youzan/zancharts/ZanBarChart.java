@@ -18,8 +18,8 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.dataset.BarDataSet;
 import com.github.mikephil.charting.data.entry.BarEntry;
 import com.github.mikephil.charting.data.entry.Entry;
-import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.data.interfaces.datasets.IBarDataSet;
+import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.BarLineChartTouchListener;
 import com.github.mikephil.charting.listener.ChartTouchListener;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
@@ -50,6 +50,7 @@ public class ZanBarChart extends BarChart {
     private List<ChartItem> mItems;
     private float mBarSpace;
     private int mMaxEntryCount;
+    private float mBarCountPerPort;
 
     public ZanBarChart(Context context) {
         super(context);
@@ -99,7 +100,7 @@ public class ZanBarChart extends BarChart {
         setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
-                centerHighlight(e, h, 250);
+                centerHighlight(e, h);
             }
 
             @Override
@@ -111,6 +112,7 @@ public class ZanBarChart extends BarChart {
         // Description
         setNoDataText(null);
         setNoDataTextDescription(null);
+        setDescription(null);
 
         setDrawBarShadow(false);
         getLegend().setEnabled(false);
@@ -119,9 +121,10 @@ public class ZanBarChart extends BarChart {
         setScaleXEnabled(false);
         setDoubleTapToZoomEnabled(false);
         setDrawGridBackground(false);
+
+        // View port handler
         ViewPortHandler vph = getViewPortHandler();
         vph.setMinMaxScaleY(1, 1);
-        vph.setMinMaxScaleX(2, 2);
 
         // x
         XAxis xAxis = getXAxis();
@@ -146,6 +149,8 @@ public class ZanBarChart extends BarChart {
         // unit
         setDescriptionTextSize(14f);
         setDescriptionColor(Color.WHITE);
+
+        // View Port
 
     }
 
@@ -178,7 +183,7 @@ public class ZanBarChart extends BarChart {
         mOnItemSelectListener = listener;
     }
 
-    public void updateUI() {
+    private void updateUI() {
         if (mItems == null || mItems.size() == 0) return;
 
         final int size = mItems.size();
@@ -213,7 +218,7 @@ public class ZanBarChart extends BarChart {
 
         // Calculate the bar width in value
         mMaxEntryCount = dataSet.getEntryCount();
-        final float width = xAxis.mAxisRange / mMaxEntryCount / 3;
+        final float width = 0.3f;
         barData.setBarWidth(width);
         setData(barData);
     }
@@ -224,8 +229,8 @@ public class ZanBarChart extends BarChart {
 
         if (mMaxEntryCount > 0) {
             final ViewPortHandler port = getViewPortHandler();
-            final int barCountPerPort = (int) (port.contentWidth() / mBarSpace);
-            final float scale = mMaxEntryCount / (float) barCountPerPort;
+            mBarCountPerPort = port.contentWidth() / mBarSpace;
+            final float scale = mMaxEntryCount / mBarCountPerPort;
             port.setMinMaxScaleX(scale, scale);
         }
     }
@@ -235,11 +240,15 @@ public class ZanBarChart extends BarChart {
         if (index < 0 || index > mItems.size()) return;
 
         IBarDataSet set = getData().getDataSetByIndex(0);
-
         if (set == null) return;
 
-        BarEntry entry = set.getEntryForIndex(index);
-        highlightValue(entry.getX(), 0);
+        final float dx = (mBarCountPerPort / 2 - index - 1) * mBarSpace;
+        translate(dx, new OnTranslateListener() {
+            @Override
+            public void onTranslated() {
+                highlightCenterItem(true, true);
+            }
+        });
     }
 
     public void setSelectedItem(@NonNull final ChartItem item) {
@@ -259,22 +268,29 @@ public class ZanBarChart extends BarChart {
     private float mPreviousAnimatedValue = 0f;
     private ValueAnimator mCenterHighlightAnimator = new ValueAnimator();
 
-    private void centerHighlight(final Entry e, Highlight h, long duration) {
-        if (mCenterHighlightAnimator.isRunning()) return;
-
+    private void centerHighlight(final Entry e, Highlight h) {
         final float dx = getCenter().getX() - h.getXPx();
+        translate(dx, new OnTranslateListener() {
+            @Override
+            public void onTranslated() {
+                onItemSelected((ChartItem) e.getData());
+            }
+        });
+    }
+
+    private void translate(final float dx, @NonNull final OnTranslateListener translateListener) {
+        if (mCenterHighlightAnimator.isRunning()) return;
 
         BarLineChartTouchListener listener = (BarLineChartTouchListener) getOnTouchListener();
         final Matrix touchMatrix = listener.getMatrix();
 
         mPreviousAnimatedValue = 0f;
         mCenterHighlightAnimator.setFloatValues(mPreviousAnimatedValue, dx);
-        mCenterHighlightAnimator.setDuration(duration);
         mCenterHighlightAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 mPreviousAnimatedValue = 0f;
-                onItemSelected((ChartItem) e.getData());
+                translateListener.onTranslated();
             }
         });
         mCenterHighlightAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -288,6 +304,10 @@ public class ZanBarChart extends BarChart {
         });
 
         mCenterHighlightAnimator.start();
+    }
+
+    interface OnTranslateListener {
+        void onTranslated();
     }
 
     private void onItemSelected(ChartItem item) {
@@ -305,7 +325,7 @@ public class ZanBarChart extends BarChart {
 
         if (ending) {
             if (smooth) {
-                centerHighlight(entry, highlight, 300);
+                centerHighlight(entry, highlight);
             } else {
                 onItemSelected((ChartItem) entry.getData());
             }

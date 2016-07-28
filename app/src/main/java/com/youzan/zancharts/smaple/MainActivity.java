@@ -1,6 +1,7 @@
 package com.youzan.zancharts.smaple;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
 import com.youzan.zancharts.ChartItem;
@@ -16,11 +17,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ZanBarChart chart = (ZanBarChart) findViewById(R.id.bar_chart);
+        final ZanBarChart chart = (ZanBarChart) findViewById(R.id.bar_chart);
 
         assert chart != null;
+
         chart.setItems(Mocks.summary());
-        chart.setSelectedIndex(4);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                chart.setSelectedIndex(chart.getItems().size() - 2);
+            }
+        }, 1000);
 
         chart.setOnItemSelectListener(new ZanBarChart.OnItemSelectListener() {
             @Override
