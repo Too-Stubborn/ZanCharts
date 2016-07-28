@@ -44,6 +44,9 @@ public class ZanPieChart extends PieChart implements OnChartValueSelectedListene
     protected void init() {
         super.init();
 
+        // offset
+        setExtraOffsets(20f, 20f, 20f, 20f);
+
         // Description
         setNoDataText(null);
         setNoDataTextDescription(null);
@@ -53,8 +56,10 @@ public class ZanPieChart extends PieChart implements OnChartValueSelectedListene
         Legend legend = getLegend();
         legend.setOrientation(Legend.LegendOrientation.VERTICAL);
         legend.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
-        legend.setTextSize(15f);
+        legend.setTextSize(12f);
         legend.setFormSize(10f);
+        legend.setYOffset(-20f);
+        legend.setXOffset(8f);
 
         // Center text
         setDrawCenterText(true);
