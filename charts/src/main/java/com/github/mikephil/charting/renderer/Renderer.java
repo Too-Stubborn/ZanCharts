@@ -4,18 +4,17 @@ package com.github.mikephil.charting.renderer;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 
 /**
- * Abstract baseclass of all Renderers.
+ * Renderer base class.
  * 
  * @author Philipp Jahoda
+ * @author liangfei
  */
 public abstract class Renderer {
 
-    /**
-     * the component that handles the drawing area of the chart and it's offsets
-     */
+    /** The drawing area of the chart */
     protected ViewPortHandler mViewPortHandler;
 
     public Renderer(ViewPortHandler viewPortHandler) {
-        this.mViewPortHandler = viewPortHandler;
+        mViewPortHandler = viewPortHandler;
     }
 }

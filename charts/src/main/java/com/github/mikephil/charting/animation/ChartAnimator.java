@@ -58,12 +58,11 @@ public class ChartAnimator {
 
         ObjectAnimator animatorY = ObjectAnimator.ofFloat(this, "phaseY", 0f, 1f);
         animatorY.setInterpolator(easingY);
-        animatorY.setDuration(
-                durationMillisY);
+        animatorY.setDuration(durationMillisY);
+
         ObjectAnimator animatorX = ObjectAnimator.ofFloat(this, "phaseX", 0f, 1f);
         animatorX.setInterpolator(easingX);
-        animatorX.setDuration(
-                durationMillisX);
+        animatorX.setDuration(durationMillisX);
 
         // make sure only one animator produces update-callbacks (which then
         // call invalidate())

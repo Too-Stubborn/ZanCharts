@@ -97,7 +97,7 @@ public class ZanLineChart extends LineChart {
         leftAxis.setDrawAxisLine(false);
         leftAxis.setTextColor(0xFFCCCCCC);
         leftAxis.setTextSize(12.f);
-        //leftAxis.setYOffset(-10.f);
+        leftAxis.setYOffset(-8.f);
 
         // legend
         Legend legend = getLegend();

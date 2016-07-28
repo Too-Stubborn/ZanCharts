@@ -64,7 +64,7 @@ public class ZanBarChart extends BarChart {
     }
 
     private float mLastDragTransitionX = 0;
-    private float mDragStopThreshold = Utils.dp2px(0.1f);
+    private float mDragStopThreshold = Utils.dp2px(1f);
     private boolean mIsGestureEnding = false;
 
     @Override
