@@ -125,6 +125,7 @@ public class ZanBarChart extends BarChart {
         // View port handler
         ViewPortHandler vph = getViewPortHandler();
         vph.setMinMaxScaleY(1, 1);
+        vph.setNeedTranslateX(true);
 
         // x
         XAxis xAxis = getXAxis();
@@ -149,9 +150,6 @@ public class ZanBarChart extends BarChart {
         // unit
         setDescriptionTextSize(14f);
         setDescriptionColor(Color.WHITE);
-
-        // View Port
-
     }
 
     public void setItems(List<ChartItem> items) {

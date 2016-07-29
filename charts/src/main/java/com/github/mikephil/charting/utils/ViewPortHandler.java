@@ -106,11 +106,18 @@ public class ViewPortHandler {
         return mChartHeight > 0 && mChartWidth > 0;
     }
 
-    public void restrainViewPort(float offsetLeft, float offsetTop, 
+    private boolean mNeedTranslateX = false;
+    public void restrainViewPort(float offsetLeft, float offsetTop,
                                  float offsetRight, float offsetBottom) {
         mContentRect.set(offsetLeft, offsetTop, mChartWidth - offsetRight, 
             mChartHeight - offsetBottom);
-        mTransOffsetX = mContentRect.width() / 2 - Utils.dp2px(10);
+        if (mNeedTranslateX) {
+            mTransOffsetX = mContentRect.width() / 2 - Utils.dp2px(10);
+        }
+    }
+
+    public void setNeedTranslateX(boolean need) {
+        mNeedTranslateX = need;
     }
 
     public float offsetLeft() {

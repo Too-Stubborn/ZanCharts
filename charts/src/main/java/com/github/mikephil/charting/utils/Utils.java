@@ -115,18 +115,18 @@ public abstract class Utils {
      * @param px A value in px (pixels) unit. Which we need to convert into db
      * @return A float value to represent dp equivalent to px value
      */
-    public static float convertPixelsToDp(float px) {
+    public static float px2dp(float px) {
 
         if (mMetrics == null) {
 
             Log.e("MPChartLib-Utils",
                     "Utils NOT INITIALIZED. You need to call Utils.init(...) at least once before" +
-                            " calling Utils.convertPixelsToDp(...). Otherwise conversion does not" +
+                            " calling Utils.px2dp(...). Otherwise conversion does not" +
                             " take place.");
             return px;
             // throw new IllegalStateException(
             // "Utils NOT INITIALIZED. You need to call Utils.init(...) at least once before
-            // calling Utils.convertPixelsToDp(...).");
+            // calling Utils.px2dp(...).");
         }
 
         DisplayMetrics metrics = mMetrics;
