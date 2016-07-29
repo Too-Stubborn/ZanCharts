@@ -49,8 +49,8 @@ public class ZanBarChart extends BarChart {
 
     private List<ChartItem> mItems;
     private float mBarSpace;
-    private int mMaxEntryCount;
     private float mBarCountPerPort;
+    private ChartItem mSelectedItem;
 
     public ZanBarChart(Context context) {
         super(context);
@@ -217,27 +217,25 @@ public class ZanBarChart extends BarChart {
         barData.setDrawValues(false);
 
         // Calculate the bar width in value
-        mMaxEntryCount = dataSet.getEntryCount();
-        final float width = 0.3f;
+        int maxEntryCount = dataSet.getEntryCount();
+        if (maxEntryCount == 0) return;
+
+        final ViewPortHandler port = getViewPortHandler();
+        mBarCountPerPort = port.contentWidth() / mBarSpace;
+        final float scale = maxEntryCount / mBarCountPerPort;
+        port.setMinMaxScaleX(scale, scale);
+
+        final float width = xAxis.mAxisRange / maxEntryCount / 3;
         barData.setBarWidth(width);
         setData(barData);
     }
 
-    @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
-
-        if (mMaxEntryCount > 0) {
-            final ViewPortHandler port = getViewPortHandler();
-            mBarCountPerPort = port.contentWidth() / mBarSpace;
-            final float scale = mMaxEntryCount / mBarCountPerPort;
-            port.setMinMaxScaleX(scale, scale);
-        }
-    }
-
-    public void setSelectedIndex(final int index) {
+    public void setSelectedIndex(int index) {
         if (mItems == null || mItems.size() == 0) return;
         if (index < 0 || index > mItems.size()) return;
+
+        // Save the selected item.
+        mSelectedItem = mItems.get(index);
 
         IBarDataSet set = getData().getDataSetByIndex(0);
         if (set == null) return;
@@ -246,13 +244,17 @@ public class ZanBarChart extends BarChart {
         translate(dx, new OnTranslateListener() {
             @Override
             public void onTranslated() {
-                highlightCenterItem(true, true);
+                highlightCenterItem(true, false);
             }
         });
     }
 
-    public void setSelectedItem(@NonNull final ChartItem item) {
+    public int getSelectedIndex() {
+        if (mItems == null || mSelectedItem == null) return -1;
+        return mItems.indexOf(mSelectedItem);
+    }
 
+    public void setSelectedItem(@NonNull final ChartItem item) {
         setSelectedIndex(mItems.indexOf(item));
     }
 
@@ -312,6 +314,7 @@ public class ZanBarChart extends BarChart {
 
     private void onItemSelected(ChartItem item) {
         setDescription(item.title);
+        mSelectedItem = item;
         if (mOnItemSelectListener != null) {
             mOnItemSelectListener.onSelected(this, item);
         }
