@@ -51,6 +51,7 @@ public class ZanBarChart extends BarChart {
     private float mBarSpace;
     private float mBarCountPerPort;
     private ChartItem mSelectedItem;
+    private int mMaxEntryCount;
 
     public ZanBarChart(Context context) {
         super(context);
@@ -215,17 +216,21 @@ public class ZanBarChart extends BarChart {
         barData.setDrawValues(false);
 
         // Calculate the bar width in value
-        int maxEntryCount = dataSet.getEntryCount();
-        if (maxEntryCount == 0) return;
+        mMaxEntryCount = dataSet.getEntryCount();
+        if (mMaxEntryCount == 0) return;
 
-        final ViewPortHandler port = getViewPortHandler();
-        mBarCountPerPort = port.contentWidth() / mBarSpace;
-        final float scale = maxEntryCount / mBarCountPerPort;
-        port.setMinMaxScaleX(scale, scale);
-
-        final float width = xAxis.mAxisRange / maxEntryCount / 3;
+        final float width = xAxis.mAxisRange / mMaxEntryCount / 3;
         barData.setBarWidth(width);
         setData(barData);
+    }
+
+    @Override
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
+        final ViewPortHandler port = getViewPortHandler();
+        mBarCountPerPort = port.contentWidth() / mBarSpace;
+        final float scale = mMaxEntryCount / mBarCountPerPort;
+        port.setMinMaxScaleX(scale, scale);
     }
 
     public void setSelectedIndex(int index) {

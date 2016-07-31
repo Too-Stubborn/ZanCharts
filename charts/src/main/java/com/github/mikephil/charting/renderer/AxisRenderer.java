@@ -152,12 +152,8 @@ public abstract class AxisRenderer extends Renderer {
      * @return
      */
     protected void computeAxisValues(float min, float max) {
-
-        float yMin = min;
-        float yMax = max;
-
         int labelCount = mAxis.getLabelCount();
-        double range = Math.abs(yMax - yMin);
+        double range = Math.abs(max - min);
 
         if (labelCount == 0 || range <= 0) {
             mAxis.mEntries = new float[]{};
@@ -208,12 +204,12 @@ public abstract class AxisRenderer extends Renderer {
             // no forced count
         } else {
 
-            double first = interval == 0.0 ? 0.0 : Math.ceil(yMin / interval) * interval;
+            double first = interval == 0.0 ? 0.0 : Math.ceil(min / interval) * interval;
             if (centeringEnabled) {
                 first -= interval;
             }
 
-            double last = interval == 0.0 ? 0.0 : Utils.nextUp(Math.floor(yMax / interval) * interval);
+            double last = interval == 0.0 ? 0.0 : Utils.nextUp(Math.floor(max / interval) * interval);
 
             double f;
             int i;
