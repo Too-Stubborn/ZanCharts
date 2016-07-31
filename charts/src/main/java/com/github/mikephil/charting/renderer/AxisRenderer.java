@@ -19,10 +19,14 @@ import com.github.mikephil.charting.utils.ViewPortHandler;
  */
 public abstract class AxisRenderer extends Renderer {
 
-    /** base axis this axis renderer works with */
+    /**
+     * base axis this axis renderer works with
+     */
     protected AxisBase mAxis;
 
-    /** transformer to transform values to screen pixels and return */
+    /**
+     * transformer to transform values to screen pixels and return
+     */
     protected Transformer mTrans;
 
     /**
@@ -48,11 +52,10 @@ public abstract class AxisRenderer extends Renderer {
     public AxisRenderer(ViewPortHandler viewPortHandler, Transformer trans, AxisBase axis) {
         super(viewPortHandler);
 
-        this.mTrans = trans;
-        this.mAxis = axis;
+        mTrans = trans;
+        mAxis = axis;
 
-        if(mViewPortHandler != null) {
-
+        if (mViewPortHandler != null) {
             mAxisLabelPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
             mGridPaint = new Paint();
@@ -119,17 +122,19 @@ public abstract class AxisRenderer extends Renderer {
 
         // calculate the starting and entry point of the y-labels (depending on
         // zoom / contentrect bounds)
-        if (mViewPortHandler != null && mViewPortHandler.contentWidth() > 10 && !mViewPortHandler.isFullyZoomedOutY()) {
+        if (mViewPortHandler != null && mViewPortHandler.contentWidth() > 10
+                && !mViewPortHandler.isFullyZoomedOutY()) {
 
-            MPPointD p1 = mTrans.getValuesByTouchPoint(mViewPortHandler.contentLeft(), mViewPortHandler.contentTop());
-            MPPointD p2 = mTrans.getValuesByTouchPoint(mViewPortHandler.contentLeft(), mViewPortHandler.contentBottom());
+            MPPointD p1 = mTrans.getValuesByTouchPoint(mViewPortHandler.contentLeft(),
+                    mViewPortHandler.contentTop());
+
+            MPPointD p2 = mTrans.getValuesByTouchPoint(mViewPortHandler.contentLeft(),
+                    mViewPortHandler.contentBottom());
 
             if (!inverted) {
-
                 min = (float) p2.y;
                 max = (float) p1.y;
             } else {
-
                 min = (float) p1.y;
                 max = (float) p2.y;
             }
@@ -166,15 +171,15 @@ public abstract class AxisRenderer extends Renderer {
 
         // If granularity is enabled, then do not allow the interval to go below specified granularity.
         // This is used to avoid repeated values when rounding values for display.
-        if (mAxis.isGranularityEnabled())
-            interval = interval < mAxis.getGranularity() ? mAxis.getGranularity() : interval;
+        if (mAxis.isGranularityEnabled()) {
+            interval = Math.max(interval, mAxis.getGranularity());
+        }
 
         // Normalize interval
         double intervalMagnitude = Utils.roundToNextSignificant(Math.pow(10, (int) Math.log10(interval)));
         int intervalSigDigit = (int) (interval / intervalMagnitude);
         if (intervalSigDigit > 5) {
-            // Use one order of magnitude higher, to avoid intervals like 0.9 or
-            // 90
+            // Use one order of magnitude higher, to avoid intervals like 0.9 or 90
             interval = Math.floor(10 * intervalMagnitude);
         }
 
@@ -183,7 +188,6 @@ public abstract class AxisRenderer extends Renderer {
 
         // force label count
         if (mAxis.isForceLabelsEnabled()) {
-
             float step = (float) range / (float) (labelCount - 1);
             mAxis.mEntryCount = labelCount;
 
@@ -205,7 +209,7 @@ public abstract class AxisRenderer extends Renderer {
         } else {
 
             double first = interval == 0.0 ? 0.0 : Math.ceil(yMin / interval) * interval;
-            if(centeringEnabled) {
+            if (centeringEnabled) {
                 first -= interval;
             }
 
