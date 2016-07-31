@@ -64,6 +64,7 @@ public class ZanLineChart extends LineChart {
 
         // x axis
         XAxis xAxis = getXAxis();
+        xAxis.setAvoidFirstLastClipping(true);
         xAxis.setDrawLabels(true);
         xAxis.setDrawGridLines(false);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
@@ -163,6 +164,7 @@ public class ZanLineChart extends LineChart {
         }
 
         LineData data = new LineData(sets);
+        getXAxis().setLabelCount(data.getMaxEntryCountSet().getEntryCount(), true);
         setData(data);
     }
 }

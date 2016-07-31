@@ -10,6 +10,8 @@ import android.graphics.Path;
 import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.XAxis.XAxisPosition;
+import com.github.mikephil.charting.formatter.AxisValueFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.utils.FSize;
 import com.github.mikephil.charting.utils.MPPointD;
 import com.github.mikephil.charting.utils.MPPointF;
@@ -166,7 +168,6 @@ public class XAxisRenderer extends AxisRenderer {
 
         float[] positions = new float[mXAxis.mEntryCount << 1];
         for (int i = 0; i < positions.length; i += 2) {
-            // only fill x values
             if (centeringEnabled) {
                 positions[i] = mXAxis.mCenteredEntries[i >> 1];
             } else {
@@ -176,25 +177,20 @@ public class XAxisRenderer extends AxisRenderer {
 
         mTrans.pointValuesToPixel(positions);
 
-        for (int i = 0; i < positions.length; i += 2) {
-            float x = positions[i];
+        AxisValueFormatter formatter = mXAxis.getValueFormatter();
+
+        for (int i = 0; i < mXAxis.mEntries.length; i++) {
+            float x = positions[i << 1];
+
             if (!mViewPortHandler.isInBoundsX(x)) return;
 
-            String label = mXAxis.getValueFormatter().getFormattedValue(mXAxis.mEntries[i / 2], 
-                mXAxis);
+            String label = formatter.getFormattedValue(mXAxis.mEntries[i], mXAxis);
 
             if (mXAxis.isAvoidFirstLastClippingEnabled()) {
-                // avoid clipping of the last
-                float width = Utils.calcTextWidth(mAxisLabelPaint, label);
-                if (i == mXAxis.mEntryCount - 1 && mXAxis.mEntryCount > 1) {
-                    x = mViewPortHandler.getChartWidth() - width;
-                    //if (width > mViewPortHandler.offsetRight() * 2
-                    //        && x + width > mViewPortHandler.getChartWidth())
-                    //    x -= width / 2;
-
-                    // avoid clipping of the first
-                } else if (i == 0) {
-                    x += width / 2 + mViewPortHandler.offsetLeft();
+                if (i == 0) {
+                    x += mViewPortHandler.offsetLeft();
+                } else if (i == mXAxis.mEntries.length - 1) {
+                    x -= mViewPortHandler.offsetRight();
                 }
             }
 
