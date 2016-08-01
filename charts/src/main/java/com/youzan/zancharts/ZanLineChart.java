@@ -164,7 +164,6 @@ public class ZanLineChart extends LineChart {
         }
 
         LineData data = new LineData(sets);
-        getXAxis().setLabelCount(data.getMaxEntryCountSet().getEntryCount(), true);
         setData(data);
     }
 }
