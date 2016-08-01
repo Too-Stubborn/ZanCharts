@@ -26,9 +26,9 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                chart.setSelectedIndex(chart.getItems().size() - 2);
+                chart.setSelectedIndex(3);
             }
-        }, 1000);
+        }, 100);
 
         chart.setOnItemSelectListener(new ZanBarChart.OnItemSelectListener() {
             @Override

@@ -155,7 +155,9 @@ public class ZanBarChart extends BarChart {
     }
 
     public void setItems(List<ChartItem> items) {
+        clear();
         mItems = new ArrayList<>(items);
+        mSelectedItem = null;
         updateUI();
     }
 
@@ -185,6 +187,11 @@ public class ZanBarChart extends BarChart {
 
     private void updateUI() {
         if (mItems == null || mItems.size() == 0) return;
+
+        // reset touch matrix
+        BarLineChartTouchListener listener = (BarLineChartTouchListener) getOnTouchListener();
+        final Matrix touchMatrix = listener.getMatrix();
+        touchMatrix.setTranslate(0, 0);
 
         final int size = mItems.size();
         XAxis xAxis = getXAxis();
@@ -244,7 +251,11 @@ public class ZanBarChart extends BarChart {
         IBarDataSet set = getData().getDataSetByIndex(0);
         if (set == null) return;
 
-        final float dx = (mBarCountPerPort / 2 - index - 1) * mBarSpace;
+        Entry middleEntry = getEntryByTouchPoint(getWidth() / 2, 0);
+        ChartItem middleItem = (ChartItem) middleEntry.getData();
+        final int middleIndex = mItems.indexOf(middleItem);
+
+        final float dx = (middleIndex - index) * mBarSpace;
         translate(dx, new OnTranslateListener() {
             @Override
             public void onTranslated() {
@@ -256,6 +267,10 @@ public class ZanBarChart extends BarChart {
     public int getSelectedIndex() {
         if (mItems == null || mSelectedItem == null) return -1;
         return mItems.indexOf(mSelectedItem);
+    }
+
+    public ChartItem getSelectedItem() {
+        return mSelectedItem;
     }
 
     public void setSelectedItem(@NonNull final ChartItem item) {
