@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Typeface;
+import android.text.TextUtils;
 
 import com.github.mikephil.charting.charts.BarLineChartBase;
 import com.github.mikephil.charting.components.Legend;
@@ -13,6 +14,7 @@ import com.github.mikephil.charting.data.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.data.interfaces.datasets.ICandleDataSet;
 import com.github.mikephil.charting.data.interfaces.datasets.IDataSet;
 import com.github.mikephil.charting.data.interfaces.datasets.IPieDataSet;
+import com.github.mikephil.charting.formatter.DefaultValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.FSize;
 import com.github.mikephil.charting.utils.Utils;
@@ -267,7 +269,6 @@ public class LegendRenderer extends Renderer {
                 }
 
                 int lineIndex = 0;
-
                 for (int i = 0, count = labels.length; i < count; i++) {
                     if (i < calculatedLabelBreakPoints.size() && calculatedLabelBreakPoints.get(i)) {
                         posX = originPosX;
@@ -304,7 +305,7 @@ public class LegendRenderer extends Renderer {
                         if (direction == Legend.LegendDirection.RIGHT_TO_LEFT)
                             posX -= calculatedLabelSizes.get(i).width;
 
-                        drawLabel(c, posX, posY + labelLineHeight, labels[i]);
+                        drawLabel(c, posX, posY + labelLineHeight, labels[i], i);
 
                         if (direction == Legend.LegendDirection.LEFT_TO_RIGHT)
                             posX += calculatedLabelSizes.get(i).width;
@@ -430,6 +431,20 @@ public class LegendRenderer extends Renderer {
      * Draws the provided label at the given position.
      */
     protected void drawLabel(Canvas c, float x, float y, String label) {
+        c.drawText(label, x, y, mLabelPaint);
+    }
+
+    protected void drawLabel(Canvas c, float x, float y, String label, int index) {
+        final int colonIndex = label.indexOf(':');
+        if (colonIndex != -1) {
+            String value = label.substring(colonIndex + 2);
+            label = label.substring(0, colonIndex + 2);
+            final int color = mLabelPaint.getColor();
+            mLabelPaint.setColor(mLegend.getColors()[index]);
+            c.drawText(value, x + Utils.calcTextWidth(mLabelPaint, label), y, mLabelPaint);
+            mLabelPaint.setColor(color);
+        }
+
         c.drawText(label, x, y, mLabelPaint);
     }
 }

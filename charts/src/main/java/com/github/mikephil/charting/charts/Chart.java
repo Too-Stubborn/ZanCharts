@@ -402,32 +402,17 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
     /**
      * the custom position of the unit text
      */
-    private MPPointF mDescPos;
+    protected MPPointF mDescPos;
 
     /**
      * draws the unit text in the bottom right corner of the chart
      */
     protected void drawDescription(Canvas c) {
         if (TextUtils.isEmpty(mDescText)) return;
-
-        centerDescription();
         c.drawText(mDescText, mDescPos.x, mDescPos.y, mDescPaint);
     }
 
-    public void centerDescription() {
-        ViewPortHandler port = getViewPortHandler();
-        final float textHeight = Utils.calcTextHeight(mDescPaint, mDescText);
 
-        final float x = port.getContentCenter().x;
-        final float y = port.contentBottom() + textHeight;
-
-        if (mDescPos == null) {
-            mDescPos = MPPointF.getInstance(x, y);
-        } else {
-            mDescPos.x = x;
-            mDescPos.y = y;
-        }
-    }
 
     /**
      * ################ ################ ################ ################

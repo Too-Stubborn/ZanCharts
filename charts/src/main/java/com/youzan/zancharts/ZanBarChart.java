@@ -4,10 +4,12 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
@@ -23,6 +25,7 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.BarLineChartTouchListener;
 import com.github.mikephil.charting.listener.ChartTouchListener;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.github.mikephil.charting.utils.MPPointF;
 import com.github.mikephil.charting.utils.Utils;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.youzan.zancharts.internal.OnChartGestureListenerImp;
@@ -351,6 +354,30 @@ public class ZanBarChart extends BarChart {
             } else {
                 onItemSelected((ChartItem) entry.getData());
             }
+        }
+    }
+
+    @Override
+    protected void drawDescription(Canvas c) {
+        if (TextUtils.isEmpty(mDescText)) return;
+
+        centerDescription();
+
+        super.drawDescription(c);
+    }
+
+    private void centerDescription() {
+        ViewPortHandler port = getViewPortHandler();
+        final float textHeight = Utils.calcTextHeight(mDescPaint, mDescText);
+
+        final float x = port.getContentCenter().x;
+        final float y = port.contentBottom() + textHeight;
+
+        if (mDescPos == null) {
+            mDescPos = MPPointF.getInstance(x, y);
+        } else {
+            mDescPos.x = x;
+            mDescPos.y = y;
         }
     }
 }

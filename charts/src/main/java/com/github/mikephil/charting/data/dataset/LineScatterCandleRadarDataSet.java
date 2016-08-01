@@ -17,7 +17,7 @@ public abstract class LineScatterCandleRadarDataSet<T extends Entry> extends Bar
     protected boolean mDrawHorizontalHighlightIndicator = true;
 
     /** the width of the highlight indicator lines */
-    protected float mHighlightLineWidth = 0.5f;
+    protected float mHighlightLineWidth;
 
     /** the path effect for dashed highlight-lines */
     protected DashPathEffect mHighlightDashPathEffect = null;
@@ -25,7 +25,7 @@ public abstract class LineScatterCandleRadarDataSet<T extends Entry> extends Bar
 
     public LineScatterCandleRadarDataSet(List<T> yVals, String label) {
         super(yVals, label);
-        mHighlightLineWidth = Utils.dp2px(0.5f);
+        mHighlightLineWidth = Utils.dp2px(1f);
     }
 
     /**
@@ -103,7 +103,7 @@ public abstract class LineScatterCandleRadarDataSet<T extends Entry> extends Bar
      * @return
      */
     public boolean isDashedHighlightLineEnabled() {
-        return mHighlightDashPathEffect == null ? false : true;
+        return mHighlightDashPathEffect != null;
     }
 
     @Override

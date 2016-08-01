@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
         ZanLineChart lineChart = (ZanLineChart) findViewById(R.id.line_chart);
         assert lineChart != null;
 
+        lineChart.setHighlightEnabled(true);
+        lineChart.getXAxis().setLabelCount(6, true);
         lineChart.addLines(Mocks.fanLines());
 
         // pie chart

@@ -12,15 +12,26 @@ import java.util.Locale;
 
 public class Dates {
     public static DateFormat sCanonicalNDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+    public static DateFormat sChineseDateFormat = new SimpleDateFormat("yyyy年MM月dd", Locale.CHINESE);
     public static DateFormat sSimpleDateFormat = new SimpleDateFormat("MM/dd", Locale.US);
 
-    public static String simplify(final String dateStr) {
+    public static String simplify(final String dateString) {
         try {
-            Date date = sCanonicalNDateFormat.parse(dateStr);
+            Date date = sCanonicalNDateFormat.parse(dateString);
             return sSimpleDateFormat.format(date);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return dateStr;
+        return dateString;
+    }
+
+    public static String toChinese(final String dateString) {
+        try {
+            Date date = sCanonicalNDateFormat.parse(dateString);
+            return sChineseDateFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return dateString;
     }
 }
