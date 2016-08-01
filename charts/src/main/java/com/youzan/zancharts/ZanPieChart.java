@@ -26,6 +26,8 @@ import java.util.Locale;
  */
 
 public class ZanPieChart extends PieChart implements OnChartValueSelectedListener {
+    private static final int NO_DATA_COLOR = 0xFFF3F4F5;
+
     private List<PieChartItem> mItems;
 
     public ZanPieChart(Context context) {
@@ -93,13 +95,15 @@ public class ZanPieChart extends PieChart implements OnChartValueSelectedListene
         final int size = mItems.size();
         List<PieEntry> entries = new ArrayList<>(size);
 
-        final int[] colors = new int[size];
+        int[] colors = new int[size];
+        float sum = 0;
         for (int i = 0; i < size; i++) {
             PieChartItem item = mItems.get(i);
             colors[i] = item.color;
             float value = 0f;
             try {
                 value = Float.parseFloat(item.value);
+                sum += value;
             } catch (NumberFormatException e) {
                 e.printStackTrace();
             }
@@ -108,6 +112,15 @@ public class ZanPieChart extends PieChart implements OnChartValueSelectedListene
         }
 
         PieDataSet set = new PieDataSet(entries, "");
+        if (sum == 0.0f) {
+            entries.clear();
+            entries.add(new PieEntry(1f));
+            colors = new int[1];
+            colors[0] = NO_DATA_COLOR;
+            setCenterText("无数据");
+            setTouchEnabled(false);
+        }
+
         set.setDrawValues(false);
         set.setColors(colors);
         set.setSelectionShift(5f);
@@ -117,7 +130,9 @@ public class ZanPieChart extends PieChart implements OnChartValueSelectedListene
 
         setData(data);
 
-        highlightValue(entries.get(0).getX(), 0);
+        if (sum > 0.0f) {
+            highlightValue(entries.get(0).getX(), 0);
+        }
     }
 
     @Override

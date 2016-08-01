@@ -47,9 +47,9 @@ public class Mocks {
     public static List<PieChartItem> fans() {
         return new ArrayList<PieChartItem>() {
             {
-                add(new PieChartItem("one", "one", "1", Color.BLACK, "人数"));
-                add(new PieChartItem("two", "two", "2", Color.RED, "人数"));
-                add(new PieChartItem("three", "three", "3", Color.BLUE, "人数"));
+                add(new PieChartItem("one", "one", "0", Color.BLACK, "人数"));
+                add(new PieChartItem("two", "two", "0", Color.RED, "人数"));
+                add(new PieChartItem("three", "three", "0", Color.BLUE, "人数"));
             }
         };
     }
