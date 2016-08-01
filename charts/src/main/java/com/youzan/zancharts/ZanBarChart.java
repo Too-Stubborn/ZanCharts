@@ -140,7 +140,8 @@ public class ZanBarChart extends BarChart {
         leftAxis.setDrawAxisLine(false);
         leftAxis.enableGridDashedLine(10f, 5f, 0);
         leftAxis.setGridColor(Color.WHITE);
-        leftAxis.setSpaceTop(30);
+        leftAxis.setSpaceTop(30f);
+        leftAxis.setAxisMinValue(0f);
 
         // right y
         YAxis rightAxis = getAxisRight();
