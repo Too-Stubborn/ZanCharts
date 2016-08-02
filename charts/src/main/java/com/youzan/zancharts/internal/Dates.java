@@ -27,7 +27,7 @@ public class Dates {
 
     public static String toChinese(final String dateString) {
         try {
-            Date date = sCanonicalNDateFormat.parse(dateString);
+            Date date = sSimpleDateFormat.parse(dateString);
             return sChineseDateFormat.format(date);
         } catch (ParseException e) {
             e.printStackTrace();
