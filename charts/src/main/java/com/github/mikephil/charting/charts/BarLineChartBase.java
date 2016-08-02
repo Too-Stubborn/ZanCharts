@@ -57,7 +57,7 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
     /**
      * flag that indicates if auto scaling on the y axis is enabled
      */
-    protected boolean mAutoScaleMinMaxEnabled = false;
+    protected boolean mAutoScaleMinMaxEnabled;
     private Float mAutoScaleLastLowestVisibleXIndex = null;
     private Float mAutoScaleLastHighestVisibleXIndex = null;
 
@@ -66,26 +66,26 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
      * can be scaled with 2 fingers, if false, x and y axis can be scaled
      * separately
      */
-    protected boolean mPinchZoomEnabled = false;
+    protected boolean mPinchZoomEnabled;
 
     /**
      * flag that indicates if double tap zoom is enabled or not
      */
-    protected boolean mDoubleTapToZoomEnabled = true;
+    protected boolean mDoubleTapToZoomEnabled;
 
     /**
      * flag that indicates if highlighting per dragging over a fully zoomed out
      * chart is enabled
      */
-    protected boolean mHighlightPerDragEnabled = true;
+    protected boolean mHighlightPerDragEnabled;
 
     /**
      * if true, dragging is enabled for the chart
      */
-    private boolean mDragEnabled = true;
+    private boolean mDragEnabled;
 
-    private boolean mScaleXEnabled = true;
-    private boolean mScaleYEnabled = true;
+    private boolean mScaleXEnabled;
+    private boolean mScaleYEnabled;
 
     /**
      * paint object for the (by default) lightgrey background of the grid
@@ -97,9 +97,9 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
     /**
      * flag indicating if the grid background should be drawn or not
      */
-    protected boolean mDrawGridBackground = false;
+    protected boolean mDrawGridBackground;
 
-    protected boolean mDrawBorders = false;
+    protected boolean mDrawBorders;
 
     /**
      * Sets the minimum offset (padding) around the chart, defaults to 15
@@ -110,7 +110,7 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
      * flag indicating if the chart should stay at the same position after a rotation. 
      * Default is false.
      */
-    protected boolean mKeepPositionOnRotation = false;
+    protected boolean mKeepPositionOnRotation;
 
     /**
      * the listener for user drawing on the chart

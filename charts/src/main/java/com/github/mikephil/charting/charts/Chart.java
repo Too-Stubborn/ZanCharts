@@ -1020,7 +1020,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
     /**
      * Sets a custom position for the unit text in pixels on the screen.
      *
-     * @param x - x phycical coordinate
+     * @param x - x physical coordinate
      * @param y - y physical coordinate
      */
     public void setDescriptionPosition(float x, float y) {

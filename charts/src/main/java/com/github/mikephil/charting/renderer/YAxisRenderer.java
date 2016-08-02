@@ -26,14 +26,15 @@ public class YAxisRenderer extends AxisRenderer {
     public YAxisRenderer(ViewPortHandler viewPortHandler, YAxis yAxis, Transformer trans) {
         super(viewPortHandler, trans, yAxis);
 
-        this.mYAxis = yAxis;
+        mYAxis = yAxis;
 
-        if(mViewPortHandler != null) {
+        if (mViewPortHandler != null) {
 
             mAxisLabelPaint.setColor(Color.BLACK);
             mAxisLabelPaint.setTextSize(Utils.dp2px(10f));
 
             mZeroLinePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+            mZeroLinePaint.setPathEffect(mYAxis.getGridDashPathEffect());
             mZeroLinePaint.setColor(Color.GRAY);
             mZeroLinePaint.setStrokeWidth(1f);
             mZeroLinePaint.setStyle(Paint.Style.STROKE);
@@ -46,8 +47,7 @@ public class YAxisRenderer extends AxisRenderer {
     @Override
     public void renderAxisLabels(Canvas c) {
 
-        if (!mYAxis.isEnabled() || !mYAxis.isDrawLabelsEnabled())
-            return;
+        if (!mYAxis.isEnabled() || !mYAxis.isDrawLabelsEnabled()) return;
 
         float[] positions = getTransformedPositions();
 
@@ -66,7 +66,7 @@ public class YAxisRenderer extends AxisRenderer {
         if (dependency == AxisDependency.LEFT) {
 
             if (labelPosition == YAxisLabelPosition.OUTSIDE_CHART) {
-                mAxisLabelPaint.setTextAlign(Align.RIGHT);
+                mAxisLabelPaint.setTextAlign(Align.LEFT);
                 xPos = mViewPortHandler.offsetLeft() - xoffset;
             } else {
                 mAxisLabelPaint.setTextAlign(Align.LEFT);
@@ -79,7 +79,7 @@ public class YAxisRenderer extends AxisRenderer {
                 mAxisLabelPaint.setTextAlign(Align.LEFT);
                 xPos = mViewPortHandler.contentRight() + xoffset;
             } else {
-                mAxisLabelPaint.setTextAlign(Align.RIGHT);
+                mAxisLabelPaint.setTextAlign(Align.LEFT);
                 xPos = mViewPortHandler.contentRight() - xoffset;
             }
         }
@@ -97,11 +97,13 @@ public class YAxisRenderer extends AxisRenderer {
         mAxisLinePaint.setStrokeWidth(mYAxis.getAxisLineWidth());
 
         if (mYAxis.getAxisDependency() == AxisDependency.LEFT) {
-            c.drawLine(mViewPortHandler.contentLeft(), mViewPortHandler.contentTop(), mViewPortHandler.contentLeft(),
-                    mViewPortHandler.contentBottom(), mAxisLinePaint);
+            c.drawLine(mViewPortHandler.contentLeft(), mViewPortHandler.contentTop(),
+                    mViewPortHandler.contentLeft(), mViewPortHandler.contentBottom(),
+                    mAxisLinePaint);
         } else {
-            c.drawLine(mViewPortHandler.contentRight(), mViewPortHandler.contentTop(), mViewPortHandler.contentRight(),
-                    mViewPortHandler.contentBottom(), mAxisLinePaint);
+            c.drawLine(mViewPortHandler.contentRight(), mViewPortHandler.contentTop(),
+                    mViewPortHandler.contentRight(), mViewPortHandler.contentBottom(),
+                    mAxisLinePaint);
         }
     }
 
@@ -126,6 +128,7 @@ public class YAxisRenderer extends AxisRenderer {
     }
 
     protected Path mRenderGridLinesPath = new Path();
+
     @Override
     public void renderGridLines(Canvas c) {
 
@@ -174,6 +177,7 @@ public class YAxisRenderer extends AxisRenderer {
     }
 
     protected float[] mGetTransformedPositionsBuffer = new float[2];
+
     /**
      * Transforms the values contained in the axis entries to screen pixels and returns them in form of a float array
      * of x- and y-coordinates.
@@ -182,9 +186,10 @@ public class YAxisRenderer extends AxisRenderer {
      */
     protected float[] getTransformedPositions() {
 
-        if(mGetTransformedPositionsBuffer.length != mYAxis.mEntryCount * 2){
+        if (mGetTransformedPositionsBuffer.length != mYAxis.mEntryCount * 2) {
             mGetTransformedPositionsBuffer = new float[mYAxis.mEntryCount * 2];
         }
+
         float[] positions = mGetTransformedPositionsBuffer;
 
         for (int i = 0; i < positions.length; i += 2) {
@@ -197,29 +202,25 @@ public class YAxisRenderer extends AxisRenderer {
     }
 
     protected Path mDrawZeroLinePath = new Path();
+
     /**
      * Draws the zero line.
      */
     protected void drawZeroLine(Canvas c) {
-
-        // draw zero line
         MPPointD pos = mTrans.getPixelsForValues(0f, 0f);
-
-        mZeroLinePaint.setColor(mYAxis.getZeroLineColor());
-        mZeroLinePaint.setStrokeWidth(mYAxis.getZeroLineWidth());
 
         Path zeroLinePath = mDrawZeroLinePath;
         zeroLinePath.reset();
-
         zeroLinePath.moveTo(mViewPortHandler.contentLeft(), (float) pos.y - 1);
         zeroLinePath.lineTo(mViewPortHandler.contentRight(), (float) pos.y - 1);
 
         // draw a path because lines don't support dashing on lower android versions
-        c.drawPath(zeroLinePath, mZeroLinePaint);
+        c.drawPath(zeroLinePath, mGridPaint);
     }
 
     protected Path mRenderLimitLines = new Path();
     protected float[] mRenderLimitLinesBuffer = new float[2];
+
     /**
      * Draws the LimitLines associated with this axis to the screen.
      *

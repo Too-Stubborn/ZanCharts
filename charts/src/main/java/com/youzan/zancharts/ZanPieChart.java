@@ -26,7 +26,6 @@ import java.util.Locale;
  */
 
 public class ZanPieChart extends PieChart implements OnChartValueSelectedListener {
-    private static final int NO_DATA_COLOR = 0xFFF3F4F5;
 
     private List<PieChartItem> mItems;
 
@@ -86,52 +85,23 @@ public class ZanPieChart extends PieChart implements OnChartValueSelectedListene
         setEntryLabelColor(Color.WHITE);
     }
 
+    private static final boolean ZERO_DEBUG = false;
+
     public void setItems(List<PieChartItem> items) {
         mItems = items;
+        if (ZERO_DEBUG) {
+            for (PieChartItem item : items) {
+                item.value = "0";
+            }
+        }
         updateUI();
     }
 
-    private boolean checkNoData(List<PieChartItem> items) {
-        boolean noData;
-        if (mItems == null || mItems.size() == 0) {
-            noData = true;
-        } else {
-            float sum = 0f;
-            for (int i = 0, size = items.size(); i < size; i++) {
-                try {
-                    sum += Float.parseFloat(items.get(i).value);
-                } catch (NumberFormatException e) {
-
-                }
-            }
-            noData = sum <= 0.0f;
-        }
-
-        if (noData) {
-            setCenterText("无数据");
-            setTouchEnabled(false);
-            getLegend().setEnabled(false);
-
-            List<PieEntry> entries = new ArrayList<>();
-            entries.add(new PieEntry(1f));
-
-            PieDataSet dataSet = new PieDataSet(entries, "");
-            dataSet.setDrawValues(false);
-            dataSet.setColors(0xFFF3F4F5);
-
-            setData(new PieData(dataSet));
-            invalidate();
-        }
-
-        return noData;
-    }
-
     private void updateUI() {
-        if (checkNoData(mItems)) return;
-
         final int size = mItems.size();
         List<PieEntry> entries = new ArrayList<>(size);
 
+        float sum = 0f;
         int[] colors = new int[size];
         for (int i = 0; i < size; i++) {
             PieChartItem item = mItems.get(i);
@@ -142,22 +112,35 @@ public class ZanPieChart extends PieChart implements OnChartValueSelectedListene
             } catch (NumberFormatException e) {
                 e.printStackTrace();
             }
+            sum += value;
             PieEntry entry = new PieEntry(value, item.title, item);
             entries.add(entry);
         }
 
         PieDataSet set = new PieDataSet(entries, "");
-
         set.setDrawValues(false);
         set.setColors(colors);
         set.setSelectionShift(5f);
+
+        // No data if sum equals zero
+        boolean noData = sum < 0.000001;
+        if (noData) {
+            PieEntry entry = entries.get(0);
+            entry.setY(1);
+            entry.mocked = true;
+            setCenterText("无数据");
+            setTouchEnabled(false);
+        }
 
         PieData data = new PieData(set);
         data.setValueFormatter(new PercentFormatter());
 
         setData(data);
+        invalidate();
 
-        highlightValue(entries.get(0).getX(), 0);
+        if (!noData) {
+            highlightValue(entries.get(0).getX(), 0);
+        }
     }
 
     @Override

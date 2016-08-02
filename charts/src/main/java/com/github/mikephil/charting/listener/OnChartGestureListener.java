@@ -73,4 +73,7 @@ public interface OnChartGestureListener {
      * @param dY translation distance on the y-axis
      */
     void onChartTranslate(MotionEvent me, float dX, float dY);
+
+    void onScrollEnd();
+
 }

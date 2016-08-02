@@ -206,7 +206,7 @@ public class BarLineChartTouchListener extends ChartTouchListener<BarLineChartBa
                         mDecelerationVelocity.y = velocityY;
 
                         // This causes computeScroll to fire, recommended for this by google
-                        //Utils.postInvalidateOnAnimation(mChart);
+                        Utils.postInvalidateOnAnimation(mChart);
                     }
                 }
 
@@ -281,21 +281,13 @@ public class BarLineChartTouchListener extends ChartTouchListener<BarLineChartBa
         float dX = event.getX() - mTouchStartPoint.x;
         float dY = event.getY() - mTouchStartPoint.y;
 
-        boolean reachingRight =
-                Math.abs(mChart.getXChartMax() - mChart.getHighestVisibleX()) <= 0.001;
-
-        boolean reachingLeft =
-                Math.abs(mChart.getXChartMin() - mChart.getLowestVisibleX()) <= 0.001;
-
         // moving to right
-        //if ((dX > 0 && !reachingLeft) || (dX < 0 && !reachingRight)) {
-            mTouchMatrix.postTranslate(dX, dY);
+        mTouchMatrix.postTranslate(dX, dY);
 
-            OnChartGestureListener listener = mChart.getOnChartGestureListener();
-            if (listener != null) {
-                listener.onChartTranslate(event, dX, dY);
-            }
-        //}
+        OnChartGestureListener listener = mChart.getOnChartGestureListener();
+        if (listener != null) {
+            listener.onChartTranslate(event, dX, dY);
+        }
     }
 
     /**
@@ -589,7 +581,6 @@ public class BarLineChartTouchListener extends ChartTouchListener<BarLineChartBa
         mLastGesture = ChartGesture.FLING;
 
         OnChartGestureListener l = mChart.getOnChartGestureListener();
-
         if (l != null) {
             l.onChartFling(e1, e2, velocityX, velocityY);
         }
@@ -628,7 +619,7 @@ public class BarLineChartTouchListener extends ChartTouchListener<BarLineChartBa
 
         mDecelerationLastTime = currentTime;
 
-        if (Math.abs(mDecelerationVelocity.x) >= 0.01 || Math.abs(mDecelerationVelocity.y) >= 0.01)
+        if (Math.abs(mDecelerationVelocity.x) >= 0.1 || Math.abs(mDecelerationVelocity.y) >= 0.1)
             Utils.postInvalidateOnAnimation(mChart); // This causes computeScroll to fire, recommended for this by Google
         else {
             // Range might have changed, which means that Y-axis labels
@@ -638,6 +629,11 @@ public class BarLineChartTouchListener extends ChartTouchListener<BarLineChartBa
             mChart.postInvalidate();
 
             stopDeceleration();
+
+            OnChartGestureListener l = mChart.getOnChartGestureListener();
+            if (l != null) {
+                l.onScrollEnd();
+            }
         }
     }
 }

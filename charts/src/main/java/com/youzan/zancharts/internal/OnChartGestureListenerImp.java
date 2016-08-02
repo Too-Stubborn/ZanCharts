@@ -49,4 +49,9 @@ public class OnChartGestureListenerImp implements OnChartGestureListener {
     public void onChartTranslate(MotionEvent me, float dX, float dY) {
 
     }
+
+    @Override
+    public void onScrollEnd() {
+
+    }
 }

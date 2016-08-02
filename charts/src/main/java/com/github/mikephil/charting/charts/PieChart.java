@@ -27,6 +27,8 @@ import java.util.List;
  */
 public class PieChart extends PieRadarChartBase<PieData> {
 
+    public static final int NO_DATA_COLOR = 0xFFF3F4F5;
+
     /**
      * rect object that represents the bounds of the piechart, needed for
      * drawing the circle

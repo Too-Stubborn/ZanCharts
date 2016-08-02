@@ -64,6 +64,8 @@ public class ZanLineChart extends LineChart {
         mDescPaint.setTextSize(Utils.dp2px(16));
 
         // gestures
+        setTouchEnabled(true);
+        setScaleEnabled(false);
         setDragEnabled(false);
         setPinchZoom(false);
         setDoubleTapToZoomEnabled(false);
@@ -80,20 +82,19 @@ public class ZanLineChart extends LineChart {
         xAxis.setDrawLabels(true);
         xAxis.setDrawGridLines(false);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        //xAxis.setValueFormatter(new AxisValueFormatter() {
-        //    @Override
-        //    public String getFormattedValue(float value, AxisBase axis) {
-        //        Entry entry = getData().getDataSetByIndex(0).getEntryForXPos(value);
-        //        if (entry == null) return String.valueOf(value);
-        //        String date = ((ChartItem) entry.getData()).title;
-        //        return Dates.simplify(date);
-        //    }
+        xAxis.setValueFormatter(new AxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                Entry entry = getData().getDataSetByIndex(0).getEntryForXPos(value);
+                if (entry == null) return String.valueOf(value);
+                return ((ChartItem) entry.getData()).title;
+            }
 
-        //    @Override
-        //    public int getDecimalDigits() {
-        //        return 0;
-        //    }
-        //});
+            @Override
+            public int getDecimalDigits() {
+                return 0;
+            }
+        });
 
         // right axis
         YAxis rightAxis = getAxisRight();
@@ -104,7 +105,8 @@ public class ZanLineChart extends LineChart {
         // left axis
         YAxis leftAxis = getAxisLeft();
         leftAxis.setAxisMinValue(0);
-        leftAxis.setLabelCount(5);
+        leftAxis.setGranularity(2f);
+        leftAxis.setLabelCount(5, true);
         leftAxis.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
         leftAxis.setZeroLineColor(Color.BLACK);
         leftAxis.setGridColor(0xFFCCCCCC);
@@ -112,11 +114,11 @@ public class ZanLineChart extends LineChart {
         leftAxis.setTextColor(0xFFCCCCCC);
         leftAxis.setTextSize(12.f);
         leftAxis.setYOffset(-8.f);
+        leftAxis.setXOffset(0);
 
         // legend
         Legend legend = getLegend();
         legend.setTextSize(12f);
-        legend.setPosition(Legend.LegendPosition.ABOVE_CHART_RIGHT);
         legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
         legend.setXEntrySpace(20f);
 
@@ -156,9 +158,10 @@ public class ZanLineChart extends LineChart {
             Line line = mLines.get(i);
             int itemCount = line.items.size();
             List<Entry> entries = new ArrayList<>(itemCount);
+
             for (int x = 0; x < itemCount; x++) {
                 ChartItem item = line.items.get(x);
-                float y = 0f;
+                float y = 0;
                 try {
                     y = Float.parseFloat(item.value);
                 } catch (NumberFormatException e) {
@@ -185,6 +188,10 @@ public class ZanLineChart extends LineChart {
         }
 
         LineData data = new LineData(sets);
+
+        float yMax = Math.max(8, data.getYMax());
+
+        getAxisLeft().setAxisMaxValue((int) (yMax / 2) * 2 + 0.5f);
         setData(data);
     }
 

@@ -9,6 +9,7 @@ import android.annotation.SuppressLint;
 public class PieEntry extends Entry {
 
     private String label;
+    public boolean mocked;
 
     public PieEntry(float value) {
         super(0f, value);
