@@ -79,20 +79,20 @@ public class ZanLineChart extends LineChart {
         xAxis.setDrawLabels(true);
         xAxis.setDrawGridLines(false);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setValueFormatter(new AxisValueFormatter() {
-            @Override
-            public String getFormattedValue(float value, AxisBase axis) {
-                Entry entry = getData().getDataSetByIndex(0).getEntryForXPos(value);
-                if (entry == null) return String.valueOf(value);
-                String date = ((ChartItem) entry.getData()).title;
-                return Dates.simplify(date);
-            }
+        //xAxis.setValueFormatter(new AxisValueFormatter() {
+        //    @Override
+        //    public String getFormattedValue(float value, AxisBase axis) {
+        //        Entry entry = getData().getDataSetByIndex(0).getEntryForXPos(value);
+        //        if (entry == null) return String.valueOf(value);
+        //        String date = ((ChartItem) entry.getData()).title;
+        //        return Dates.simplify(date);
+        //    }
 
-            @Override
-            public int getDecimalDigits() {
-                return 0;
-            }
-        });
+        //    @Override
+        //    public int getDecimalDigits() {
+        //        return 0;
+        //    }
+        //});
 
         // right axis
         YAxis rightAxis = getAxisRight();
