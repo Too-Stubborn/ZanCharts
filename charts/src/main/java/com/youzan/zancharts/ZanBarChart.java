@@ -126,17 +126,18 @@ public class ZanBarChart extends BarChart {
         setDoubleTapToZoomEnabled(false);
         setDrawGridBackground(false);
 
-        // View port handler
+        // View port
+        setExtraOffsets(0, 80, 0, 0);
         ViewPortHandler vph = getViewPortHandler();
         vph.setMinMaxScaleY(1, 1);
         vph.setNeedTranslateX(true);
+
 
         // x
         XAxis xAxis = getXAxis();
         xAxis.setDrawAxisLine(false);
         xAxis.setDrawLabels(false);
         xAxis.setDrawGridLines(false);
-        xAxis.setLabelCount(4, true);
 
         // left y
         YAxis leftAxis = getAxisLeft();
@@ -146,6 +147,7 @@ public class ZanBarChart extends BarChart {
         leftAxis.setGridColor(Color.WHITE);
         leftAxis.setSpaceTop(30f);
         leftAxis.setAxisMinValue(0f);
+        leftAxis.setLabelCount(4, true);
 
         // right y
         YAxis rightAxis = getAxisRight();

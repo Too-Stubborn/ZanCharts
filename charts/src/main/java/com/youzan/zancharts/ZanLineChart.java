@@ -20,6 +20,7 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.Utils;
+import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.youzan.zancharts.internal.Dates;
 import com.youzan.zancharts.internal.Drawables;
 
@@ -102,6 +103,7 @@ public class ZanLineChart extends LineChart {
 
         // left axis
         YAxis leftAxis = getAxisLeft();
+        leftAxis.setAxisMinValue(0);
         leftAxis.setLabelCount(5);
         leftAxis.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
         leftAxis.setZeroLineColor(Color.BLACK);
