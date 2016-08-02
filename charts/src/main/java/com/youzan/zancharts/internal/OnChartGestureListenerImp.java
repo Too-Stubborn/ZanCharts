@@ -54,4 +54,9 @@ public class OnChartGestureListenerImp implements OnChartGestureListener {
     public void onScrollEnd() {
 
     }
+
+    @Override
+    public void onDragEnd() {
+
+    }
 }

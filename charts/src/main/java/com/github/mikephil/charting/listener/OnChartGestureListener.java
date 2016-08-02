@@ -75,5 +75,5 @@ public interface OnChartGestureListener {
     void onChartTranslate(MotionEvent me, float dX, float dY);
 
     void onScrollEnd();
-
+    void onDragEnd();
 }

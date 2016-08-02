@@ -51,11 +51,14 @@ public class ZanBarChart extends BarChart {
 
     private OnItemSelectListener mOnItemSelectListener;
 
-    private List<ChartItem> mItems;
     private float mBarSpace;
-    private ChartItem mSelectedItem;
     private int mMaxEntryCount;
+
+    private List<ChartItem> mItems;
+    private ChartItem mSelectedItem;
+
     private Highlight mHighlight;
+    private Highlight mSelectedHighlight;
 
     public ZanBarChart(Context context) {
         super(context);
@@ -77,12 +80,20 @@ public class ZanBarChart extends BarChart {
 
         setOnChartGestureListener(new OnChartGestureListenerImp() {
             @Override
+            public void onDragEnd() {
+                Log.d(TAG, "onDragEnd");
+                mHighlight = null;
+                highlightCenterItem(true, false);
+            }
+
+            @Override
             public void onChartTranslate(MotionEvent me, float dX, float dY) {
                 highlightCenterItem(false, false);
             }
 
             @Override
             public void onScrollEnd() {
+                Log.d(TAG, "onScrollEnd");
                 mHighlight = null;
                 highlightCenterItem(true, false);
             }
@@ -342,11 +353,11 @@ public class ZanBarChart extends BarChart {
         if (highlight.equalTo(mHighlight)) return;
 
         mHighlight = highlight;
-
         highlightValue(highlight);
         Entry entry = getBarData().getEntryForHighlight(highlight);
 
-        if (ending) {
+        if (ending && !highlight.equalTo(mSelectedHighlight)) {
+            mSelectedHighlight = highlight;
             if (smooth) {
                 centerHighlight(entry, highlight);
             } else {

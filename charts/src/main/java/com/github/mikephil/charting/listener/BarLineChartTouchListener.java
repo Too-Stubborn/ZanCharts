@@ -208,6 +208,12 @@ public class BarLineChartTouchListener extends ChartTouchListener<BarLineChartBa
                         // This causes computeScroll to fire, recommended for this by google
                         Utils.postInvalidateOnAnimation(mChart);
                     }
+                } else if (mTouchMode == DRAG) {
+                    // drag ended
+                    OnChartGestureListener listener = mChart.getOnChartGestureListener();
+                    if (listener != null) {
+                        listener.onDragEnd();
+                    }
                 }
 
                 if (mTouchMode == X_ZOOM ||
@@ -595,8 +601,8 @@ public class BarLineChartTouchListener extends ChartTouchListener<BarLineChartBa
 
     public void computeScroll() {
 
-        if (mDecelerationVelocity.x == 0.f && mDecelerationVelocity.y == 0.f)
-            return; // There's no deceleration in progress
+        // There's no deceleration in progress
+        if (mDecelerationVelocity.x == 0.f && mDecelerationVelocity.y == 0.f) return;
 
         final long currentTime = AnimationUtils.currentAnimationTimeMillis();
 
@@ -611,28 +617,30 @@ public class BarLineChartTouchListener extends ChartTouchListener<BarLineChartBa
         mDecelerationCurrentPoint.x += distanceX;
         mDecelerationCurrentPoint.y += distanceY;
 
-        MotionEvent event = MotionEvent.obtain(currentTime, currentTime, MotionEvent.ACTION_MOVE, mDecelerationCurrentPoint.x,
-                mDecelerationCurrentPoint.y, 0);
-        performDrag(event);
-        event.recycle();
-        mTouchMatrix = mChart.getViewPortHandler().refresh(mTouchMatrix, mChart, false);
+        MotionEvent event = MotionEvent.obtain(currentTime, currentTime, MotionEvent.ACTION_MOVE,
+                mDecelerationCurrentPoint.x, mDecelerationCurrentPoint.y, 0);
 
+        performDrag(event);
+
+        event.recycle();
+
+        mTouchMatrix = mChart.getViewPortHandler().refresh(mTouchMatrix, mChart, false);
         mDecelerationLastTime = currentTime;
 
-        if (Math.abs(mDecelerationVelocity.x) >= 0.1 || Math.abs(mDecelerationVelocity.y) >= 0.1)
-            Utils.postInvalidateOnAnimation(mChart); // This causes computeScroll to fire, recommended for this by Google
-        else {
-            // Range might have changed, which means that Y-axis labels
-            // could have changed in size, affecting Y-axis size.
-            // So we need to recalculate offsets.
+        OnChartGestureListener listener = mChart.getOnChartGestureListener();
+        if (Math.abs(mDecelerationVelocity.x) >= 1 || Math.abs(mDecelerationVelocity.y) >= 1) {
+            // This causes computeScroll to fire, recommended for this by Google
+            Utils.postInvalidateOnAnimation(mChart);
+        } else {
+            // Range might have changed, which means that Y-axis labels could have changed in size,
+            // affecting Y-axis size. So we need to recalculate offsets.
             mChart.calculateOffsets();
             mChart.postInvalidate();
 
             stopDeceleration();
 
-            OnChartGestureListener l = mChart.getOnChartGestureListener();
-            if (l != null) {
-                l.onScrollEnd();
+            if (listener != null) {
+                listener.onScrollEnd();
             }
         }
     }
