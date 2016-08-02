@@ -136,6 +136,7 @@ public class ZanBarChart extends BarChart {
         xAxis.setDrawAxisLine(false);
         xAxis.setDrawLabels(false);
         xAxis.setDrawGridLines(false);
+        xAxis.setLabelCount(4, true);
 
         // left y
         YAxis leftAxis = getAxisLeft();
