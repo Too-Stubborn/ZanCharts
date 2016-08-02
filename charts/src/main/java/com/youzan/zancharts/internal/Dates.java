@@ -12,7 +12,7 @@ import java.util.Locale;
 
 public class Dates {
     public static DateFormat sCanonicalNDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
-    public static DateFormat sChineseDateFormat = new SimpleDateFormat("yyyy年MM月dd", Locale.CHINESE);
+    public static DateFormat sChineseDateFormat = new SimpleDateFormat("MM月dd", Locale.CHINESE);
     public static DateFormat sSimpleDateFormat = new SimpleDateFormat("MM/dd", Locale.US);
 
     public static String simplify(final String dateString) {
