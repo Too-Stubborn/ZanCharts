@@ -13,6 +13,7 @@
 
         <com.youzan.zancharts.ZanBarChart
             android:id="@+id/bar_chart"
+            android:visibility="gone"
             android:background="@drawable/bg_chart"
             app:layout_aspectRatio="200%"
             app:layout_widthPercent="100%"/>
@@ -26,6 +27,7 @@
 
         <com.youzan.zancharts.ZanPieChart
             android:id="@+id/pie_chart"
+            android:visibility="gone"
             android:layout_below="@id/line_chart"
             android:layout_marginTop="20dp"
             app:layout_aspectRatio="100%"

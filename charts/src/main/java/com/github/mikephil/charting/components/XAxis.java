@@ -47,6 +47,16 @@ public class XAxis extends AxisBase {
      */
     private boolean mAvoidFirstLastClipping = false;
 
+    private boolean mAutoLabelCountEnabled = false;
+
+    public void setAutoLabelCountEnabled(boolean enabled) {
+        mAutoLabelCountEnabled = enabled;
+    }
+
+    public boolean isAutoLabelCountEnabled() {
+        return mAutoLabelCountEnabled;
+    }
+
     /**
      * the position of the x-labels relative to the chart
      */

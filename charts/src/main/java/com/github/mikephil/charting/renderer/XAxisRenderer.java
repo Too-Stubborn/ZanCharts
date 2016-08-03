@@ -69,8 +69,8 @@ public class XAxisRenderer extends AxisRenderer {
 
     @Override
     protected void computeAxisValues(float min, float max) {
-        super.computeAxisValues(min, max);
         computeSize();
+        super.computeAxisValues(min, max);
     }
 
     protected void computeSize() {
@@ -92,6 +92,12 @@ public class XAxisRenderer extends AxisRenderer {
         mXAxis.mLabelHeight = Math.round(labelHeight);
         mXAxis.mLabelRotatedWidth = Math.round(labelRotatedSize.width);
         mXAxis.mLabelRotatedHeight = Math.round(labelRotatedSize.height);
+
+        if (mXAxis.isAutoLabelCountEnabled()) {
+            final float width = mViewPortHandler.getContentRect().width();
+            int count = (int) (width / labelWidth / 3);
+            mAxis.setLabelCount(count % 2 == 0 ? count : count + 1);
+        }
 
         FSize.recycleInstance(labelRotatedSize);
         FSize.recycleInstance(labelSize);
