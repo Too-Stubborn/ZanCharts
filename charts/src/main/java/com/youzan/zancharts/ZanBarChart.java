@@ -251,6 +251,8 @@ public class ZanBarChart extends BarChart {
         if (mItems == null || mItems.size() == 0) return;
         if (index < 0 || index > mItems.size()) return;
 
+        resetHighlight();
+
         // Save the selected item.
         mSelectedItem = mItems.get(index);
 
@@ -313,6 +315,7 @@ public class ZanBarChart extends BarChart {
 
         mPreviousAnimatedValue = 0f;
         mCenterHighlightAnimator.setFloatValues(mPreviousAnimatedValue, dx);
+        mCenterHighlightAnimator.removeAllListeners();
         mCenterHighlightAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
@@ -344,6 +347,11 @@ public class ZanBarChart extends BarChart {
         if (mOnItemSelectListener != null) {
             mOnItemSelectListener.onSelected(this, item);
         }
+    }
+
+    private void resetHighlight() {
+        mHighlight = null;
+        mSelectedHighlight = null;
     }
 
     private void highlightCenterItem(boolean ending, boolean smooth) {
