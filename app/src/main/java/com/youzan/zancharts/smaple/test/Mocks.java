@@ -18,7 +18,7 @@ import java.util.List;
 
 public class Mocks {
     public static List<ChartItem> summary() {
-        return new Gson().fromJson(FAN_SUMMARY, new TypeToken<List<ChartItem>>() {
+        return new Gson().fromJson(SUMMARY, new TypeToken<List<ChartItem>>() {
         }.getType());
     }
 
@@ -26,15 +26,42 @@ public class Mocks {
         final Line newFanLine = new Line();
         newFanLine.color = Color.BLUE;
         newFanLine.label = "新增粉丝数";
-        newFanLine.items = new ArrayList<>(10);
+        newFanLine.items = new ArrayList<ChartItem>() {
+            {
+                add(new ChartItem("20160801", "08/01", "5"));
+                add(new ChartItem("20160802", "08/02", "4"));
+                add(new ChartItem("20160803", "08/03", "2"));
+                add(new ChartItem("20160804", "08/04", "7"));
+                add(new ChartItem("20160805", "08/05", "8"));
+                add(new ChartItem("20160806", "08/06", "10"));
+                add(new ChartItem("20160807", "08/07", "15"));
+                add(new ChartItem("20160808", "08/08", "3"));
+                add(new ChartItem("20160809", "08/09", "1"));
+                add(new ChartItem("20160810", "08/10", "5"));
+                add(new ChartItem("20160811", "08/11", "9"));
+                add(new ChartItem("20160812", "08/12", "17"));
+            }
+        };
 
         final Line escapedFanLine = new Line();
         escapedFanLine.color = Color.GREEN;
         escapedFanLine.label = "跑路粉丝数";
-        escapedFanLine.items = new ArrayList<>(10);
-
-        newFanLine.items = summary().subList(0, 6);
-        escapedFanLine.items = summary().subList(6, 12);
+        escapedFanLine.items = new ArrayList<ChartItem>() {
+            {
+                add(new ChartItem("20160801", "08/01", "8"));
+                add(new ChartItem("20160802", "08/02", "9"));
+                add(new ChartItem("20160803", "08/03", "6"));
+                add(new ChartItem("20160804", "08/04", "10"));
+                add(new ChartItem("20160805", "08/05", "12"));
+                add(new ChartItem("20160806", "08/06", "3"));
+                add(new ChartItem("20160807", "08/07", "9"));
+                add(new ChartItem("20160808", "08/08", "20"));
+                add(new ChartItem("20160809", "08/09", "1"));
+                add(new ChartItem("20160810", "08/10", "8"));
+                add(new ChartItem("20160811", "08/11", "10"));
+                add(new ChartItem("20160812", "08/12", "2"));
+            }
+        };
 
         return new ArrayList<Line>() {
             {

@@ -76,6 +76,8 @@ public class ZanLineChart extends LineChart {
         // description
         setDescription("");
 
+        setHighlightPerDragEnabled(true);
+
         // x axis
         XAxis xAxis = getXAxis();
         xAxis.setAvoidFirstLastClipping(true);

@@ -1,8 +1,10 @@
 package com.youzan.zancharts.smaple;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.youzan.zancharts.ChartItem;
 import com.youzan.zancharts.ZanBarChart;
@@ -16,38 +18,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+    }
 
-        final ZanBarChart chart = (ZanBarChart) findViewById(R.id.bar_chart);
+    public void barChart(View view) {
+        startActivity(new Intent(this, BarChartActivity.class));
+    }
 
-        assert chart != null;
+    public void lineChart(View view) {
+        startActivity(new Intent(this, LineChartActivity.class));
+    }
 
-        chart.setItems(Mocks.summary());
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                chart.setSelectedIndex(3);
-            }
-        }, 100);
-
-        chart.setOnItemSelectListener(new ZanBarChart.OnItemSelectListener() {
-            @Override
-            public void onSelected(ZanBarChart chart, ChartItem item) {
-            }
-        });
-
-        // line chart
-        ZanLineChart lineChart = (ZanLineChart) findViewById(R.id.line_chart);
-        assert lineChart != null;
-
-        lineChart.setHighlightEnabled(true);
-        lineChart.getXAxis().setLabelCount(6, true);
-        lineChart.addLines(Mocks.fanLines());
-
-        // pie chart
-        ZanPieChart pieChart = (ZanPieChart) findViewById(R.id.pie_chart);
-        assert pieChart != null;
-
-        pieChart.setItems(Mocks.fans());
+    public void pieChart(View view) {
+        startActivity(new Intent(this, PieChartActivity.class));
     }
 }
