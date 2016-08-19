@@ -155,7 +155,7 @@ public class ZanPieChart extends PieChart implements OnChartValueSelectedListene
 
     private SpannableString beautifyCenterText(Entry e) {
         float ySum = getData().getYValueSum();
-        String percent = String.format(Locale.UK, "%.1f", e.getY() / ySum * 100f);
+        String percent = String.format(Locale.getDefault(), "%.2f", e.getY() / ySum * 100f);
 
         PieChartItem item = (PieChartItem) e.getData();
 
