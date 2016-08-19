@@ -37,21 +37,19 @@ public class PieChartRenderer extends DataRenderer {
     protected PieChart mChart;
 
     /**
-     * paint for the hole in the center of the pie chart and the transparent
-     * circle
+     * paint for the hole in the center of the pie chart and the transparent circle
      */
     protected Paint mHolePaint;
     protected Paint mTransparentCirclePaint;
     protected Paint mValueLinePaint;
 
     /**
-     * paint object for the text that can be displayed in the center of the
-     * chart
+     * paint object for the text that can be displayed in the center of the chart
      */
     private TextPaint mCenterTextPaint;
 
     /**
-     * paint object used for drwing the slice-text
+     * paint object used for drawing the slice-text
      */
     private Paint mEntryLabelsPaint;
 
@@ -70,30 +68,37 @@ public class PieChartRenderer extends DataRenderer {
     public PieChartRenderer(PieChart chart, ChartAnimator animator,
                             ViewPortHandler viewPortHandler) {
         super(animator, viewPortHandler);
+
         mChart = chart;
 
+        // hole paint
         mHolePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mHolePaint.setColor(Color.WHITE);
         mHolePaint.setStyle(Style.FILL);
 
+        // transparent cirle paint
         mTransparentCirclePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mTransparentCirclePaint.setColor(Color.WHITE);
         mTransparentCirclePaint.setStyle(Style.FILL);
         mTransparentCirclePaint.setAlpha(105);
 
+        // center text paint
         mCenterTextPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
         mCenterTextPaint.setColor(Color.BLACK);
         mCenterTextPaint.setTextSize(Utils.dp2px(12f));
 
+        // value paint
         mValuePaint.setTextSize(Utils.dp2px(13f));
         mValuePaint.setColor(Color.WHITE);
         mValuePaint.setTextAlign(Align.CENTER);
 
+        // entry label paint
         mEntryLabelsPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mEntryLabelsPaint.setColor(Color.WHITE);
         mEntryLabelsPaint.setTextAlign(Align.CENTER);
         mEntryLabelsPaint.setTextSize(Utils.dp2px(13f));
 
+        // value line paint
         mValueLinePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mValueLinePaint.setStyle(Style.STROKE);
     }
@@ -125,43 +130,33 @@ public class PieChartRenderer extends DataRenderer {
         int width = (int) mViewPortHandler.getChartWidth();
         int height = (int) mViewPortHandler.getChartHeight();
 
-        if (mDrawBitmap == null
-                || (mDrawBitmap.get().getWidth() != width)
-                || (mDrawBitmap.get().getHeight() != height)) {
+        if (width == 0 || height == 0) return;
 
-            if (width > 0 && height > 0) {
-
-                mDrawBitmap = new WeakReference<Bitmap>(Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_4444));
-                mBitmapCanvas = new Canvas(mDrawBitmap.get());
-            } else
-                return;
+        if (mDrawBitmap == null || (mDrawBitmap.get().getWidth() != width) 
+            || (mDrawBitmap.get().getHeight() != height)) {
+            mDrawBitmap = new WeakReference<Bitmap>(Bitmap.createBitmap(width, height, 
+                  Bitmap.Config.ARGB_4444));
+            mBitmapCanvas = new Canvas(mDrawBitmap.get());
         }
 
         mDrawBitmap.get().eraseColor(Color.TRANSPARENT);
 
         PieData pieData = mChart.getData();
-
-        IPieDataSet set;
-        int setCount = pieData.getDataSets().size();
         List<IPieDataSet> dataSet = pieData.getDataSets();
-        for (int i = 0; i < setCount; i++) {
-            set = dataSet.get(i);
-            if (set.isVisible() && set.getEntryCount() > 0)
+        for (int i = 0, size = dataSet.size(); i < size; i++) {
+            IPieDataSet set = dataSet.get(i);
+            if (set.isVisible() && set.getEntryCount() > 0) {
                 drawDataSet(c, set);
+            }
         }
     }
 
     private Path mPathBuffer = new Path();
     private RectF mInnerRectBuffer = new RectF();
 
-    protected float calculateMinimumRadiusForSpacedSlice(
-            MPPointF center,
-            float radius,
-            float angle,
-            float arcStartPointX,
-            float arcStartPointY,
-            float startAngle,
-            float sweepAngle) {
+    protected float calculateMinimumRadiusForSpacedSlice(MPPointF center, float radius, float angle,
+            float arcStartPointX, float arcStartPointY, float startAngle, float sweepAngle) {
+
         final float angleMiddle = startAngle + sweepAngle / 2.f;
 
         // Other point of the arc
@@ -173,13 +168,11 @@ public class PieChartRenderer extends DataRenderer {
         float arcMidPointY = center.y + radius * (float) Math.sin(angleMiddle * Utils.FDEG2RAD);
 
         // This is the base of the contained triangle
-        double basePointsDistance = Math.sqrt(
-                Math.pow(arcEndPointX - arcStartPointX, 2) +
+        double basePointsDistance = Math.sqrt(Math.pow(arcEndPointX - arcStartPointX, 2) +
                         Math.pow(arcEndPointY - arcStartPointY, 2));
 
-        // After reducing space from both sides of the "slice",
-        //   the angle of the contained triangle should stay the same.
-        // So let's find out the height of that triangle.
+        // After reducing space from both sides of the "slice", the angle of the contained triangle 
+        // should stay the same. So let's find out the height of that triangle.
         float containedTriangleHeight = (float) (basePointsDistance / 2.0 *
                 Math.tan((180.0 - angle) / 2.0 * Utils.DEG2RAD));
 
@@ -195,13 +188,10 @@ public class PieChartRenderer extends DataRenderer {
     }
 
     /**
-     * Calculates the sliceSpace to use based on visible values and their size compared to the set sliceSpace.
-     *
-     * @param dataSet
-     * @return
+     * Calculates the sliceSpace to use based on visible values and their size compared to the set 
+     * sliceSpace.
      */
     protected float getSliceSpace(IPieDataSet dataSet) {
-
         float spaceSizeRatio = dataSet.getSliceSpace() / mViewPortHandler.getSmallestContentExtension();
         float minValueRatio = dataSet.getYMin() / mChart.getData().getYValueSum() * 2;
 
