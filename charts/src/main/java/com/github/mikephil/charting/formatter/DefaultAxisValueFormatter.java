@@ -5,7 +5,7 @@ import com.github.mikephil.charting.components.AxisBase;
 import java.text.DecimalFormat;
 
 /**
- * Created by philipp on 02/06/16.
+ * @author philipp
  */
 public class DefaultAxisValueFormatter implements AxisValueFormatter {
 

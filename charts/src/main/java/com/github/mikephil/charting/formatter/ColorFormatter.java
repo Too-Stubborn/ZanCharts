@@ -4,8 +4,8 @@ import com.github.mikephil.charting.data.entry.Entry;
 import com.github.mikephil.charting.data.interfaces.datasets.IDataSet;
 
 /**
- * Interface that can be used to return a customized color instead of setting
- * colors via the setColor(...) method of the DataSet.
+ * Interface that can be used to return a customized color instead of setting colors via the 
+ * setColor(...) method of the DataSet.
  *
  * @author Philipp Jahoda
  */
@@ -17,7 +17,7 @@ public interface ColorFormatter {
      * @param index index in the entries array
      * @param e     the entry to color
      * @param set   the DataSet the entry belongs to
-     * @return
+     * @return the formatted color
      */
     int getColor(int index, Entry e, IDataSet set);
 }

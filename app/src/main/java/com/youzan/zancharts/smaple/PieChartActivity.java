@@ -12,9 +12,9 @@ import com.youzan.zancharts.ZanPieChart;
 import java.util.ArrayList;
 
 public class PieChartActivity extends AppCompatActivity {
-    private int mFemaleCount = 10;
-    private int mMaleCount = 5;
-    private int mUnknownCount = 30;
+    private int mFemaleCount = 0;
+    private int mMaleCount = 10;
+    private int mUnknownCount = 20;
 
     private ZanPieChart mPieChart;
 
@@ -91,6 +91,7 @@ public class PieChartActivity extends AppCompatActivity {
         final PieChartItem unknown = new PieChartItem("unknown", "未知", String.valueOf(mUnknownCount),
                 Color.BLUE, "人");
 
+        mPieChart.clear();
         mPieChart.setItems(new ArrayList<PieChartItem>() {
             {
                 add(female);

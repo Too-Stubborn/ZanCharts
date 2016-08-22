@@ -25,7 +25,7 @@ public class FormattedStringCache {
     }
 
     public FormattedStringCache(Format format){
-        this.mFormat = format;
+        mFormat = format;
     }
 
 
