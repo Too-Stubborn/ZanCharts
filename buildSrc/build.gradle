@@ -1,3 +1,7 @@
-rootProject.dependencies {
-    runtime project(path)
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile 'junit:junit:4.12'
 }

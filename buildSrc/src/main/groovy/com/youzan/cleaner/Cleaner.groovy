@@ -12,6 +12,9 @@ import org.gradle.api.Task;
 public class Cleaner implements Plugin<Project> {
     @Override
     void apply(Project project) {
+        project.afterEvaluate {
+        }
+
         project.tasks.create("cleanResource", new Action<Task>() {
             @Override
             void execute(Task task) {
