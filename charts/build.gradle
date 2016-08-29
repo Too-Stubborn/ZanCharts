@@ -76,3 +76,4 @@ artifacts {
     //archives javadocJar
     archives sourcesJar
 }
+
