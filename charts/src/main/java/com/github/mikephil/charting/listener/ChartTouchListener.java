@@ -121,7 +121,10 @@ public abstract class ChartTouchListener<T extends Chart<?>>
      * Perform a highlight operation.
      */
     protected void performHighlight(Highlight h, MotionEvent e) {
-        if (!(h == null || h.equalTo(mLastHighlighted))) {
+        if (h == null || h.equalTo(mLastHighlighted)) {
+            mChart.highlightValue(null, true);
+            mLastHighlighted = null;
+        } else {
             mChart.highlightValue(h, true);
             mLastHighlighted = h;
         }
