@@ -11,7 +11,6 @@ import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.XAxis.XAxisPosition;
 import com.github.mikephil.charting.formatter.AxisValueFormatter;
-import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.utils.FSize;
 import com.github.mikephil.charting.utils.MPPointD;
 import com.github.mikephil.charting.utils.MPPointF;
@@ -225,9 +224,13 @@ public class XAxisRenderer extends AxisRenderer {
 
         float[] positions = mRenderGridLinesBuffer;
 
-        System.arraycopy(mXAxis.mEntries, 0, positions, 0, entryCount);
+//        System.arraycopy(mXAxis.mEntries, 0, positions, 0, entryCount);
+        for (int i = 0; i < entryCount; i ++) {
+            MPPointD pointD =  mTrans.getPixelsForValues(mXAxis.mEntries[i], 0);
+            positions[i] = (float) pointD.x;
+        }
 
-        mTrans.pointValuesToPixel(positions);
+//        mTrans.pointValuesToPixel(positions);
 
         setupGridPaint();
 
